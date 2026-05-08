@@ -1,0 +1,20 @@
+{
+  "warsh": [
+    { "letter": "ل", "harakah": "َ", "before": "صَ", "color": "orange", "description": "لام مفتوحة بعد صاد مفتوحة" },
+    { "letter": "ل", "harakah": "َ", "before": "طَ", "color": "orange", "description": "لام مفتوحة بعد طاء مفتوحة" },
+    { "letter": "ل", "harakah": "َ", "before": "ظَ", "color": "orange", "description": "لام مفتوحة بعد ظاء مفتوحة" },
+    { "letter": "ل", "harakah": "َ", "before": "صۡ", "color": "orange", "description": "لام مفتوحة بعد صاد ساكنة" },
+    { "letter": "ل", "harakah": "َ", "before": "طۡ", "color": "orange", "description": "لام مفتوحة بعد طاء ساكنة" },
+    { "letter": "ل", "harakah": "َ", "before": "ظۡ", "color": "orange", "description": "لام مفتوحة بعد ظاء ساكنة" },
+    { "letter": "ل", "harakah": "َ", "before": "صَّ", "color": "orange", "description": "لام مفتوحة بعد صاد مشددة" },
+    { "letter": "ل", "harakah": "َ", "before": "طَّ", "color": "orange", "description": "لام مفتوحة بعد طاء مشددة" },
+    { "letter": "ل", "harakah": "َ", "before": "ظَّ", "color": "orange", "description": "لام مفتوحة بعد ظاء مشددة" },
+    { "letter": "ۥ", "harakah": "ُٓ", "color": "green", "description": "واو مدية" },
+    { "letter": "ء", "harakah": "َآ", "color": "red", "description": "همزة مدية" },
+    { "letter": "ص", "after": "ٰ۫", "color": "blue", "description": "صاد قبل علامة المد" },
+    { "letter": "ل", "harakah": "َا", "before": "ٱ", "color": "purple", "description": "لام مفتوحة بعد ألف وصل" },
+    { "letter": "ا", "harakah": "َؙ", "color": "pink", "description": "ألف مائلة" }
+  ],
+  "hafs": [],
+  "qalun": []
+}
