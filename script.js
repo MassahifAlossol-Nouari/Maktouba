@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // ==================== القسم الأول: البيانات الثابتة ====================
 
 const qiraatData = {
-    nafi: { name: "نافع المدني", rawis: [{ id: "qalun", name: "قالون (قصر/إسكان)", file: "mushaf_qalun1.js" },{ id: "qalun", name: "قالون", file: "mushaf_qalun.js" }, { id: "warsh", name: "ورش", file: "mushaf_warsh.js" }] },
+    nafi: { name: "نافع المدني", rawis: [{ id: "qalun", name: "قالون (قصر/إسكان)", file: "mushaf_qalun1.js" },{ id: "qalun", name: "قالون (قصر/صلة)", file: "mushaf_qalun2.js" },{ id: "qalun", name: "قالون (توسط/إسكان)", file: "mushaf_qalun3.js" },{ id: "qalun", name: "قالون (توسط/صلة)", file: "mushaf_qalun4.js" }, { id: "warsh", name: "ورش (قصر البدل/فتح)", file: "mushaf_warsh1.js" }, { id: "warsh", name: "ورش (توسط البدل/تقليل)", file: "mushaf_warsh2.js" }, { id: "warsh", name: "ورش (إشباع البدل/الفتح)", file: "mushaf_warsh3.js" }, { id: "warsh", name: "ورش (إشباع البدل/تقليل)", file: "mushaf_warsh4.js" }, { id: "warsh", name: "ورش (طريق الأصبهاني)", file: "mushaf_warsh5.js" }] },
     ibnKathir: { name: "ابن كثير المكي", rawis: [{ id: "bazzi", name: "البزي", file: "mushaf_bazzi.js" }, { id: "qunbul", name: "قنبل", file: "mushaf_qunbul.js" }] },
     abuAmr: { name: "أبو عمرو البصري", rawis: [{ id: "doori", name: "الدوري", file: "mushaf_doori.js" }, { id: "soosi", name: "السوسي", file: "mushaf_soosi.js" }] },
     ibnAmir: { name: "ابن عامر الشامي", rawis: [{ id: "hisham", name: "هشام", file: "mushaf_hisham.js" }, { id: "ibnDhakwan", name: "ابن ذكوان", file: "mushaf_ibnDhakwan.js" }] },
