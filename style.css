@@ -74,7 +74,7 @@ body {
     flex: 1;
     background: #3d2c1e;
     border: none;
-    padding: 8px 5px;
+    padding: 2px 2px;
     border-radius: 30px;
     color: #ecdcaa;
     cursor: pointer;
@@ -152,7 +152,7 @@ body {
 }
 
 .surah-name { color: #e8c67a; font-size: 1.2rem; font-weight: bold; }
-.juz-number { background: #1f1810; padding: 5px 15px; border-radius: 30px; color: #c9a86b; }
+.juz-number { background: #1f1810; font-size: 1.2rem; padding: 5px 15px; border-radius: 30px; color: #ee8317; }
 
 .view-area {
     flex: 1;
@@ -244,10 +244,9 @@ body {
 .bismillah-line {
     text-align: center;
     font-size: calc(var(--quran-font-size, 1.4rem) * 1.2);
-    margin: 1.5rem 0;
     color: #5a402a;
     font-weight: bold;
-    line-height: 2.5;
+    line-height: 2.0;
 }
 
 .surah-marker, .bismillah { display: none; }
@@ -341,8 +340,8 @@ body {
 .surah-item:hover { background: #5a402a; transform: translateX(-4px); }
 .surah-item.active { background: #c9a86b; color: #2e2215; }
 
-.surah-number, .surah-name { font-size: 1rem; }
-.surah-ayahs { font-size: 0.7rem; color: #a8884a; }
+.surah-number, .surah-name { font-size: 30px; }
+.surah-ayahs { font-size: 30px; color: #e69e10; }
 
 /* ========== زر إظهار قائمة السور ========== */
 .show-surah-btn {
@@ -954,7 +953,7 @@ body.dark-mode .show-surah-btn { background: #e94560; color: #1a1a2e; }
         flex: 1;
         background: #3d2c1e;
         border: none;
-        padding: 8px 5px;
+        padding: 1px 1px;
         border-radius: 30px;
         color: #ecdcaa;
         cursor: pointer;
@@ -1126,8 +1125,7 @@ body.dark-mode .mobile-bottom-bar {
 .surah-marker {
     display: block !important;
     text-align: center;
-    margin: 25px auto;
-    padding: 15px 20px;
+    padding: 5px 20px;
     background: url('image/itar.png') center center no-repeat;
     background-size: 100% 100%;
     min-height: 70px;
@@ -1138,9 +1136,9 @@ body.dark-mode .mobile-bottom-bar {
 .surah-name {
     font-size: 1.4rem;
     font-weight: bold;
-    color: #2e241a;
+    color: #ecaa68;
     background: none;
-    padding: 0 15px;
+    padding: 0 1px;
     letter-spacing: 1px;
     font-family: 'NouariAbdelkabir', 'Amiri', serif;
     display: inline-block;
