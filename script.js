@@ -681,7 +681,7 @@ function refreshAyahEvents() {
     }, 100);
 }
 
-// ==================== إيماءات اللمس للهواتف (معدل) ====================
+// ==================== إيماءات اللمس للهواتف ====================
 
 let touchStartX = 0;
 let touchEndX = 0;
@@ -699,6 +699,7 @@ function createSwipeIndicator() {
     swipeIndicator.innerHTML = '→ اسحب لليمين أو اليسار ←';
     document.body.appendChild(swipeIndicator);
     
+    // إخفاء المؤشر بعد 3 ثوان
     setTimeout(function() {
         if (swipeIndicator) swipeIndicator.style.opacity = '0';
         setTimeout(function() {
@@ -725,31 +726,26 @@ function handleTouchEnd(e) {
     let diffY = Math.abs(touchEndY - touchStartY);
     
     // التأكد من أن السحب أفقي وليس عمودي
-    if (Math.abs(diffX) > 40 && Math.abs(diffX) > diffY) {
+    if (Math.abs(diffX) > 50 && diffX > diffY) {
         if (diffX > 0) {
             // سحب لليمين → الصفحة السابقة
             if (currentMode === 'single' && currentPage > 1) {
-                if (currentMode === 'single') {
-                    displayPage(currentPage - 1);
-                } else if (currentMode === 'double') {
-                    displayDoublePage(currentPage - 1);
-                }
-                showSwipeFeedback('→ الصفحة السابقة', '#27ae60');
+                displayPage(currentPage - 1);
+                showSwipeFeedback('◀ الصفحة السابقة', '#27ae60');
+            } else if (currentMode === 'double' && currentPage > 1) {
+                displayDoublePage(currentPage - 1);
+                showSwipeFeedback('◀ الصفحة السابقة', '#27ae60');
             } else {
                 showSwipeFeedback('⚠️ أول صفحة', '#e67e22');
             }
         } else {
             // سحب لليسار → الصفحة التالية
             if (currentMode === 'single' && currentPage < totalPages) {
-                if (currentMode === 'single') {
-                    displayPage(currentPage + 1);
-                } else if (currentMode === 'double') {
-                    displayDoublePage(currentPage + 1);
-                }
-                showSwipeFeedback('الصفحة التالية ←', '#27ae60');
+                displayPage(currentPage + 1);
+                showSwipeFeedback('الصفحة التالية ▶', '#27ae60');
             } else if (currentMode === 'double' && currentPage < totalPages - 1) {
                 displayDoublePage(currentPage + 1);
-                showSwipeFeedback('الصفحة التالية ←', '#27ae60');
+                showSwipeFeedback('الصفحة التالية ▶', '#27ae60');
             } else {
                 showSwipeFeedback('⚠️ آخر صفحة', '#e67e22');
             }
@@ -793,17 +789,21 @@ function bindSwipeGestures() {
     let quranArea = document.querySelector('.mobile-quran-area');
     if (!quranArea && window.innerWidth <= 768) {
         quranArea = document.querySelector('.view-area');
-        if (!quranArea) quranArea = document.querySelector('.mobile-app');
     }
     
     if (quranArea) {
-        // إزالة الأحداث القديمة لتجنب التكرار
-        quranArea.removeEventListener('touchstart', handleTouchStart);
-        quranArea.removeEventListener('touchend', handleTouchEnd);
-        
         quranArea.addEventListener('touchstart', handleTouchStart, { passive: false });
         quranArea.addEventListener('touchend', handleTouchEnd);
         console.log("تم تفعيل إيماءات اللمس");
+    }
+}
+
+// إضافة إيماءات اللمس لوضع المقارنة أيضاً
+function bindCompareSwipeGestures() {
+    let compareContainer = document.querySelector('.compare-container');
+    if (compareContainer && window.innerWidth <= 768) {
+        compareContainer.addEventListener('touchstart', handleTouchStart, { passive: false });
+        compareContainer.addEventListener('touchend', handleTouchEnd);
     }
 }
 
@@ -812,14 +812,17 @@ function initSwipeGestures() {
     if (window.innerWidth <= 768) {
         createSwipeIndicator();
         bindSwipeGestures();
+        bindCompareSwipeGestures();
     }
 }
 
-// تحديث الإيماءات بعد تغيير المحتوى
+// مراقبة تغيير الوضع لإعادة ربط الإيماءات
 function refreshSwipeGestures() {
     if (window.innerWidth <= 768) {
         setTimeout(function() {
             bindSwipeGestures();
+            bindCompareSwipeGestures();
+            
         }, 200);
     }
 }
