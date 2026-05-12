@@ -1,3 +1,27 @@
+let colors = {};
+
+fetch('colors.json')
+  .then(res => res.json())
+  .then(data => {
+      colors = data;
+      applyColors();
+  });
+  function applyColors() {
+    let style = document.createElement('style');
+    let css = '';
+
+    for (let key in colors) {
+        css += `
+            .${key} {
+                background-color: ${colors[key]};
+            }
+        `;
+    }
+
+    style.innerHTML = css;
+    document.head.appendChild(style);
+}
+
 // ==================== script.js - النسخة النهائية الصحيحة ====================
 // التأكد من بناء قائمة السور بعد تحميل الصفحة
 document.addEventListener('DOMContentLoaded', function() {
@@ -228,8 +252,12 @@ function renderPageContent(ayahs) {
         if (lastSurah !== ayah.sura && ayah.ayah !== 0 && !isSurahName) {
             lastSurah = ayah.sura;
         }
-        
-        html += '<div class="ayah-wrapper"><span class="ayah-text">' + ayah.text + '</span><span class="ayah-number">' + toArabicEasternNumber(ayah.ayah) + '</span></div>';
+        let safeText = ayah.text || '';
+
+        html += `<div class="ayah-wrapper">
+            <span class="ayah-text">${safeText}</span>
+            <span class="ayah-number">${toArabicEasternNumber(ayah.ayah)}</span>
+        </div>`;
     }
     html += '</div>';
     return html;
@@ -248,6 +276,7 @@ function displayPage(pageNum) {
     }
     updatePageInput();  // <--- أضف هذا السطر
     refreshAyahEvents();  // أضف هذا السطر في النهاية
+    refreshSwipeGestures();
 }
 
 function displayDoublePage(pageNum) {
@@ -264,17 +293,27 @@ function displayDoublePage(pageNum) {
     }
     updatePageInput();  // <--- أضف هذا السطر
     refreshAyahEvents();  // أضف هذا السطر في النهاية
+    refreshSwipeGestures();  // <-- أضف هذا السطر
 }
 
 // ==================== القسم الخامس: دوال تحميل البيانات ====================
 
 function extractData(text) {
     let results = [];
-    let pattern = /\{\s*sura\s*:\s*(\d+)\s*,\s*name\s*:\s*["']([^"']+)["']\s*,\s*ayah\s*:\s*(\d+)\s*,\s*text\s*:\s*["']([^"']+)["']\s*,\s*page\s*:\s*(\d+)\s*\}/g;
+    let pattern = /\{\s*sura\s*:\s*(\d+)\s*,\s*name\s*:\s*["']([^"']+)["']\s*,\s*ayah\s*:\s*(\d+)\s*,\s*text\s*:\s*["']([\s\S]*?)["']\s*,\s*page\s*:\s*(\d+)\s*\}/g;
+
     let match;
+
     while ((match = pattern.exec(text)) !== null) {
-        results.push({ sura: parseInt(match[1]), name: match[2].trim(), ayah: parseInt(match[3]), text: match[4].trim(), page: parseInt(match[5]) });
+        results.push({
+            sura: parseInt(match[1]),
+            name: match[2].trim(),
+            ayah: parseInt(match[3]),
+            text: match[4],
+            page: parseInt(match[5])
+        });
     }
+
     return results;
 }
 
@@ -301,14 +340,6 @@ function loadFileAndDisplay(fileName) {
         pagesData = buildPagesArray(data);
         if (currentMode === "single") displayPage(currentPage);
         else if (currentMode === "double") displayDoublePage(currentPage);
-    }).catch(() => {
-        pagesData = buildPagesArray(defaultAyahs);
-        if (currentMode === "single") displayPage(currentPage);
-        else if (currentMode === "double") displayDoublePage(currentPage);
-                // تحديث شاشة الهاتف
-        setTimeout(function() {
-            updateMobileDisplay();
-        }, 100);
     }).catch(() => {
         pagesData = buildPagesArray(defaultAyahs);
         if (currentMode === "single") displayPage(currentPage);
@@ -405,6 +436,7 @@ function setMode(mode) {
     document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
     document.getElementById(mode === 'single' ? 'singleModeBtn' : (mode === 'double' ? 'doubleModeBtn' : 'compareModeBtn')).classList.add('active');
     refreshAyahEvents();  // أضف هذا السطر في النهاية
+    refreshSwipeGestures();
 }
 
 function startCompare() {
@@ -639,14 +671,7 @@ function removeCurrentHighlight() {
     }
 }
 
-// إزالة جميع تأثيرات الآيات (عند تغيير الصفحة أو الراوي)
-function clearAllAyahHighlights() {
-    let highlighted = document.querySelectorAll('.ayah-wrapper.highlighted');
-    for (let i = 0; i < highlighted.length; i++) {
-        highlighted[i].classList.remove('highlighted');
-    }
-    currentHighlightedAyah = null;
-}
+
 
 // تحديث أحداث الآيات بعد تحميل المحتوى
 function refreshAyahEvents() {
@@ -654,6 +679,152 @@ function refreshAyahEvents() {
     setTimeout(function() {
         addAyahClickEvents();
     }, 100);
+}
+
+// ==================== إيماءات اللمس للهواتف ====================
+
+let touchStartX = 0;
+let touchEndX = 0;
+let touchStartY = 0;
+let touchEndY = 0;
+let isSwiping = false;
+let swipeIndicator = null;
+
+// إنشاء مؤشر السحب
+function createSwipeIndicator() {
+    if (window.innerWidth > 768) return;
+    
+    swipeIndicator = document.createElement('div');
+    swipeIndicator.className = 'swipe-indicator';
+    swipeIndicator.innerHTML = '→ اسحب لليمين أو اليسار ←';
+    document.body.appendChild(swipeIndicator);
+    
+    // إخفاء المؤشر بعد 3 ثوان
+    setTimeout(function() {
+        if (swipeIndicator) swipeIndicator.style.opacity = '0';
+        setTimeout(function() {
+            if (swipeIndicator) swipeIndicator.style.display = 'none';
+        }, 500);
+    }, 3000);
+}
+
+// بدء اللمس
+function handleTouchStart(e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+    isSwiping = true;
+}
+
+// نهاية اللمس
+function handleTouchEnd(e) {
+    if (!isSwiping) return;
+    
+    touchEndX = e.changedTouches[0].screenX;
+    touchEndY = e.changedTouches[0].screenY;
+    
+    let diffX = touchEndX - touchStartX;
+    let diffY = Math.abs(touchEndY - touchStartY);
+    
+    // التأكد من أن السحب أفقي وليس عمودي
+    if (Math.abs(diffX) > 50 && diffX > diffY) {
+        if (diffX > 0) {
+            // سحب لليمين → الصفحة السابقة
+            if (currentMode === 'single' && currentPage > 1) {
+                displayPage(currentPage - 1);
+                showSwipeFeedback('◀ الصفحة السابقة', '#27ae60');
+            } else if (currentMode === 'double' && currentPage > 1) {
+                displayDoublePage(currentPage - 1);
+                showSwipeFeedback('◀ الصفحة السابقة', '#27ae60');
+            } else {
+                showSwipeFeedback('⚠️ أول صفحة', '#e67e22');
+            }
+        } else {
+            // سحب لليسار → الصفحة التالية
+            if (currentMode === 'single' && currentPage < totalPages) {
+                displayPage(currentPage + 1);
+                showSwipeFeedback('الصفحة التالية ▶', '#27ae60');
+            } else if (currentMode === 'double' && currentPage < totalPages - 1) {
+                displayDoublePage(currentPage + 1);
+                showSwipeFeedback('الصفحة التالية ▶', '#27ae60');
+            } else {
+                showSwipeFeedback('⚠️ آخر صفحة', '#e67e22');
+            }
+        }
+        
+        // تحديث شاشة الهاتف
+        if (window.innerWidth <= 768) {
+            setTimeout(function() {
+                updateMobileDisplay();
+            }, 50);
+        }
+    }
+    
+    isSwiping = false;
+}
+
+// عرض ردود فعل بصرية عند السحب
+function showSwipeFeedback(message, color) {
+    if (!swipeIndicator) {
+        createSwipeIndicator();
+        swipeIndicator = document.querySelector('.swipe-indicator');
+    }
+    
+    if (swipeIndicator) {
+        swipeIndicator.style.display = 'block';
+        swipeIndicator.style.opacity = '1';
+        swipeIndicator.style.backgroundColor = color;
+        swipeIndicator.innerHTML = message;
+        
+        setTimeout(function() {
+            swipeIndicator.style.opacity = '0';
+            setTimeout(function() {
+                if (swipeIndicator) swipeIndicator.style.display = 'none';
+            }, 500);
+        }, 800);
+    }
+}
+
+// ربط إيماءات اللمس
+function bindSwipeGestures() {
+    let quranArea = document.querySelector('.mobile-quran-area');
+    if (!quranArea && window.innerWidth <= 768) {
+        quranArea = document.querySelector('.view-area');
+    }
+    
+    if (quranArea) {
+        quranArea.addEventListener('touchstart', handleTouchStart, { passive: false });
+        quranArea.addEventListener('touchend', handleTouchEnd);
+        console.log("تم تفعيل إيماءات اللمس");
+    }
+}
+
+// إضافة إيماءات اللمس لوضع المقارنة أيضاً
+function bindCompareSwipeGestures() {
+    let compareContainer = document.querySelector('.compare-container');
+    if (compareContainer && window.innerWidth <= 768) {
+        compareContainer.addEventListener('touchstart', handleTouchStart, { passive: false });
+        compareContainer.addEventListener('touchend', handleTouchEnd);
+    }
+}
+
+// تهيئة الإيماءات
+function initSwipeGestures() {
+    if (window.innerWidth <= 768) {
+        createSwipeIndicator();
+        bindSwipeGestures();
+        bindCompareSwipeGestures();
+    }
+}
+
+// مراقبة تغيير الوضع لإعادة ربط الإيماءات
+function refreshSwipeGestures() {
+    if (window.innerWidth <= 768) {
+        setTimeout(function() {
+            bindSwipeGestures();
+            bindCompareSwipeGestures();
+            
+        }, 200);
+    }
 }
 
 // ==================== القسم الثاني عشر: التهيئة ====================
@@ -693,12 +864,7 @@ function clearAllAyahHighlights() {
     currentHighlightedAyah = null;
 }
 
-// تحديث أحداث الآيات بعد تحميل المحتوى
-function refreshAyahEvents() {
-    setTimeout(function() {
-        addAyahClickEvents();
-    }, 50);
-}
+
 // ==================== الانتقال إلى الصفحة ====================
 
 function goToPage() {
@@ -1043,6 +1209,7 @@ function initMobileVersion() {
     buildMobileReaders();
     buildMobileSurahs();
     bindMobileAllButtons();
+    initSwipeGestures(); 
     setTimeout(function() {
         updateMobileDisplay();
     }, 200);
