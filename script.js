@@ -807,6 +807,23 @@ function bindSwipeGestures() {
     }
 }
 
+// تهيئة الإيماءات
+function initSwipeGestures() {
+    if (window.innerWidth <= 768) {
+        createSwipeIndicator();
+        bindSwipeGestures();
+    }
+}
+
+// تحديث الإيماءات بعد تغيير المحتوى
+function refreshSwipeGestures() {
+    if (window.innerWidth <= 768) {
+        setTimeout(function() {
+            bindSwipeGestures();
+        }, 200);
+    }
+}
+
 // ==================== القسم الثاني عشر: التهيئة ====================
 
 function init() {
