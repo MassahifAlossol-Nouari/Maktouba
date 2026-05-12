@@ -235,7 +235,7 @@ body {
 .ayah-number {
     display: inline;
     font-size: inherit;
-    color: #5a402a;
+    color: #062264;
     background: none;
     margin: 0 0.1rem;
     padding: 0;
@@ -1199,3 +1199,66 @@ html, body {
     overflow-x: hidden;
     max-width: 100%;
 }
+
+
+/* ========== إيماءات اللمس للهواتف ========== */
+@media (max-width: 768px) {
+    .mobile-quran-area {
+        touch-action: pan-y pinch-zoom; /* يسمح بالسحب العمودي فقط مع منع السحب الأفقي */
+        overflow-x: hidden;
+    }
+    
+    /* مؤشر السحب (اختياري) */
+    .swipe-indicator {
+        position: fixed;
+        bottom: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(201, 168, 107, 0.8);
+        color: #2e241a;
+        padding: 6px 12px;
+        border-radius: 30px;
+        font-size: 0.7rem;
+        z-index: 200;
+        display: none;
+        white-space: nowrap;
+        font-family: inherit;
+        pointer-events: none;
+        transition: opacity 0.3s;
+    }
+    
+    body.dark-mode .swipe-indicator {
+        background: rgba(233, 69, 96, 0.8);
+        color: #1a1a2e;
+    }
+}
+
+/* ========== كود الالوان========== */
+
+.c1 { color: #FF0000; }   /*   الكلمات الفرشية  */
+.c2 { color: #1313df; }
+.c3 { color: #0F2061; }
+.c4 { color: #ffbb00; }   /*   الامالة والتقليل  */
+.c5 { color: #86cbec; }   /*   البسملة بين السورتين   */
+.c6 { color: #062264; }   /*   علامات الوقف   */
+.c7 { color: #0B9DF4; }   /*   الهمز المفرد والمزدوج   */
+.c8 { color: #25FB13; }   /*     اللامات لورش  */
+.c9 { color: #0004FF; }   /*   النقل والسكت   */
+.c10 { color: #06EED8; } /*    مد البدل لورش  */
+.c11 { color: #F98F1F; } /*  الراءات لورش   */
+.c12 { color: #EE1E80; } /*  ميم الجمع   */
+.c13 { color: #CD12E7; } /*    مد اللين لورش  */
+.c14 { color: #880D0D; } /*   الياءات المتطلفة   */
+.c15 { color: #3333FF; }
+.c16 { color: #3333FF; }
+.c17 { color: #3333FF; }
+.c18 { color: #33AA33; }
+.c19 { color: #3333FF; }
+.c20 { color: #3333FF; }
+.c21 { color: #3333FF; }
+.c22 { color: #33AA33; }
+.c23 { color: #3333FF; }
+.c24 { color: #3333FF; }
+.c25 { color: #3333FF; }
+
+
