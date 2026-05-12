@@ -1,6 +1,6 @@
 // mushaf_warch.js
 const quranData = [
-    { sura: 1, name: "الفَاتِحَةِ", ayah: 0, text: "", page: 1 },
+    { sura: 1, name: "الفَاتِحَةِ", ayah: 0, text: " سُورَةُ الفَاتِحَة", page: 1 },
     { sura: 1, name: "الفَاتِحَةِ", ayah: 1, text: "بسم ٱلله ٱلرحمن ٱلرحيم", page: 1 },
     { sura: 1, name: "الفَاتِحَةِ", ayah: 2, text: " ٱلۡحَمۡدُ لِلَّهِ رَـــبِّ ٱلۡعَٰلَمِيــــنَ ", page: 1 },
     { sura: 1, name: "الفَاتِحَةِ", ayah: 3, text: " ٱلرَّحۡمَٰــنِ ٱلرَّحِيمِ ", page: 1 },
