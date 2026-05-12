@@ -1274,8 +1274,8 @@ body.dark-mode #doubleView .page-box,
 body.dark-mode #compareView .compare-page,
 body.dark-mode .mobile-app .page-container {
     border-color: #e94560;
-    box-shadow: 0 0 0 3px #c46405;
-    background: #c46405;
+    box-shadow: 0 0 0 3px #1a1a2e;
+    background: #16213e;
 }
 
 /* ========== كود الالوان========== */
