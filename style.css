@@ -1233,6 +1233,51 @@ html, body {
     }
 }
 
+/* ========== إطار بسيط حول الصفحة باستخدام CSS فقط ========== */
+
+/* إطار صفحة واحدة */
+#singleView .page-container {
+    border: 8px solid #c9a86b;
+    border-radius: 20px;
+    box-shadow: 0 0 0 4px #c9a86b, 0 8px 25px rgba(0,0,0,0.2);
+    background: #fffcf0;
+}
+
+/* إطار صفحتين */
+#doubleView .page-box {
+    border: 8px solid #c9a86b;
+    border-radius: 20px;
+    box-shadow: 0 0 0 3px #c9a86b, 0 5px 15px rgba(0,0,0,0.1);
+    background: #f1f1ed;
+}
+
+/* إطار مقارنة */
+#compareView .compare-page {
+    border: 8px solid #c9a86b;
+    border-radius: 20px;
+    box-shadow: 0 0 0 3px #c9a86b;
+    background: #fffcf0;
+}
+
+/* إطار الهواتف */
+@media (max-width: 768px) {
+    .mobile-app .page-container {
+        border: 6px solid #c9a86b;
+        border-radius: 15px;
+        box-shadow: 0 0 0 3px #c9a86b;
+    }
+}
+
+/* الوضع الليلي */
+body.dark-mode #singleView .page-container,
+body.dark-mode #doubleView .page-box,
+body.dark-mode #compareView .compare-page,
+body.dark-mode .mobile-app .page-container {
+    border-color: #e94560;
+    box-shadow: 0 0 0 3px #c46405;
+    background: #c46405;
+}
+
 /* ========== كود الالوان========== */
 
 .c1 { color: #FF0000; }   /*   الكلمات الفرشية  */
