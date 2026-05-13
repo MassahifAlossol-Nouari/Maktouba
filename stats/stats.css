@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'NouariAbdelkabir';
+    src: url('../font/nouariabdelkabir.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
 * {
     margin: 0;
     padding: 0;
@@ -241,5 +248,77 @@ body {
     .stats-select, .stats-btn { width: 100%; }
     
 }
-
+@media (max-width: 768px) {
+    /* تطبيق الخط على جميع العناصر في وضع الهاتف */
+    body, .mobile-app, .mobile-top-bar, .mobile-quran-area,
+    .quran-text, .ayah-text, .ayah-number, .bismillah-line,
+    .surah-name, .surah-marker, .page-input, .nav-btn,
+    .ctrl-icon, .ctrl-btn, .menu-item, .rawi-item {
+        font-family: 'NouariAbdelkabir', 'Amiri', 'Traditional Arabic', serif !important;
+    }
+}
+/* ========== تعديل حجم البطاقات في وضع الهاتف ========== */
+@media (max-width: 768px) {
+    /* تصغير حجم الأيقونات في البطاقات الإحصائية */
+    .summary-icon {
+        font-size: 1rem;
+    }
+    
+    .summary-label {
+        font-size: 0.65rem;
+    }
+    
+    .summary-value {
+        font-size: 0.9rem;
+    }
+    
+    /* تصغير حجم البطاقات - تأخذ حيز الكتابة فقط */
+    .summary-card {
+        min-width: auto;
+        width: auto;
+        padding: 5px 8px;
+        margin: 0;
+        flex: none;
+    }
+    
+    /* ترتيب البطاقات في صفوف متجاورة */
+    .stats-summary {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+        margin-bottom: 10px;
+    }
+    
+    /* تصغير حجم الأزرار */
+    .stats-btn {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+    }
+    
+    /* تصغير حجم القوائم المنسدلة */
+    .stats-select {
+        padding: 5px 8px;
+        font-size: 0.9rem;
+    }
+    
+    /* تصغير حجم الخط في الجدول */
+    #statsTable {
+        font-size: 0.65rem;
+    }
+    
+    #statsTable th, #statsTable td {
+        padding: 4px 3px;
+    }
+    
+    /* تصغير حجم رأس الصفحة */
+    .stats-header h1 {
+        font-size: 1rem;
+    }
+    
+    .back-btn {
+        padding: 4px 10px;
+        font-size: 0.65rem;
+    }
+}
   
