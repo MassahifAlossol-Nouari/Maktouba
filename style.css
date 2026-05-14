@@ -151,13 +151,61 @@ body {
     border-bottom: 2px solid #c9a86b;
 }
 
-.surah-name { color: #e8c67a; font-size: 1.2rem; font-weight: bold; }
-.juz-number { background: #1f1810; font-size: 1.2rem; padding: 5px 15px; border-radius: 30px; color: #ee8317; }
+/* ========== تنسيق الشريط العلوي ========== */
+
+/* تنسيق اسم السورة */
+#surahNameDisplay {
+    background: #fdfdfd;
+    font-size: 1.2rem;
+    padding: 5px 50px;
+    border-radius: 30px;
+    color: #000;
+    font-family: 'NouariAbdelkabir', 'Amiri', serif;
+    display: inline-block;
+}
+
+/* تنسيق رقم الجزء */
+#juzDisplay {
+    background: #fdfdfd;
+    font-size: 1.2rem;
+    padding: 5px 50px;
+    border-radius: 30px;
+    color: #000;
+    font-family: 'NouariAbdelkabir', 'Amiri', serif;
+}
+
+/* ========== الشريط العلوي للهواتف (مستقل) ========== */
+#mobileSurahName {
+    background: #fdfdfd;
+    font-size: 0.9rem;
+    padding: 4px 20px;
+    border-radius: 25px;
+    color: #000;
+}
+
+#mobileJuzDisplay {
+    background: #fdfdfd;
+    font-size: 0.9rem;
+    padding: 4px 20px;
+    border-radius: 25px;
+    color: #000;
+}
+
+/* ========== الوضع الليلي ========== */
+body.dark-mode #surahNameDisplay,
+body.dark-mode #juzDisplay,
+body.dark-mode #mobileSurahName,
+body.dark-mode #mobileJuzDisplay {
+    background: #1a1a2e;
+    color: #e94560;
+    border: 1px solid #e94560;
+}
+
 
 .view-area {
     flex: 1;
     overflow: auto;
-    padding: 20px;
+    padding: 2px;
 }
 
 .view { display: none; height: 100%; }
@@ -166,7 +214,7 @@ body {
 .page-container {
     height: 100%;
     overflow: auto;
-    padding: 1cm;
+    padding: 0.3cm;
     background: #fffcf0;
     border-radius: 15px;
 }
@@ -180,7 +228,7 @@ body {
 .page-box {
     flex: 1;
     overflow: auto;
-    padding: 1cm;
+    padding: 0.3cm;
     background: #fffcf0;
     border-radius: 15px;
 }
@@ -219,7 +267,7 @@ body {
 .compare-page {
     flex: 1;
     overflow: auto;
-    padding: 1cm;
+    padding: 0.3cm;
 }
 
 /* ========== نص القرآن ========== */
@@ -228,6 +276,7 @@ body {
     font-size: var(--quran-font-size, 1.4rem);
     line-height: 2.2;
     text-align: justify;
+
 }
 
 .ayah-wrapper, .ayah-text { display: inline; }
@@ -243,8 +292,8 @@ body {
 
 .bismillah-line {
     text-align: center;
-    font-size: calc(var(--quran-font-size, 1.4rem) * 1.2);
-    color: #5a402a;
+    font-size: calc(var(--quran-font-size, 1.4rem) * 1.1);
+    color: #000;
     font-weight: bold;
     line-height: 2.0;
 }
@@ -331,17 +380,17 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 10px 12px;
-    background: #2a1f15;
+    background: #c9a86b;
     border-radius: 10px;
     cursor: pointer;
-    color: #ecdcaa;
+    color: #000000;
 }
 
-.surah-item:hover { background: #5a402a; transform: translateX(-4px); }
-.surah-item.active { background: #c9a86b; color: #2e2215; }
+.surah-item:hover { background: #fff; transform: translateX(-4px); }
+.surah-item.active { background: #fff; color: #000; }
 
 .surah-number, .surah-name { font-size: 30px; }
-.surah-ayahs { font-size: 30px; color: #e69e10; }
+.surah-ayahs { font-size: 30px; color: #000000; }
 
 /* ========== زر إظهار قائمة السور ========== */
 .show-surah-btn {
@@ -484,7 +533,7 @@ body.dark-mode .show-surah-btn { background: #e94560; color: #1a1a2e; }
     background: #2e241a;
     color: #e8c67a;
     font-family: 'NouariAbdelkabir', 'Amiri', serif;
-    font-size: 0.9rem;
+    font-size: 0.rem;
     text-align: center;
     direction: ltr;
 }
@@ -805,25 +854,23 @@ body.dark-mode .show-surah-btn { background: #e94560; color: #1a1a2e; }
     }
     
     .mobile-top-bar .surah-name {
-        color: #e8c67a;
+        color: #5a402a;
         font-size: 1rem;
         font-weight: bold;
     }
     
     .mobile-top-bar .juz-number {
-        background: #1f1810;
-        padding: 4px 12px;
-        border-radius: 20px;
-        color: #c9a86b;
-        font-size: 0.8rem;
+        color: #5a402a;
+        font-size: 1rem;
+        font-weight: bold;
     }
     
     /* منطقة المصحف */
     .mobile-quran-area {
         flex: 1;
         overflow: auto;
-        padding: 10px;
-        padding-bottom: 70px;
+        padding: 2px;
+        padding-bottom: 50px;
     }
     
     /* الشريط السفلي */
@@ -1136,7 +1183,7 @@ body.dark-mode .mobile-bottom-bar {
 .surah-name {
     font-size: 1.4rem;
     font-weight: bold;
-    color: #ecaa68;
+    color: #000;
     background: none;
     padding: 0 1px;
     letter-spacing: 1px;
@@ -1275,7 +1322,7 @@ body.dark-mode #compareView .compare-page,
 body.dark-mode .mobile-app .page-container {
     border-color: #e94560;
     box-shadow: 0 0 0 3px #1a1a2e;
-    background: #16213e;
+    background: #15203d;
 }
 
 /* ========== كود الالوان========== */
@@ -1293,7 +1340,7 @@ body.dark-mode .mobile-app .page-container {
 .c11 { color: #F98F1F; } /*  الراءات لورش   */
 .c12 { color: #EE1E80; } /*  ميم الجمع   */
 .c13 { color: #CD12E7; } /*    مد اللين لورش  */
-.c14 { color: #880D0D; } /*   الياءات المتطلفة   */
+.c14 { color: #880D0D; } /*   الياءات المتطرفة   */
 .c15 { color: #1255D6; } /*   الادغام والاظهار   */
 .c16 { color: #e2d51f; }
 .c17 { color: #602DBA; } /*   الانفرادات   */
@@ -1305,3 +1352,5 @@ body.dark-mode .mobile-app .page-container {
 .c23 { color: #e2d51f; }
 .c24 { color: #e2d51f; }
 .c25 { color: #e2d51f; }
+
+
