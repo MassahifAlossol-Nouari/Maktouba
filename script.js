@@ -272,7 +272,7 @@ function displayPage(pageNum) {
     document.getElementById('juzDisplay').textContent = 'الجزء ' + Math.ceil(currentPage / 20);
     if (ayahs && ayahs.length > 0) {
         let firstRealAyah = ayahs.find(a => a.ayah !== 0);
-        if (firstRealAyah) document.getElementById('surahNameDisplay').textContent = firstRealAyah.name;
+                if (firstRealAyah) document.getElementById('surahNameDisplay').textContent = firstRealAyah.name;
     }
     updatePageInput();  // <--- أضف هذا السطر
     refreshAyahEvents();  // أضف هذا السطر في النهاية
@@ -1222,4 +1222,110 @@ if (window.innerWidth <= 768) {
             initMobileVersion();
         }, 500);
     });
+}
+
+// ==================== استقبال المعامل من رابط الصفحة ====================
+
+// دالة لاستقبال المعامل من الرابط
+function getUrlParams() {
+    if (!document.querySelector('.surah-name') && !document.querySelector('.juz-number')) {
+       // إذا كانت الصفحة لا تزال تحمّل، ننتظر قليلاً
+        setTimeout(getUrlParams, 100);
+        return;
+    }
+    let urlParams = new URLSearchParams(window.location.search);
+    let page = urlParams.get('page');
+    let sura = urlParams.get('sura');
+    let ayah = urlParams.get('ayah');
+    let mushafFile = urlParams.get('mushaf');
+    
+    console.log(`المعامل المستلمة: page=${page}, mushaf=${mushafFile}`);
+    
+    // إذا كان هناك مصحف محدد، قم بتحميله
+    if (mushafFile) {
+        console.log(`جاري تحميل المصحف: ${mushafFile}`);
+        loadFileAndDisplay(mushafFile);
+        
+        // تحديث الواجهة لإظهار اسم المصحف المحمّل (مع التحقق من وجود العناصر)
+        setTimeout(() => {
+            let selectedReader = document.querySelector('.selected-reader');
+            let selectedRawi = document.querySelector('.selected-rawi');
+            let rawiName = getRawiNameFromFile(mushafFile);
+            
+            if (selectedReader) {
+                selectedReader.textContent = 'المصحف المحدد';
+            }
+            if (selectedRawi) {
+                selectedRawi.textContent = rawiName;
+            }
+        }, 100);
+    }
+    
+    if (page) {
+        currentPage = parseInt(page);
+        
+        // الانتقال إلى الصفحة المحددة بعد تحميل المصحف
+        setTimeout(() => {
+            if (currentMode === 'single') {
+                displayPage(currentPage);
+            } else if (currentMode === 'double') {
+                displayDoublePage(currentPage);
+            }
+            
+            // إذا كان هناك رقم آية محدد، قم بالتمرير إليها
+            if (ayah) {
+                setTimeout(() => {
+                    let ayahElement = document.querySelector(`.ayah-wrapper[data-ayah="${ayah}"]`);
+                    if (ayahElement) {
+                        ayahElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        ayahElement.classList.add('highlighted');
+                        currentHighlightedAyah = ayahElement;
+                        setTimeout(() => {
+                            ayahElement.classList.remove('highlighted');
+                        }, 3000);
+                    } else {
+                        console.log(`لم يتم العثور على الآية رقم ${ayah}`);
+                    }
+                }, 800);
+            }
+        }, 800);
+    }
+}
+
+// استدعاء الدالة عند تحميل الصفحة
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', getUrlParams);
+} else {
+    getUrlParams();
+}
+
+// استدعاء الدالة عند تحميل الصفحة
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', getUrlParams);
+} else {
+    getUrlParams();
+}
+
+// استدعاء الدالة عند تحميل الصفحة
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', getUrlParams);
+} else {
+    getUrlParams();
+}
+// استخراج اسم الراوي من اسم الملف
+function getRawiNameFromFile(fileName) {
+    const names = {
+        'mushaf_hafs.js': 'حفص عن عاصم',
+        'mushaf_shubah.js': 'شعبة عن عاصم',
+        'mushaf_warsh1.js': 'ورش (قصر البدل/فتح)',
+        'mushaf_warsh2.js': 'ورش (توسط البدل/تقليل)',
+        'mushaf_warsh3.js': 'ورش (إشباع البدل/الفتح)',
+        'mushaf_warsh4.js': 'ورش (إشباع البدل/تقليل)',
+        'mushaf_warsh5.js': 'ورش (طريق الأصبهاني)',
+        'mushaf_qalun1.js': 'قالون (قصر/إسكان)',
+        'mushaf_qalun2.js': 'قالون (قصر/صلة)',
+        'mushaf_qalun3.js': 'قالون (توسط/إسكان)',
+        'mushaf_qalun4.js': 'قالون (توسط/صلة)'
+    };
+    return names[fileName] || fileName.replace('.js', '');
 }
