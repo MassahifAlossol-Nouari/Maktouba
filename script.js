@@ -1273,7 +1273,7 @@ function init() {
     if (savedFontSize) setGlobalFontSize(parseFloat(savedFontSize));
     if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark-mode');
     
-    setTimeout(() => loadFileAndDisplay('mushaf_hafs.js'), 100);
+    setTimeout(() => loadFileAndDisplay('mushaf_warsh2.js'), 100);
 }
 
 // استدعاء init()
