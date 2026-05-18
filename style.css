@@ -1741,6 +1741,14 @@ body.dark-mode .color-tooltip {
     color: #e94560;
     border: 1px solid #e94560;
 }
+/* ========== تقليل مسافة الجوانب من النص========== */
+
+@media (max-width: 768px) {
+    .mobile-quran-area .page-container,
+    #mobileSinglePage .page-container {
+        padding: 0.15cm !important;
+    }
+}
 /* ========== كود الالوان========== */
 
 .c1 { color: #FF0000; }   /*   الكلمات الفرشية  */
