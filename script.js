@@ -234,9 +234,7 @@ function renderPageContent(ayahs) {
         let isSurahName = ayah.text.includes("سُورَةُ") && ayah.ayah === 0;
         
         if (isSurahName) {
-            // استخراج اسم السورة من النص
             let surahNameText = ayah.text;
-            // عرض اسم السورة داخل الإطار بدلاً من النص العادي
             if (lastSurahDisplayed !== ayah.sura) {
                 html += '<div class="surah-marker"><span class="surah-name">' + surahNameText + '</span></div>';
                 lastSurahDisplayed = ayah.sura;
@@ -252,9 +250,11 @@ function renderPageContent(ayahs) {
         if (lastSurah !== ayah.sura && ayah.ayah !== 0 && !isSurahName) {
             lastSurah = ayah.sura;
         }
+        
         let safeText = ayah.text || '';
 
-        html += `<div class="ayah-wrapper">
+        // أضف data-sura و data-ayah هنا
+        html += `<div class="ayah-wrapper" data-sura="${ayah.sura}" data-ayah="${ayah.ayah}">
             <span class="ayah-text">${safeText}</span>
             <span class="ayah-number">${toArabicEasternNumber(ayah.ayah)}</span>
         </div>`;
@@ -827,6 +827,200 @@ function refreshSwipeGestures() {
     }
 }
 
+
+// ==================== القائمة الجديدة (الفهرس والبحث) ====================
+
+let quranData = null;
+
+// تحميل بيانات القرآن للبحث
+async function loadQuranForSearch() {
+    if (quranData) return quranData;
+    try {
+        const response = await fetch('quran.js');
+        const text = await response.text();
+        let cleanText = text.replace(/const\s+QURAN\s*=\s*/, '');
+        cleanText = cleanText.trim();
+        if (cleanText.endsWith(';')) cleanText = cleanText.slice(0, -1);
+        quranData = eval(cleanText);
+        return quranData;
+    } catch(e) {
+        return [];
+    }
+}
+
+// البحث
+async function searchInQuranSidebar(keyword) {
+    if (!keyword || keyword.length < 3) return [];
+    const data = await loadQuranForSearch();
+    if (!data.length) return [];
+    const results = [];
+    const term = keyword.toLowerCase();
+    for (let ayah of data) {
+        if (ayah.contentSimple && ayah.contentSimple.toLowerCase().includes(term)) {
+            results.push({
+                sura: ayah.suraNumber,
+                ayah: ayah.number,
+                page: ayah.pageNumber,
+                text: ayah.content
+            });
+        }
+        if (results.length >= 20) break;
+    }
+    return results;
+}
+
+// عرض نتائج البحث
+// عرض نتائج البحث (تبقى النتائج حتى يتم مسح النص)
+// عرض نتائج البحث (مع تظليل الآية)
+async function showSidebarSearchResults() {
+    const input = document.getElementById('sidebarSearchInput');
+    const resultsDiv = document.getElementById('sidebarSearchResults');
+    const keyword = input?.value.trim();
+    
+    if (!keyword) {
+        resultsDiv.style.display = 'none';
+        resultsDiv.innerHTML = '';
+        return;
+    }
+    
+    if (keyword.length < 3) {
+        resultsDiv.style.display = 'block';
+        resultsDiv.innerHTML = '<div style="padding:10px;text-align:center;">🔍 اكتب 3 أحرف أو أكثر للبحث</div>';
+        return;
+    }
+    
+    resultsDiv.style.display = 'block';
+    resultsDiv.innerHTML = '<div style="padding:10px;text-align:center;">🔍 جاري البحث...</div>';
+    
+    const results = await searchInQuranSidebar(keyword);
+    
+    if (results.length === 0) {
+        resultsDiv.innerHTML = '<div style="padding:10px;text-align:center;">🔍 لا توجد نتائج</div>';
+        return;
+    }
+    
+    resultsDiv.innerHTML = '';
+    for (let r of results) {
+        const item = document.createElement('div');
+        item.className = 'search-result-item';
+        const suraName = fullSurahNames[r.sura - 1]?.name || `سورة ${r.sura}`;
+        item.innerHTML = `
+            <div class="result-sura">📖 ${suraName} - آية ${r.ayah} (صفحة ${r.page})</div>
+            <div class="result-text">${r.text.substring(0, 80)}...</div>
+        `;
+        item.onclick = () => {
+            // الانتقال إلى الصفحة
+            currentPage = r.page;
+            if (currentMode === 'single') {
+                displayPage(currentPage);
+            } else {
+                displayDoublePage(currentPage);
+            }
+            
+            // تظليل الآية المحددة
+            setTimeout(() => {
+                // البحث عن الآية في الصفحة
+                let ayahElements = document.querySelectorAll('.ayah-wrapper');
+                let targetAyah = null;
+                
+                for (let el of ayahElements) {
+                    if (el.getAttribute('data-ayah') == r.ayah) {
+                        targetAyah = el;
+                        break;
+                    }
+                }
+                
+                if (targetAyah) {
+                    // التمرير إلى الآية
+                    targetAyah.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    // إزالة أي تظليل سابق
+                    document.querySelectorAll('.ayah-highlight').forEach(h => h.remove());
+                    document.querySelectorAll('.ayah-wrapper.highlighted').forEach(h => h.classList.remove('highlighted'));
+                    
+                    // إضافة التظليل الجديد
+                    targetAyah.classList.add('highlighted');
+                    
+                    // إنشاء شريط شفاف إضافي
+                    let highlightDiv = document.createElement('div');
+                    highlightDiv.className = 'ayah-highlight';
+                    targetAyah.style.position = 'relative';
+                    targetAyah.appendChild(highlightDiv);
+                    
+                    // إزالة التظليل بعد 3 ثوانٍ
+                    setTimeout(() => {
+                        highlightDiv.remove();
+                        targetAyah.classList.remove('highlighted');
+                    }, 3000);
+                } else {
+                    // إذا لم يتم العثور على الآية، نعطي رسالة
+                    console.log('لم يتم العثور على الآية رقم', r.ayah);
+                }
+            }, 600);
+        };
+        resultsDiv.appendChild(item);
+    }
+}
+
+// بناء قائمة الفهرس
+// بناء قائمة الفهرس للحاسوب
+function buildSidebarIndex() {
+    const container = document.getElementById('indexList');
+    if (!container) return;
+    
+    const showSura = document.getElementById('filterSura')?.checked;
+    const showJuza = document.getElementById('filterJuza')?.checked;
+    const showHizb = document.getElementById('filterHizb')?.checked;
+    
+    let items = [];
+    
+    if (showSura) {
+        for (let s of fullSurahNames) {
+            let page = getSuraPage(s.num);
+            items.push({ title: `${s.num.toString().padStart(3, '0')} ${s.name}`, page: page });
+        }
+    }
+    
+    if (showJuza) {
+        const juzPages = [1,22,42,62,82,102,121,142,162,182,201,222,242,262,282,302,322,342,362,382,402,422,442,462,482,502,522,542,562,582];
+        for (let i=0; i<juzPages.length; i++) {
+            items.push({ title: `الجزء ${(i+1).toString().padStart(2,'0')}`, page: juzPages[i] });
+        }
+    }
+    
+    if (showHizb) {
+        for (let i=1; i<=60; i++) {
+            items.push({ title: `الحزب ${i.toString().padStart(2,'0')}`, page: Math.ceil(i*604/60) });
+        }
+    }
+    
+    container.innerHTML = '';
+    for (let item of items) {
+        const div = document.createElement('div');
+        div.className = 'index-item';
+        div.innerHTML = `<span class="index-item-title">${item.title}</span><span class="index-item-page">صفحة ${item.page}</span>`;
+        div.onclick = () => goToPageUniversal(item.page);
+        container.appendChild(div);
+    }
+}
+
+function getSuraPage(num) {
+    const pages = {1:1,2:2,3:50,4:77,5:106,6:128,7:151,8:177,9:187,10:208,11:221,12:235,13:249,14:255,15:262,16:267,17:282,18:293,19:305,20:312,21:322,22:332,23:342,24:350,25:359,26:367,27:377,28:385,29:396,30:404,31:411,32:415,33:418,34:428,35:434,36:440,37:446,38:453,39:458,40:467,41:477,42:483,43:489,44:496,45:499,46:502,47:507,48:511,49:515,50:518,51:520,52:523,53:526,54:528,55:531,56:534,57:537,58:542,59:545,60:549,61:551,62:553,63:554,64:556,65:558,66:560,67:562,68:564,69:566,70:568,71:570,72:572,73:574,74:575,75:577,76:578,77:580,78:582,79:583,80:585,81:586,82:587,83:587,84:589,85:590,86:591,87:591,88:592,89:593,90:594,91:595,92:595,93:596,94:596,95:597,96:597,97:598,98:598,99:599,100:599,101:600,102:600,103:601,104:601,105:601,106:602,107:602,108:602,109:603,110:603,111:603,112:604,113:604,114:604};
+    return pages[num] || num*5;
+}
+
+// ربط الأحداث
+function bindSidebarEvents() {
+    document.getElementById('sidebarSearchInput')?.addEventListener('input', showSidebarSearchResults);
+    document.getElementById('filterSura')?.addEventListener('change', buildSidebarIndex);
+    document.getElementById('filterJuza')?.addEventListener('change', buildSidebarIndex);
+    document.getElementById('filterHizb')?.addEventListener('change', buildSidebarIndex);
+    buildSidebarIndex();
+}
+
+// تشغيل
+setTimeout(bindSidebarEvents, 500);
+
 // ==================== القسم الثاني عشر: التهيئة ====================
 
 function init() {
@@ -834,6 +1028,7 @@ function init() {
     buildSurahList();
     bindAllButtons();
     setMode('single');
+    setTimeout(bindSidebarEvents, 100);
     
     let savedSurahSidebar = localStorage.getItem('surahSidebarCollapsed');
     let surahSidebar = document.getElementById('surahSidebar');
@@ -1210,6 +1405,8 @@ function initMobileVersion() {
     buildMobileSurahs();
     bindMobileAllButtons();
     initSwipeGestures(); 
+    bindMobileIndexEvents();  // أضف هذا السطر
+    bindMobileSearchEvents();  // أضف هذا السطر
     setTimeout(function() {
         updateMobileDisplay();
     }, 200);
@@ -1328,4 +1525,270 @@ function getRawiNameFromFile(fileName) {
         'mushaf_qalun4.js': 'قالون (توسط/صلة)'
     };
     return names[fileName] || fileName.replace('.js', '');
+}
+
+
+// ==================== الفهرس والبحث للهواتف ====================
+
+// البحث في الهواتف
+// ==================== البحث في الهواتف (النتائج تبقى ظاهرة) ====================
+
+// ==================== البحث في الهواتف مع تظليل الآية ====================
+
+async function mobileSearch() {
+    const input = document.getElementById('mobileSearchInput');
+    const resultsDiv = document.getElementById('mobileSearchResults');
+    const keyword = input?.value.trim();
+    
+    if (!keyword) {
+        resultsDiv.style.display = 'none';
+        resultsDiv.innerHTML = '';
+        return;
+    }
+    
+    if (keyword.length < 3) {
+        resultsDiv.style.display = 'block';
+        resultsDiv.innerHTML = '<div style="padding:10px;text-align:center;">✏️ اكتب 3 أحرف أو أكثر للبحث</div>';
+        return;
+    }
+    
+    resultsDiv.style.display = 'block';
+    resultsDiv.innerHTML = '<div style="padding:10px;text-align:center;">🔍 جاري البحث...</div>';
+    
+    const data = await loadQuranForSearch();
+    if (!data.length) {
+        resultsDiv.innerHTML = '<div style="padding:10px;text-align:center;">❌ خطأ في تحميل البيانات</div>';
+        return;
+    }
+    
+    const results = [];
+    const term = keyword.toLowerCase();
+    
+    for (let ayah of data) {
+        if (ayah.contentSimple && ayah.contentSimple.toLowerCase().includes(term)) {
+            results.push({
+                sura: ayah.suraNumber,
+                ayah: ayah.number,
+                page: ayah.pageNumber,
+                text: ayah.content
+            });
+            if (results.length >= 30) break;
+        }
+    }
+    
+    if (results.length === 0) {
+        resultsDiv.innerHTML = '<div style="padding:10px;text-align:center;">🔍 لا توجد نتائج</div>';
+        return;
+    }
+    
+    resultsDiv.innerHTML = '';
+    
+    for (let r of results) {
+        const item = document.createElement('div');
+        item.className = 'mobile-search-result';
+        const suraName = fullSurahNames[r.sura - 1]?.name || `سورة ${r.sura}`;
+        
+        item.innerHTML = `
+            <div style="font-size:0.7rem; color:#c9a86b; margin-bottom:4px;">
+                📖 ${suraName} - آية ${r.ayah} (صفحة ${r.page})
+            </div>
+            <div style="font-size:0.8rem; color:#ecdcaa; line-height:1.4;">
+                ${r.text.substring(0, 100)}${r.text.length > 100 ? '...' : ''}
+            </div>
+        `;
+        
+        item.style.cssText = 'padding:10px; background:#2a1f15; border-radius:8px; margin-bottom:8px; cursor:pointer; transition:all 0.2s;';
+        item.onmouseover = () => item.style.background = '#5a402a';
+        item.onmouseout = () => item.style.background = '#2a1f15';
+        
+        item.onclick = (function(page, ayahNum) {
+            return function() {
+                // الانتقال إلى الصفحة
+                currentPage = page;
+                
+                if (currentMode === 'single') {
+                    displayPage(currentPage);
+                } else {
+                    displayDoublePage(currentPage);
+                }
+                
+                // تحديث شاشة الهاتف أولاً
+                setTimeout(() => {
+                    if (typeof updateMobileDisplay === 'function') {
+                        updateMobileDisplay();
+                    }
+                }, 100);
+                
+                // تظليل الآية بعد تحميل الصفحة
+                setTimeout(() => {
+                    // البحث عن الآية في DOM
+                    let ayahElements = document.querySelectorAll('.ayah-wrapper');
+                    let targetAyah = null;
+                    
+                    for (let el of ayahElements) {
+                        let ayahAttr = el.getAttribute('data-ayah');
+                        if (ayahAttr == ayahNum) {
+                            targetAyah = el;
+                            break;
+                        }
+                    }
+                    
+                    // إذا لم يتم العثور، نبحث مرة أخرى بعد قليل
+                    if (!targetAyah) {
+                        setTimeout(() => {
+                            let ayahElements2 = document.querySelectorAll('.ayah-wrapper');
+                            for (let el of ayahElements2) {
+                                if (el.getAttribute('data-ayah') == ayahNum) {
+                                    targetAyah = el;
+                                    break;
+                                }
+                            }
+                            
+                            if (targetAyah) {
+                                highlightAyah(targetAyah);
+                            } else {
+                                console.log('الآية رقم', ayahNum, 'لم يتم العثور عليها');
+                            }
+                        }, 500);
+                        return;
+                    }
+                    
+                    highlightAyah(targetAyah);
+                    
+                }, 500);
+            };
+        })(r.page, r.ayah);
+        
+        resultsDiv.appendChild(item);
+    }
+    
+    const countDiv = document.createElement('div');
+    countDiv.style.cssText = 'padding:8px; text-align:center; font-size:0.7rem; color:#a8884a; border-top:1px solid #c9a86b40; margin-top:5px;';
+    countDiv.textContent = `📊 ${results.length} نتيجة`;
+    resultsDiv.appendChild(countDiv);
+}
+
+// دالة لتظليل الآية
+function highlightAyah(ayahElement) {
+    if (!ayahElement) return;
+    
+    // إزالة أي تظليل سابق
+    document.querySelectorAll('.ayah-highlight').forEach(h => h.remove());
+    document.querySelectorAll('.ayah-wrapper.highlighted').forEach(h => h.classList.remove('highlighted'));
+    
+    // التمرير إلى الآية
+    ayahElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // إضافة التظليل
+    ayahElement.classList.add('highlighted');
+    
+    // إنشاء شريط شفاف
+    let highlightDiv = document.createElement('div');
+    highlightDiv.className = 'ayah-highlight';
+    ayahElement.style.position = 'relative';
+    ayahElement.appendChild(highlightDiv);
+    
+    // تحديث شاشة الهاتف
+    if (typeof updateMobileDisplay === 'function') {
+        setTimeout(() => {
+            updateMobileDisplay();
+        }, 100);
+    }
+    
+    // إزالة التظليل بعد 3 ثوانٍ
+    setTimeout(() => {
+        if (highlightDiv) highlightDiv.remove();
+        if (ayahElement) ayahElement.classList.remove('highlighted');
+    }, 3000);
+}
+
+// ربط حدث البحث (بدون مسح النتائج)
+function bindMobileSearchEvents() {
+    const searchInput = document.getElementById('mobileSearchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', mobileSearch);
+        searchInput.addEventListener('focus', function() {
+            if (this.value.trim().length >= 3) {
+                mobileSearch();
+            }
+        });
+    }
+}
+
+// بناء فهرس الهواتف
+// بناء فهرس الهواتف
+function buildMobileIndex() {
+    const container = document.getElementById('mobileIndexList');
+    if (!container) return;
+    
+    const showSura = document.getElementById('mobileFilterSura')?.checked;
+    const showJuza = document.getElementById('mobileFilterJuza')?.checked;
+    const showHizb = document.getElementById('mobileFilterHizb')?.checked;
+    
+    let items = [];
+    
+    if (showSura) {
+        for (let s of fullSurahNames) {
+            let page = getSuraPage(s.num);
+            items.push({ title: `${s.num.toString().padStart(3, '0')} ${s.name}`, page: page });
+        }
+    }
+    
+    if (showJuza) {
+        const juzPages = [1,22,42,62,82,102,121,142,162,182,201,222,242,262,282,302,322,342,362,382,402,422,442,462,482,502,522,542,562,582];
+        for (let i=0; i<juzPages.length; i++) {
+            items.push({ title: `الجزء ${(i+1).toString().padStart(2,'0')}`, page: juzPages[i] });
+        }
+    }
+    
+    if (showHizb) {
+        for (let i=1; i<=60; i++) {
+            items.push({ title: `الحزب ${i.toString().padStart(2,'0')}`, page: Math.ceil(i*604/60) });
+        }
+    }
+    
+    container.innerHTML = '';
+    for (let item of items) {
+        const div = document.createElement('div');
+        div.className = 'mobile-index-item';
+        div.innerHTML = `<span>${item.title}</span><span style="color:#a8884a;">صفحة ${item.page}</span>`;
+        div.onclick = () => goToPageUniversal(item.page);
+        container.appendChild(div);
+    }
+}
+
+// ربط أحداث الهواتف
+function bindMobileIndexEvents() {
+    document.getElementById('mobileSearchInput')?.addEventListener('input', mobileSearch);
+    document.getElementById('mobileFilterSura')?.addEventListener('change', buildMobileIndex);
+    document.getElementById('mobileFilterJuza')?.addEventListener('change', buildMobileIndex);
+    document.getElementById('mobileFilterHizb')?.addEventListener('change', buildMobileIndex);
+    buildMobileIndex();
+}
+
+// دالة موحدة للانتقال إلى صفحة معينة في جميع الأوضاع
+function goToPageUniversal(pageNum) {
+    currentPage = pageNum;
+    
+    if (currentMode === 'single') {
+        displayPage(currentPage);
+    } else if (currentMode === 'double') {
+        displayDoublePage(currentPage);
+    } else if (currentMode === 'compare') {
+        // في وضع المقارنة، ننتقل بنفس الصفحة لكلا الجانبين
+        compareCurrentPage = pageNum;
+        if (comparePages1Data.length) displayComparePage(1, compareCurrentPage);
+        if (comparePages2Data.length) displayComparePage(2, compareCurrentPage);
+    }
+    
+    // تحديث شاشة الهاتف
+    if (window.innerWidth <= 768 && typeof updateMobileDisplay === 'function') {
+        setTimeout(() => updateMobileDisplay(), 100);
+    }
+    
+    // إغلاق القوائم الجانبية في الهواتف
+    if (window.innerWidth <= 768) {
+        document.querySelector('.left-sidebar')?.classList.remove('open');
+        document.getElementById('leftMenu')?.classList.remove('open');
+    }
 }
