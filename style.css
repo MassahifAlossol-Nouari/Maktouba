@@ -1280,49 +1280,56 @@ html, body {
     }
 }
 
-/* ========== إطار بسيط حول الصفحة باستخدام CSS فقط ========== */
+/* ========== إطار موحد لجميع الأوضاع ========== */
 
 /* إطار صفحة واحدة */
-#singleView .page-container {
-    border: 8px solid #c9a86b;
+#singleView .page-container,
+#mobileSinglePage .page-container {
+    border: 3px solid #c9a86b;
     border-radius: 20px;
-    box-shadow: 0 0 0 4px #c9a86b, 0 8px 25px rgba(0,0,0,0.2);
+    box-shadow: 0 0 0 2px #c9a86b, 0 8px 25px rgba(0,0,0,0.1);
     background: #fffcf0;
+    padding: 1cm;
 }
 
 /* إطار صفحتين */
 #doubleView .page-box {
-    border: 8px solid #c9a86b;
+    border: 3px solid #c9a86b;
     border-radius: 20px;
-    box-shadow: 0 0 0 3px #c9a86b, 0 5px 15px rgba(0,0,0,0.1);
-    background: #ffffff;
+    box-shadow: 0 0 0 2px #c9a86b, 0 5px 15px rgba(0,0,0,0.1);
+    background: #fffcf0;
+    padding: 1cm;
 }
 
 /* إطار مقارنة */
 #compareView .compare-page {
-    border: 8px solid #c9a86b;
+    border: 3px solid #c9a86b;
     border-radius: 20px;
-    box-shadow: 0 0 0 3px #c9a86b;
+    box-shadow: 0 0 0 2px #c9a86b;
     background: #fffcf0;
+    padding: 1cm;
 }
 
 /* إطار الهواتف */
 @media (max-width: 768px) {
-    .mobile-app .page-container {
-        border: 6px solid #c9a86b;
-        border-radius: 15px;
-        box-shadow: 0 0 0 3px #c9a86b;
+    #singleView .page-container,
+    #mobileSinglePage .page-container,
+    #doubleView .page-box,
+    #compareView .compare-page {
+        border-width: 2px;
+        padding: 0.5cm;
+        margin-bottom: 10px;
     }
 }
 
 /* الوضع الليلي */
 body.dark-mode #singleView .page-container,
+body.dark-mode #mobileSinglePage .page-container,
 body.dark-mode #doubleView .page-box,
-body.dark-mode #compareView .compare-page,
-body.dark-mode .mobile-app .page-container {
+body.dark-mode #compareView .compare-page {
     border-color: #e94560;
-    box-shadow: 0 0 0 3px #1a1a2e;
-    background: #15203d;
+    box-shadow: 0 0 0 2px #e94560;
+    background: #16213e;
 }
 
 
