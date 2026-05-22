@@ -1645,6 +1645,73 @@ body.dark-mode .ayah-highlight {
     .settings-group.open .settings-list {
         display: flex;
     }
+@media (max-width: 768px) {
+    /* جعل القائمة الجانبية قابلة للتمرير بالكامل */
+    .side-menu .menu-content {
+        overflow-y: auto !important;
+        max-height: 100vh;
+        padding-bottom: 50px;
+    }
+    
+    /* جعل مجموعة الإعدادات قابلة للتمرير */
+    .settings-group {
+        background: #2a1f15;
+        border-radius: 12px;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+    
+    .settings-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 15px;
+        background: #3d2c1e;
+        cursor: pointer;
+        color: #e8c67a;
+        font-weight: bold;
+    }
+    
+    .settings-toggle {
+        transition: transform 0.2s;
+    }
+    
+    .settings-group.open .settings-toggle {
+        transform: rotate(90deg);
+    }
+    
+    /* جعل الأزرار قابلة للتمرير عند فتح القائمة */
+    .settings-list {
+        display: none;
+        padding: 10px;
+        gap: 8px;
+        flex-direction: column;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+    
+    .settings-group.open .settings-list {
+        display: flex;
+    }
+    
+    /* جعل الأزرار نفسها تظهر وتتحرك */
+    .settings-list .menu-item {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        background: #3d2c1e;
+        border-radius: 8px;
+        color: #ecdcaa;
+        font-family: inherit;
+        font-size: 0.85rem;
+        cursor: pointer;
+    }
+    
+    .settings-list .menu-item:hover {
+        background: #5a402a;
+    }
+}
     
     /* عند فتح الإعدادات، نضمن ظهورها كاملة */
     .settings-group.open {
