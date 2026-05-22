@@ -2159,3 +2159,60 @@ setTimeout(initColorClicks, 500);
 console.log(pagesData[0]?.[0]?.text);
 
 // ==================== تحريك الشرائط للهواتف ====================
+// ==================== إخفاء/إظهار الشرائط للهواتف (نسخة تعمل على اللمس) ====================
+
+let hideTimer;
+
+function hideAll() {
+    const topBar = document.querySelector('.top-bar');
+    const mobileTop = document.querySelector('.mobile-top-bar');
+    const controlBar = document.querySelector('.control-bar');
+    const mobileBottom = document.querySelector('.mobile-bottom-bar');
+    
+    if (topBar) topBar.classList.add('hide-top-bar');
+    if (mobileTop) mobileTop.classList.add('hide-top-bar');
+    if (controlBar) controlBar.classList.add('hide-bottom-bar');
+    if (mobileBottom) mobileBottom.classList.add('hide-bottom-bar');
+}
+
+function showAll() {
+    const topBar = document.querySelector('.top-bar');
+    const mobileTop = document.querySelector('.mobile-top-bar');
+    const controlBar = document.querySelector('.control-bar');
+    const mobileBottom = document.querySelector('.mobile-bottom-bar');
+    
+    if (topBar) topBar.classList.remove('hide-top-bar');
+    if (mobileTop) mobileTop.classList.remove('hide-top-bar');
+    if (controlBar) controlBar.classList.remove('hide-bottom-bar');
+    if (mobileBottom) mobileBottom.classList.remove('hide-bottom-bar');
+}
+
+function resetTimer() {
+    if (hideTimer) clearTimeout(hideTimer);
+    showAll();
+    hideTimer = setTimeout(hideAll, 4000);
+}
+
+// التشغيل على الهواتف فقط
+if (window.innerWidth <= 768) {
+    window.addEventListener('load', function() {
+        setTimeout(resetTimer, 1000);
+    });
+    
+    // استخدام touchstart للأجهزة اللمسية
+    document.addEventListener('touchstart', function(e) {
+        // إذا كان اللمس على زر أو رابط، لا نعيد الضبط (نترك الأزرار تعمل)
+        if (e.target.closest('button') || e.target.closest('a')) {
+            return;
+        }
+        resetTimer();
+    });
+    
+    // احتفظ بـ click كاحتياطي للحاسوب
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('button') || e.target.closest('a')) {
+            return;
+        }
+        resetTimer();
+    });
+}
