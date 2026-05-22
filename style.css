@@ -1587,7 +1587,9 @@ body.dark-mode .ayah-highlight {
     flex: 1;
     overflow-y: auto;
 }
+
 @media (max-width: 768px) {
+    /* ===== كود قائمة السور والفهرس (لا تمسه) ===== */
     .mobile-index-list {
         max-height: none;
         height: calc(100vh - 300px);
@@ -1604,6 +1606,49 @@ body.dark-mode .ayah-highlight {
     .mobile-index-list {
         flex: 1;
         overflow-y: auto;
+    }
+    
+    /* ===== كود الإعدادات الجديد (أضفه هنا) ===== */
+    .settings-group {
+        background: #2a1f15;
+        border-radius: 12px;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+    
+    .settings-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 15px;
+        background: #3d2c1e;
+        cursor: pointer;
+        color: #e8c67a;
+        font-weight: bold;
+    }
+    
+    .settings-toggle {
+        transition: transform 0.2s;
+    }
+    
+    .settings-group.open .settings-toggle {
+        transform: rotate(90deg);
+    }
+    
+    .settings-list {
+        display: none;
+        padding: 10px;
+        gap: 8px;
+        flex-direction: column;
+    }
+    
+    .settings-group.open .settings-list {
+        display: flex;
+    }
+    
+    /* عند فتح الإعدادات، نضمن ظهورها كاملة */
+    .settings-group.open {
+        margin-bottom: 15px;
     }
 }
 
@@ -1774,7 +1819,6 @@ body.dark-mode .color-tooltip {
         display: none !important;
     }
 }
-
 /* ========== كود الالوان========== */
 
 .c1 { color: #FF0000; }   /*   الكلمات الفرشية  */
