@@ -1757,7 +1757,23 @@ body.dark-mode .color-tooltip {
         padding: 0.15cm !important;
     }
 }
-
+/* ========== إخفاء/إظهار الشرائط للهواتف (نسخة تعمل على اللمس) ========= */
+@media (max-width: 768px) {
+    /* إخفاء الشرائط بالكامل */
+    .hide-top-bar {
+        display: none !important;
+    }
+    
+    .hide-bottom-bar {
+        display: none !important;
+    }
+    
+    /* إخفاء حاوية الأزرار السفلية بالكامل */
+    .control-bar.hide-bottom-bar,
+    .mobile-bottom-bar.hide-bottom-bar {
+        display: none !important;
+    }
+}
 
 /* ========== كود الالوان========== */
 
