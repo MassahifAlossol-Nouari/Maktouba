@@ -740,26 +740,28 @@ function handleTouchEnd(e) {
     let diffY = Math.abs(touchEndY - touchStartY);
     
     // التأكد من أن السحب أفقي وليس عمودي
-    if (Math.abs(diffX) > 50 && diffX > diffY) {
+    if (Math.abs(diffX) > 40 && Math.abs(diffX) > diffY) {
         if (diffX > 0) {
             // سحب لليمين → الصفحة السابقة
+            console.log('سحب لليمين - الصفحة السابقة');
             if (currentMode === 'single' && currentPage > 1) {
                 displayPage(currentPage - 1);
-                showSwipeFeedback('◀ الصفحة السابقة', '#27ae60');
+                showSwipeFeedback('→ الصفحة السابقة', '#27ae60');
             } else if (currentMode === 'double' && currentPage > 1) {
                 displayDoublePage(currentPage - 1);
-                showSwipeFeedback('◀ الصفحة السابقة', '#27ae60');
+                showSwipeFeedback('→ الصفحة السابقة', '#27ae60');
             } else {
                 showSwipeFeedback('⚠️ أول صفحة', '#e67e22');
             }
         } else {
             // سحب لليسار → الصفحة التالية
+            console.log('سحب لليسار - الصفحة التالية');
             if (currentMode === 'single' && currentPage < totalPages) {
                 displayPage(currentPage + 1);
-                showSwipeFeedback('الصفحة التالية ▶', '#27ae60');
+                showSwipeFeedback('الصفحة التالية ←', '#27ae60');
             } else if (currentMode === 'double' && currentPage < totalPages - 1) {
                 displayDoublePage(currentPage + 1);
-                showSwipeFeedback('الصفحة التالية ▶', '#27ae60');
+                showSwipeFeedback('الصفحة التالية ←', '#27ae60');
             } else {
                 showSwipeFeedback('⚠️ آخر صفحة', '#e67e22');
             }
@@ -775,7 +777,6 @@ function handleTouchEnd(e) {
     
     isSwiping = false;
 }
-
 // عرض ردود فعل بصرية عند السحب
 function showSwipeFeedback(message, color) {
     if (!swipeIndicator) {
