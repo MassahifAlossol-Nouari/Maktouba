@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قارئ المصاحف - استمع إلى التلاوات</title>
+    <link rel="stylesheet" href="Reader.css">
+</head>
+<body>
+    <div class="app">
+        <!-- الشريط العلوي -->
+        <header class="top-bar">
+            <div class="top-bar">
+            <div class="selectors">
+                <select id="mushafSelect" class="mushaf-dropdown"></select>
+                <select id="reciterSelect" class="reciter-dropdown"></select>
+            </div>
+            <button id="backBtn" class="back-btn" onclick="window.location.href='../index.html'">🏠 الرئيسية</button>
+    </div>
+        </header>
+
+        <!-- شريط الصوت -->
+        <div class="audio-bar">
+            <!-- شريط الحالة في الأعلى -->
+            <div class="status" id="status">📖 اختر مصحفاً وسورة للاستماع</div>
+            
+            <!-- أزرار التحكم الرئيسية -->
+            <div class="audio-buttons">
+                <button id="restartBtn" class="audio-btn" title="إعادة من البداية">⏮️</button>
+                <button id="playBtn" class="audio-btn" title="تشغيل">▶️</button>
+                <button id="pauseBtn" class="audio-btn" title="إيقاف مؤقت">⏸️</button>
+                <button id="stopBtn" class="audio-btn" title="إيقاف كامل">⏹️</button>
+            </div>
+            
+            <!-- سرعة الصوت -->
+            <div class="speed-container">
+                <span class="speed-label">السرعة:</span>
+                <button data-speed="0.75" class="speed-btn">0.75x</button>
+                <button data-speed="1.0" class="speed-btn active">1x</button>
+                <button data-speed="1.25" class="speed-btn">1.25x</button>
+                <button data-speed="1.5" class="speed-btn">1.5x</button>
+                <button data-speed="2.0" class="speed-btn">2x</button>
+            </div>
+            
+            <!-- شريط التقدم -->
+            <div class="progress-container">
+                <span id="currentTime" class="time">00:00</span>
+                <input type="range" id="progressBar" class="progress-bar" value="0" step="1">
+                <span id="duration" class="time">00:00</span>
+            </div>
+            
+            <!-- التحكم في الصوت -->
+            <div class="volume-container">
+                <button id="volumeBtn" class="audio-btn" style="width:35px;height:35px;font-size:0.9rem;">🔊</button>
+                <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="70">
+            </div>
+        </div>
+
+        <!-- قائمة السور (مربعات صغيرة) -->
+        <div class="surah-grid" id="surahGrid"></div>
+
+        <!-- رسالة الحالة -->
+        
+    </div>
+
+    <script src="Reader.js"></script>
+</body>
+</html>
