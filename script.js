@@ -548,7 +548,7 @@ function buildReadersTree() {
 }
 
 function loadFileAndDisplayForCompare(fileName, side) {
-    fetch(fileName).then(response => response.text()).then(text => {
+    fetch(`Data/${fileName}`).then(response => response.text()).then(text => {
         let data = extractData(text);
         if (!data.length) data = defaultAyahs;
         let pages = buildPagesArray(data);
