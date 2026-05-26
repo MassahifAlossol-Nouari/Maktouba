@@ -2257,7 +2257,7 @@ function getNamesFromFile(fileName) {
 // تحديث دالة loadFileAndDisplayForCompare (مع مراعاة مجلد data)
 function loadFileAndDisplayForCompare(fileName, side) {
     // استخدام المسار الصحيح مع مجلد data
-    let fullPath = `data/${fileName}`;
+    let fullPath = `fetch/${fileName}`;
     
     fetch(fullPath).then(response => response.text()).then(text => {
         let data = extractData(text);
