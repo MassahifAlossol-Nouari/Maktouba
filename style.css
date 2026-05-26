@@ -1,11 +1,23 @@
 @font-face {
     font-family: 'NouariAbdelkabir';
-    src: url('font/nouariabdelkabir.ttf') format('truetype');
+    src: url('font/nouariabdelkabir.woff2') format('woff2'),
+         url('font/nouariabdelkabir.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
 head {
     font-family: 'NouariAbdelkabir';
     src: url('font/nouariabdelkabir.ttf') format('truetype');
 }
+/* إعدادات متقدمة للخط */
+.quran-text {
+    font-family: 'NouariAbdelkabir', 'Amiri', 'Traditional Arabic', serif;
+    font-feature-settings: "calt" on, "rlig" on, "liga" on, "mark" on, "mkmk" on;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -1886,6 +1898,8 @@ body.dark-mode .color-tooltip {
         display: none !important;
     }
 }
+
+
 /* ========== كود الالوان========== */
 
 .c1 { color: #FF0000; }   /*   الكلمات الفرشية  */
