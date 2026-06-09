@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>قارئ المصاحف - استمع إلى التلاوات</title>
+    <link rel="stylesheet" href="Reader.css">
+</head>
+<body>
+    <div class="app reader-app">
+        <header class="reader-top-bar">
+            <div class="selectors">
+                <select id="mushafSelect" class="mushaf-dropdown"></select>
+                <select id="reciterSelect" class="reciter-dropdown"></select>
+            </div>
+            <button id="backBtn" class="back-btn">🏠 الرئيسية</button>
+        </header>
+
+        <div class="audio-bar">
+            <div class="status" id="status">🎧 اختر مصحفاً وسورة للاستماع</div>
+            
+            <div class="audio-buttons">
+                <button id="restartBtn" class="audio-btn">⏮️</button>
+                <button id="playBtn" class="audio-btn">▶️</button>
+                <button id="pauseBtn" class="audio-btn">⏸️</button>
+                <button id="stopBtn" class="audio-btn">⏹️</button>
+            </div>
+            
+            <div class="speed-container">
+                <span class="speed-label">السرعة:</span>
+                <button data-speed="0.75" class="speed-btn">0.75x</button>
+                <button data-speed="1.0" class="speed-btn active">1x</button>
+                <button data-speed="1.25" class="speed-btn">1.25x</button>
+                <button data-speed="1.5" class="speed-btn">1.5x</button>
+                <button data-speed="2.0" class="speed-btn">2x</button>
+            </div>
+            
+            <div class="progress-container">
+                <span id="currentTime" class="time">00:00</span>
+                <input type="range" id="progressBar" class="progress-bar" value="0" step="1">
+                <span id="duration" class="time">00:00</span>
+            </div>
+            
+            <div class="volume-container">
+                <button id="volumeBtn" class="audio-btn volume-btn">🔊</button>
+                <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="70">
+            </div>
+        </div>
+
+        <div class="surah-grid" id="surahGrid"></div>
+    </div>
+
+    <!-- تحميل البيانات الرئيسية للمصاحف -->
+    <script src="../script.js"></script>
+    <script src="Reader.js"></script>
+</body>
+</html>
