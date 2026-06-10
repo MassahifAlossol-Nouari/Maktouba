@@ -275,10 +275,12 @@ function displayPage(pageNum) {
         let firstRealAyah = ayahs.find(a => a.ayah !== 0);
                 if (firstRealAyah) document.getElementById('surahNameDisplay').textContent = firstRealAyah.name;
     }
+   
     updatePageInput();  // <--- أضف هذا السطر
     refreshAyahEvents();  // أضف هذا السطر في النهاية
     refreshSwipeGestures();
     refreshColorClicks();
+    
 }
 
 function displayDoublePage(pageNum) {
@@ -2204,7 +2206,7 @@ function resetTimer() {
 // التشغيل على الهواتف فقط
 if (window.innerWidth <= 768) {
     window.addEventListener('load', function() {
-        setTimeout(resetTimer, 1000);
+        setTimeout(resetTimer, 10000);
     });
     
     // استخدام touchstart للأجهزة اللمسية
@@ -3232,3 +3234,32 @@ setTimeout(() => {
 }, 1500);
 
 console.log('✅ تم تفعيل نظام التفسير للهواتف (نسخة خفيفة)');
+
+// ==================== إعادة ضبط مؤقت إخفاء الشرائط عند التنقل ====================
+
+if (window.innerWidth <= 768) {
+    // حفظ الدوال الأصلية
+    const originalDisplayPage = window.displayPage;
+    const originalDisplayDoublePage = window.displayDoublePage;
+    const originalUpdateMobileDisplay = window.updateMobileDisplay;
+    
+    // استبدال displayPage
+    window.displayPage = function(pageNum) {
+        originalDisplayPage(pageNum);
+        if (typeof resetTimer === 'function') resetTimer();
+    };
+    
+    // استبدال displayDoublePage
+    window.displayDoublePage = function(pageNum) {
+        originalDisplayDoublePage(pageNum);
+        if (typeof resetTimer === 'function') resetTimer();
+    };
+    
+    // استبدال updateMobileDisplay
+    window.updateMobileDisplay = function() {
+        originalUpdateMobileDisplay();
+        if (typeof resetTimer === 'function') resetTimer();
+    };
+    
+    console.log('✅ تم ربط التنقل بإعادة ضبط مؤقت إخفاء الشرائط');
+}
