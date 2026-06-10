@@ -2280,43 +2280,6 @@ body.dark-mode #leftMenu #searchBtn {
     background: linear-gradient(145deg, #e94560, #c72a48) !important;
 }
 
-/* ===== إصلاح زر القائمة فقط دون التأثير على باقي الأزرار ===== */
-.control-bar {
-    height: 1cm !important;
-    min-height: 1cm !important;
-    max-height: 1cm !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-/* استثناء زر القائمة من خاصية overflow: hidden */
-.menu-btn {
-    overflow: visible !important;
-    position: relative !important;
-    z-index: 999 !important;
-    pointer-events: auto !important;
-    cursor: pointer !important;
-    opacity: 1 !important;
-}
-
-/* التأكد من ظهور القائمة المنسدلة */
-.dropdown-menu {
-    position: absolute !important;
-    bottom: 1cm !important;
-    right: 0 !important;
-    z-index: 9999 !important;
-    background: var(--bg-dark-brown);
-    border-radius: 15px;
-    min-width: 180px;
-    display: none;
-    flex-direction: column;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-    border: 1px solid var(--primary-gold);
-}
-
-.dropdown-menu.show {
-    display: flex !important;
-}
 
 /* ========== قسم التفسير داخل القائمة الجانبية ========== */
 .tafsir-section {
