@@ -1,4 +1,33 @@
-/* ===== قارئ المصاحف - تصميم متجاوب ===== */
+/* ========================================
+   قارئ المصاحف - نفس ألوان المشروع الرئيسي
+   ======================================== */
+
+:root {
+    --primary-gold: #FDEB9E;
+    --primary-gold-light: #FFF5CC;
+    --primary-gold-dark: #E6D17B;
+    --teal-soft: #7AE2CF;
+    --teal-medium: #4BC0A8;
+    --teal-dark: #077A7D;
+    --blue-deep: #06202B;
+    --blue-deep-light: #0A3040;
+    --bg-sidebar: rgba(6, 32, 43, 0.95);
+    --bg-sidebar-light: #0A3040;
+    --bg-card-dark: #0A3A48;
+    --bg-card-light: #0F4A5A;
+    --text-light: #FDEB9E;
+    --text-white: #FFFFFF;
+    --text-black: #06202B;
+    --quran-page-bg: #FFFEF7;
+    --dark-bg-main: #021218;
+    --dark-bg-sidebar: rgba(2, 18, 24, 0.98);
+    --dark-accent: #7AE2CF;
+    --dark-accent-light: #A0ECE0;
+    --dark-card-bg: #06202B;
+    --dark-text: #FDEB9E;
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-dark: rgba(0, 0, 0, 0.3);
+}
 
 * {
     margin: 0;
@@ -8,7 +37,7 @@
 
 body {
     font-family: 'NouariAbdelkabir', 'Amiri', 'Traditional Arabic', serif;
-    background: #fcf7e8;
+    background: var(--quran-page-bg);
     min-height: 100vh;
 }
 
@@ -26,11 +55,12 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #2e241a;
+    background: var(--bg-sidebar-light);
     padding: 12px 20px;
     border-radius: 20px;
     margin-bottom: 20px;
-    border-bottom: 3px solid #c9a86b;
+    border-bottom: 3px solid var(--primary-gold);
+    box-shadow: 0 4px 12px var(--shadow-dark);
 }
 
 .selectors {
@@ -40,47 +70,54 @@ body {
 }
 
 .mushaf-dropdown, .reciter-dropdown {
-    background: #fffcf0;
-    border: 1px solid #c9a86b;
+    background: var(--quran-page-bg);
+    border: 1px solid var(--primary-gold);
     padding: 8px 15px;
     border-radius: 30px;
-    color: #000;
+    color: var(--text-black);
     font-family: inherit;
     font-size: 0.85rem;
     cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mushaf-dropdown:hover, .reciter-dropdown:hover {
+    background: var(--primary-gold);
+    color: var(--text-black);
 }
 
 .back-btn {
-    background: #c9a86b;
+    background: var(--primary-gold);
     border: none;
     padding: 8px 18px;
     border-radius: 30px;
     cursor: pointer;
     font-family: inherit;
     font-weight: bold;
-    color: #000;
+    color: var(--text-black);
     transition: 0.2s;
 }
 
 .back-btn:hover {
-    background: #e8c67a;
+    background: var(--primary-gold-light);
+    transform: scale(1.02);
 }
 
 /* ===== شريط الصوت ===== */
 .audio-bar {
-    background: #2e241a;
+    background: var(--bg-sidebar-light);
     padding: 15px;
     border-radius: 25px;
     margin-bottom: 20px;
-    border: 1px solid #c9a86b;
+    border: 1px solid var(--primary-gold);
 }
 
 .status {
     text-align: center;
     padding: 8px 12px;
-    background: #1f1810;
+    background: var(--bg-card-dark);
     border-radius: 30px;
-    color: #e8c67a;
+    color: var(--text-light);
     font-size: 0.9rem;
     margin-bottom: 15px;
 }
@@ -93,7 +130,7 @@ body {
 }
 
 .audio-btn {
-    background: #c9a86b;
+    background: var(--primary-gold);
     border: none;
     width: 55px;
     height: 55px;
@@ -103,12 +140,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #000;
+    color: var(--text-black);
     transition: 0.2s;
+    box-shadow: 0 2px 8px var(--shadow-light);
 }
 
 .audio-btn:hover {
-    background: #e8c67a;
+    background: var(--primary-gold-light);
     transform: scale(1.05);
 }
 
@@ -123,23 +161,24 @@ body {
 }
 
 .speed-label {
-    color: #e8c67a;
+    color: var(--text-light);
     font-size: 0.8rem;
 }
 
 .speed-btn {
-    background: #1f1810;
-    border: 1px solid #c9a86b;
+    background: var(--bg-card-dark);
+    border: 1px solid var(--primary-gold);
     padding: 5px 14px;
     border-radius: 25px;
     cursor: pointer;
-    color: #ecdcaa;
+    color: var(--text-light);
     font-size: 0.75rem;
+    transition: all 0.2s;
 }
 
 .speed-btn.active, .speed-btn:hover {
-    background: #c9a86b;
-    color: #000;
+    background: var(--primary-gold);
+    color: var(--text-black);
 }
 
 /* شريط التقدم */
@@ -147,14 +186,14 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    background: #1f1810;
+    background: var(--bg-card-dark);
     padding: 8px 15px;
     border-radius: 40px;
     margin-bottom: 15px;
 }
 
 .time {
-    color: #e8c67a;
+    color: var(--text-light);
     font-size: 0.8rem;
     min-width: 45px;
 }
@@ -171,7 +210,7 @@ body {
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background: #c9a86b;
+    background: var(--primary-gold);
     cursor: pointer;
 }
 
@@ -195,7 +234,7 @@ body {
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: #c9a86b;
+    background: var(--primary-gold);
 }
 
 /* ===== قائمة السور ===== */
@@ -212,28 +251,30 @@ body {
 }
 
 .surah-card {
-    background: #fffcf0;
+    background: var(--quran-page-bg);
     border-radius: 20px;
     padding: 12px 5px;
     text-align: center;
     cursor: pointer;
-    border: 1px solid #c9a86b;
+    border: 1px solid var(--primary-gold);
     transition: 0.3s;
+    box-shadow: 0 2px 5px var(--shadow-light);
 }
 
 .surah-card:hover {
-    background: #e8c67a;
+    background: var(--primary-gold-light);
     transform: translateY(-4px);
+    box-shadow: 0 4px 12px var(--shadow-dark);
 }
 
 .surah-card.active {
-    background: #c9a86b;
+    background: var(--primary-gold);
     transform: scale(0.98);
 }
 
 .surah-number {
     font-size: 0.9rem;
-    color: #a8884a;
+    color: var(--teal-dark);
     display: block;
 }
 
@@ -241,78 +282,79 @@ body {
     font-size: 1rem;
     display: block;
     margin-top: 5px;
-    color: #000;
+    color: var(--text-black);
 }
 
 /* ===== الوضع الليلي ===== */
 body.dark-mode {
-    background: #0a0a0a;
+    background: var(--dark-bg-main);
 }
 
 body.dark-mode .reader-app {
-    background: #1a1a2e;
+    background: var(--dark-bg-main);
 }
 
 body.dark-mode .reader-top-bar,
 body.dark-mode .audio-bar {
-    background: #1a1a2e;
-    border-color: #e94560;
+    background: var(--dark-card-bg);
+    border-color: var(--dark-accent);
 }
 
 body.dark-mode .mushaf-dropdown,
 body.dark-mode .reciter-dropdown {
-    background: #1a1a2e;
-    border-color: #e94560;
-    color: #e94560;
+    background: var(--dark-bg-main);
+    border-color: var(--dark-accent);
+    color: var(--dark-accent);
 }
 
 body.dark-mode .status {
-    background: #0f3460;
-    color: #e94560;
+    background: var(--dark-bg-main);
+    color: var(--dark-accent);
 }
 
 body.dark-mode .audio-btn {
-    background: #e94560;
-    color: #1a1a2e;
+    background: var(--dark-accent);
+    color: var(--dark-bg-main);
 }
 
 body.dark-mode .speed-btn {
-    background: #1a1a2e;
-    border-color: #e94560;
-    color: #e94560;
+    background: var(--dark-bg-main);
+    border-color: var(--dark-accent);
+    color: var(--dark-accent);
 }
 
-body.dark-mode .speed-btn.active {
-    background: #e94560;
-    color: #1a1a2e;
+body.dark-mode .speed-btn.active,
+body.dark-mode .speed-btn:hover {
+    background: var(--dark-accent);
+    color: var(--dark-bg-main);
 }
 
 body.dark-mode .surah-card {
-    background: #1a1a2e;
-    border-color: #e94560;
+    background: var(--dark-bg-main);
+    border-color: var(--dark-accent);
 }
 
 body.dark-mode .surah-card .surah-number,
 body.dark-mode .surah-card .surah-name {
-    color: #e0e0e0;
+    color: var(--dark-text);
 }
 
 body.dark-mode .surah-card.active {
-    background: #e94560;
+    background: var(--dark-accent);
 }
 
 body.dark-mode .surah-card.active .surah-number,
 body.dark-mode .surah-card.active .surah-name {
-    color: #1a1a2e;
+    color: var(--dark-bg-main);
 }
 
 body.dark-mode .time {
-    color: #e94560;
+    color: var(--dark-accent);
 }
 
 body.dark-mode .progress-bar::-webkit-slider-thumb,
 body.dark-mode .volume-slider::-webkit-slider-thumb {
-    background: #e94560;
+    background: var(--dark-accent);
 }
 
 /* ===== استجابة للهواتف ===== */
