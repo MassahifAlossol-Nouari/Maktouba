@@ -1,3 +1,30 @@
+// تعريف الدوال قبل أي شيء
+window.loadPdfPage = function(page) {
+    if (!currentMushafFile) {
+        alert('الرجاء اختيار مصحف أولاً');
+        return;
+    }
+    const pdfPath = `https://massahifalossol-nouari.github.io/Maktouba/mushaf-pdfs/${currentMushafFile}.pdf#toolbar=0&navpanes=0&page=${page}`;
+    const iframe = document.getElementById('pdfFrame');
+    if (iframe) iframe.src = pdfPath;
+    console.log("تحميل:", pdfPath);
+};
+
+window.nextPage = function() { 
+    if (!currentMushafFile) return;
+    currentPage++; 
+    updatePageDisplay(); 
+    window.loadPdfPage(currentPage); 
+};
+
+window.prevPage = function() { 
+    if (!currentMushafFile || currentPage <= 1) return;
+    currentPage--; 
+    updatePageDisplay(); 
+    window.loadPdfPage(currentPage); 
+};
+
+
 // تأكيد تحميل الدوال قبل استخدامها
 window.addEventListener('DOMContentLoaded', function() {
     console.log("DOM جاهز - نبدأ ربط الأزرار");
@@ -153,16 +180,16 @@ function selectMushaf(file, name) {
 }
 
 // ==================== تحميل صفحة PDF ====================
-function loadPdfPage(page) {
-    if (!currentMushafFile) {
-        alert('الرجاء اختيار مصحف أولاً');
-        return;
-    }
+//function loadPdfPage(page) {
+   // if (!currentMushafFile) {
+   //     alert('الرجاء اختيار مصحف أولاً');
+    //    return;
+   // }
     // إضافة #toolbar=0 و navpanes=0 لإخفاء شريط الأدوات
-    const pdfPath = `https://massahifalossol-nouari.github.io/Maktouba/mushaf-pdfs/${currentMushafFile}.pdf#page=${page}`;
-    const iframe = document.getElementById('pdfFrame');
-    if (iframe) iframe.src = pdfPath;
-}
+   // const pdfPath = `../mushaf-pdfs/${currentMushafFile}.pdf#toolbar=0&navpanes=0&scrollbar=0&page=${page}`;
+   // const iframe = document.getElementById('pdfFrame');
+  //  if (iframe) iframe.src = pdfPath;
+//}
 
 // ==================== التنقل بين الصفحات ====================
 function nextPage() {
