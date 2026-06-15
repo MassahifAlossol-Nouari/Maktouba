@@ -442,3 +442,25 @@ body.dark-mode .volume-slider::-webkit-slider-thumb {
         padding: 6px;
     }
 }
+
+/* إخفاء أشرطة التمرير في الحاويات الداخلية فقط */
+.sidebar-content,
+.surah-sidebar-content,
+.mushafs-grid,
+.features-buttons,
+.surah-grid,
+.mobile-dropdown-list,
+.iframe-container {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.sidebar-content::-webkit-scrollbar,
+.surah-sidebar-content::-webkit-scrollbar,
+.mushafs-grid::-webkit-scrollbar,
+.features-buttons::-webkit-scrollbar,
+.surah-grid::-webkit-scrollbar,
+.mobile-dropdown-list::-webkit-scrollbar,
+.iframe-container::-webkit-scrollbar {
+    display: none;
+}
