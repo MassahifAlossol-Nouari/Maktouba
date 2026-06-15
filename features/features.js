@@ -332,4 +332,10 @@ function init() {
 }
 
 init();
+// جعل الدوال عامة للوصول إليها من Console والأزرار
+window.nextPage = nextPage;
+window.prevPage = prevPage;
+window.selectMushaf = selectMushaf;
+window.selectFeature = selectFeature;
+window.loadPdfPage = loadPdfPage;
 
