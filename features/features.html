@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>مميزات المصاحف الملونة</title>
+    <link rel="stylesheet" href="features.css">
+</head>
+<body>
+    <div class="features-container">
+        <!-- الرأس -->
+        <div class="features-header">
+            <h1>✨ مميزات المصاحف الملونة ✨</h1>
+            <button id="backToQuran" class="back-btn">🏠 العودة إلى المصحف</button>
+        </div>
+
+        <!-- المحتوى الرئيسي: ثلاثة أعمدة (للحاسوب) -->
+        <div class="features-main">
+            <!-- العمود الأيمن: قائمة المصاحف -->
+            <div class="mushafs-list-right">
+                <div class="list-header">📚 اختار المصحف</div>
+                <select id="mushafSelect" class="mushaf-dropdown"></select>
+                <div id="mushafsGrid" class="mushafs-grid"></div>
+            </div>
+
+            <!-- العمود الأوسط: عرض PDF -->
+            <div class="pdf-viewer-center">
+                <div class="iframe-container">
+                    <iframe id="pdfFrame" src="" title="عرض مميزات المصحف"></iframe>
+                </div>
+                <div class="pdf-controls">
+                    <button id="prevPageBtn" class="nav-btn" title="السابق">◀</button>
+                    <span id="pageNumberDisplay" class="page-number">صفحة 1</span>
+                    <button id="nextPageBtn" class="nav-btn" title="التالي">▶</button>
+                </div>
+            </div>
+
+            <!-- العمود الأيسر: قائمة المميزات -->
+            <div class="features-list-left">
+                <div class="list-header">📋 قائمة المميزات</div>
+                <select id="featuresSelect" class="features-dropdown"></select>
+                <div id="featuresList" class="features-buttons"></div>
+            </div>
+        </div>
+
+        <!-- ===== الشريط السفلي للهاتف فقط ===== -->
+        <div class="mobile-bottom-bar">
+            <button id="mobileMushafBtn" class="mobile-dropdown-btn" title="قائمة المصاحف">📚</button>
+            <div class="mobile-nav-controls">
+                <button id="mobilePrevBtn" class="mobile-nav-btn">◀</button>
+                <span id="mobilePageNumber" class="mobile-page-num">1</span>
+                <button id="mobileNextBtn" class="mobile-nav-btn">▶</button>
+            </div>
+            <button id="mobileFeaturesBtn" class="mobile-dropdown-btn" title="قائمة المميزات">📋</button>
+        </div>
+
+        <!-- القوائم المنسدلة المنبثقة للهاتف -->
+        <div id="mobileMushafDropdown" class="mobile-dropdown-list"></div>
+        <div id="mobileFeaturesDropdown" class="mobile-dropdown-list"></div>
+    </div>
+
+    <script src="features.js"></script>
+</body>
+</html>
