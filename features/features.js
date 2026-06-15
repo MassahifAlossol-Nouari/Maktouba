@@ -159,7 +159,7 @@ function loadPdfPage(page) {
         return;
     }
     // إضافة #toolbar=0 و navpanes=0 لإخفاء شريط الأدوات
-    const pdfPath = `../mushaf-pdfs/${currentMushafFile}.pdf#toolbar=0&navpanes=0&scrollbar=0&page=${page}`;
+    const pdfPath = `https://massahifalossol-nouari.github.io/Maktouba/mushaf-pdfs/${currentMushafFile}.pdf#page=${page}`;
     const iframe = document.getElementById('pdfFrame');
     if (iframe) iframe.src = pdfPath;
 }
