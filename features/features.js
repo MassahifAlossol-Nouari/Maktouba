@@ -1,3 +1,14 @@
+// تأكيد تحميل الدوال قبل استخدامها
+window.addEventListener('DOMContentLoaded', function() {
+    console.log("DOM جاهز - نبدأ ربط الأزرار");
+    
+    // إعادة تعريف الدوال إذا لزم الأمر
+    window.nextPage = nextPage;
+    window.prevPage = prevPage;
+    window.selectMushaf = selectMushaf;
+    window.selectFeature = selectFeature;
+});
+
 // ==================== بيانات المميزات (رقم الصفحة كما هو في PDF) ====================
 const featuresData = [
     { id: "bidayah", name: "🌟 البداية", page: 1 },
