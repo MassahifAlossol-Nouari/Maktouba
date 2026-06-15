@@ -63,6 +63,43 @@
         <div id="mobileMushafDropdown" class="mobile-dropdown-list"></div>
         <div id="mobileFeaturesDropdown" class="mobile-dropdown-list"></div>
     </div>
+        <script>
+        // تعريف الدوال مباشرة في الصفحة
+        function nextPage() {
+            alert('تم الضغط على زر التالي');
+            const iframe = document.getElementById('pdfFrame');
+            if (iframe) {
+                let currentSrc = iframe.src;
+                let match = currentSrc.match(/page=(\d+)/);
+                let page = match ? parseInt(match[1]) : 1;
+                page++;
+                iframe.src = currentSrc.replace(/page=\d+/, `page=${page}`);
+            }
+        }
+        
+        function prevPage() {
+            alert('تم الضغط على زر السابق');
+            const iframe = document.getElementById('pdfFrame');
+            if (iframe) {
+                let currentSrc = iframe.src;
+                let match = currentSrc.match(/page=(\d+)/);
+                let page = match ? parseInt(match[1]) : 1;
+                if (page > 1) {
+                    page--;
+                    iframe.src = currentSrc.replace(/page=\d+/, `page=${page}`);
+                }
+            }
+        }
+        
+        // ربط الأزرار بعد تحميل الصفحة
+        window.onload = function() {
+            const nextBtn = document.getElementById('nextPageBtn');
+            const prevBtn = document.getElementById('prevPageBtn');
+            if (nextBtn) nextBtn.onclick = nextPage;
+            if (prevBtn) prevBtn.onclick = prevPage;
+            console.log('تم ربط الأزرار');
+        };
+    </script>
 
     <script src="features.js"></script>
 </body>
