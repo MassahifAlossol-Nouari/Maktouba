@@ -44,12 +44,21 @@ window.loadPdfPage = function(page) {
         alert('⚠️ الرجاء اختيار مصحف أولاً');
         return;
     }
-    const pdfPath = `https://massahifalossol-nouari.github.io/Maktouba/mushaf-pdfs/${currentMushafFile}.pdf#toolbar=0&navpanes=0&page=${page}`;
     const iframe = document.getElementById('pdfFrame');
-    if (iframe) {
+    if (!iframe) return;
+    
+    // حفظ المسار القديم
+    const oldSrc = iframe.src;
+    const pdfPath = `https://massahifalossol-nouari.github.io/Maktouba/mushaf-pdfs/${currentMushafFile}.pdf#toolbar=0&navpanes=0&page=${page}`;
+    
+    // إفراغ الـ iframe أولاً (لإجباره على إعادة التحميل)
+    iframe.src = 'about:blank';
+    
+    // ثم تعيين المسار الجديد بعد تأخير بسيط
+    setTimeout(() => {
         iframe.src = pdfPath;
         console.log("✅ تحميل PDF:", pdfPath);
-    }
+    }, 100);
 };
 
 window.nextPage = function() {
