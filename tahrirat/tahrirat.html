@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ جمع القراءات العشر ✨</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="tahrirat.css">
+</head>
+<body>
+    <div class="tahrirat-container">
+        
+        <div class="tahrirat-header">
+            <h1>✨  جمع القراءات العشر من طريقي الشاطبية والدرة ✨</h1>
+            <button id="backToQuran" class="back-btn">🏠 العودة إلى المصحف</button>
+        </div>
+
+        <div class="tahrirat-controls">
+            <select id="surahSelect" class="filter-select"></select>
+            <select id="ayahSelect" class="filter-select">
+                <option value="all">جميع الايات</option>
+            </select>
+            <input type="number" id="pageInput" class="filter-input" placeholder="🔍 رقم الصفحة" min="1" max="604">
+            <select id="readerFilter" class="filter-select">
+                <option value="all">جميع القراء</option>
+            </select>
+            <button id="resetFilters" class="stats-btn primary">🔄 إعادة الضبط</button>
+        </div>
+       
+
+        <div class="tahrirat-table-container">
+            <table id="tahriratTable">
+                <thead>
+                    <tr>
+                        <th>السورة</th>
+                        <th>الاية</th>
+                        <th>الترتيب</th>
+                        <th>تحريرات جزئية لكل ءاية</th>
+                        <th>بيان القراءة</th>
+                        <th>من يقرأ</th>
+                        <th>المندرجين</th>
+                        <th>الصفحة</th>
+                    </tr>
+                </thead>
+                <tbody id="tahriratBody">
+                    <tr><td colspan="8" style="text-align:center; padding:30px;">⏳ جاري تحميل البيانات...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="tahrirat.js"></script>
+</body>
+</html>
