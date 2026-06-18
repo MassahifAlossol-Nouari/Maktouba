@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إحصاءات الكلمات الملونة - القراءات العشر</title>
+    <link rel="stylesheet" href="stats.css">
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="stats-app">
+        <!-- رأس الصفحة -->
+        <header class="stats-header">
+            <h1>📊 إحصاءات الكلمات الملونة</h1>
+            <button id="backToHomeBtn" class="back-btn" onclick="window.location.href='../index.html'">🏠 العودة إلى المصحف</button>
+        </header>
+
+        <!-- شريط التحكم -->
+        <div class="stats-controls">
+            <div class="filters">
+                <select id="rawiSelect" class="stats-select">
+                    <optgroup label="▶ نافع المدني">
+                        <option value="mushaf_qalun1.js">قالون (قصر/إسكان)</option>
+                        <option value="mushaf_qalun2.js">قالون (قصر/صلة)</option>
+                        <option value="mushaf_qalun3.js">قالون (توسط/إسكان)</option>
+                        <option value="mushaf_qalun4.js">قالون (توسط/صلة)</option>
+                        <option value="mushaf_warsh1.js">ورش (قصر البدل/فتح)</option>
+                        <option value="mushaf_warsh2.js">ورش (توسط البدل/تقليل)</option>
+                        <option value="mushaf_warsh3.js">ورش (إشباع البدل/الفتح)</option>
+                        <option value="mushaf_warsh4.js">ورش (إشباع البدل/تقليل)</option>
+                        <option value="mushaf_warsh5.js">ورش (طريق الأصبهاني)</option>
+                    </optgroup>
+                    <optgroup label="▶ ابن كثير المكي">
+                        <option value="mushaf_bazzi.js">البزي</option>
+                        <option value="mushaf_qunbul.js">قنبل</option>
+                    </optgroup>
+                    <optgroup label="▶ أبو عمرو البصري">
+                        <option value="mushaf_doori.js"> (توسط المنفصل)الدوري</option>
+                        <option value="mushaf_doori.js">(قصر المنفصل)الدوري</option>
+                        <option value="mushaf_soosi.js">السوسي</option>
+                    </optgroup>
+                    <optgroup label="▶ ابن عامر الشامي">
+                        <option value="mushaf_hisham.js">هشام</option>
+                        <option value="mushaf_ibnDhakwan.js">ابن ذكوان</option>
+                    </optgroup>
+                    <optgroup label="▶ عاصم الكوفي">
+                        <option value="mushaf_hafs.js">حفص</option>
+                        <option value="mushaf_shubah.js">شعبة</option>
+                    </optgroup>
+                    <optgroup label="▶ حمزة الكوفي">
+                        <option value="mushaf_khalaf.js">خلف</option>
+                        <option value="mushaf_khallad.js">خلاد</option>
+                    </optgroup>
+                    <optgroup label="▶ الكسائي الكوفي">
+                        <option value="mushaf_abuHarith.js">أبو الحارث</option>
+                        <option value="mushaf_doori_kisai.js">الدوري</option>
+                    </optgroup>
+                    <optgroup label="▶ أبو جعفر المدني">
+                        <option value="mushaf_ibnWardan.js">ابن وردان</option>
+                        <option value="mushaf_ibnJammaz.js">ابن جماز</option>
+                    </optgroup>
+                    <optgroup label="▶ يعقوب الحضرمي">
+                        <option value="mushaf_ruways.js">رويس</option>
+                        <option value="mushaf_ruh.js">روح</option>
+                    </optgroup>
+                    <optgroup label="▶ خلف العاشر">
+                        <option value="mushaf_ishaq.js">إسحاق</option>
+                        <option value="mushaf_idris.js">إدريس</option>
+                    </optgroup>
+                </select>
+                
+                <button id="loadFileBtn" class="stats-btn primary">📂 تحميل الملف المحدد</button>
+                <button id="selectFileBtn" class="stats-btn blue">📁 اختيار ملف من الجهاز</button>
+                <button id="exportCsvBtn" class="stats-btn green">📎 تصدير CSV</button>
+                    <!-- أضف هذين الزرين هنا -->
+                <button id="copyTableBtn" class="stats-btn teal">📋 نسخ الجدول (لصق في Excel)</button>
+                <button id="clearCacheBtn" class="stats-btn red" title="مسح البيانات المحفوظة">🗑️ مسح الذاكرة</button>
+                
+                <select id="colorFilterSelect" class="stats-select">
+                    <option value="all">🎨 جميع الألوان</option>
+                    <option value="c1">🔴 الكلمات الفرشية </option>
+                    <option value="c2">🟤 عد الايات </option>
+                    <option value="c3">🌸 الإدغام الكبير</option>
+                    <option value="c4">📀 الإمالة أوالتقليل </option>
+                    <option value="c5">🔵 البسملة </option>
+                    <option value="c6">🔵 علامات الوقف أو الأرباع</option>
+                    <option value="c7">🔵 الهمز المفرد أو المزدوج</option>
+                    <option value="c8">🟢 تغليظ اللام </option>
+                    <option value="c9">🔵 النقل أوالسكت </option>
+                    <option value="c10">🔵 مد البدل </option>
+                    <option value="c11">🟠 ترقيق راء ورش </option>
+                    <option value="c12">🌸 ميم الجمع </option>
+                    <option value="c13">🟣 مد اللين </option>
+                    <option value="c14">🔴 الياءات المتطرفة </option>
+                    <option value="c15">🔵 الإدغام أو الإظهار</option>
+                    <option value="c16">🟢 تحريك الساكن قبل همزة الوصل</option>
+                    <option value="c17">🟣 الانفرادات </option>
+                    <option value="c18">🟢 هاء الكناية</option>
+                    <option value="c19">🌸 ٱلوقف على الهمز</option>
+                    <option value="c20">🟢 الاختلاس أوالاشمام</option>
+                    <option value="c21">🔴 ٱلوقف على أواخر الكلم</option>
+                    <option value="c22">🟡 c22</option>
+                    <option value="c23">🟡 c23</option>
+                    <option value="c24">🟡 c24</option>
+                    <option value="c25">🟡 c25</option>
+                </select>
+            </div>
+            
+            <div class="progress-container" id="progressContainer" style="display: none;">
+                <div class="progress-bar" id="progressBar"></div>
+                <span id="progressText">جاري التحليل...</span>
+            </div>
+        </div>
+
+        <!-- الإحصائيات السريعة -->
+        <div class="stats-summary" id="statsSummary">
+            <div class="summary-card"><span class="summary-icon">📊</span><span class="summary-label">إجمالي الكلمات</span><span class="summary-value" id="totalWords">0</span></div>
+            <div class="summary-card"><span class="summary-icon" style="color:#FF0000;">🔴</span><span class="summary-label">الفرشية</span><span class="summary-value" id="totalC1">0</span></div>
+            <div class="summary-card"><span class="summary-icon" style="color:#753701;">🟤</span><span class="summary-label">عد الايات </span><span class="summary-value" id="totalC2">0</span></div>
+            <div class="summary-card"><span class="summary-icon" style="color:#ffbb00;">📀</span><span class="summary-label">الإمالةأو التقليل</span><span class="summary-value" id="totalC4">0</span></div>
+            <div class="summary-card"><span class="summary-icon" style="color:#25FB13;">🟢</span><span class="summary-label">تغليظ اللام</span><span class="summary-value" id="totalC8">0</span></div>
+            <div class="summary-card"><span class="summary-icon" style="color:#F98F1F;">🟠</span><span class="summary-label">الراءات</span><span class="summary-value" id="totalC11">0</span></div>
+            <div class="summary-card"><span class="summary-icon" style="color:#EE1E80;">🌸</span><span class="summary-label">ميم الجمع</span><span class="summary-value" id="totalC12">0</span></div>
+            <div class="summary-card"><span class="summary-icon" style="color:#CD12E7;">🟣</span><span class="summary-label">مد اللين</span><span class="summary-value" id="totalC13">0</span></div>
+        </div>
+
+        <!-- الجدول -->
+        <div class="stats-table-container">
+            <table id="statsTable">
+                <thead>
+                    <tr>
+                        <th>عدد</th>
+                        <th>السورة</th>
+                        <th>رقم الاية</th>
+                        <th>الصفحة</th>
+                        <th>الكلمة</th>
+                        <th>اللون</th>
+                        <th>عدد الحروف</th>
+                        <th>نوع اللون</th>
+                    </tr>
+                </thead>
+                <tbody id="statsTableBody">
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 60px;">
+                            <div class="spinner"></div>
+                            <p>اختر ملف مصحف ثم اضغط "تحميل الملف المحدد" أو اختر ملفاً من جهازك</p>
+                        </tr>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <input type="file" id="fileInput" accept=".js" style="display: none;">
+    
+    <script src="stats.js"></script>
+</body>
+</html>

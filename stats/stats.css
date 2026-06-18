@@ -1,0 +1,406 @@
+/* ========================================
+   إحصاءات الكلمات الملونة - متغيرات المشروع
+   ======================================== */
+
+:root {
+    --primary-gold: #FDEB9E;
+    --primary-gold-light: #FFF5CC;
+    --primary-gold-dark: #E6D17B;
+    --teal-soft: #7AE2CF;
+    --teal-medium: #4BC0A8;
+    --teal-dark: #077A7D;
+    --blue-deep: #06202B;
+    --blue-deep-light: #0A3040;
+    --bg-sidebar: rgba(6, 32, 43, 0.95);
+    --bg-sidebar-light: #0A3040;
+    --bg-card-dark: #0A3A48;
+    --bg-card-light: #0F4A5A;
+    --text-light: #FDEB9E;
+    --text-white: #FFFFFF;
+    --text-black: #06202B;
+    --quran-page-bg: #FFFEF7;
+    --dark-bg-main: #021218;
+    --dark-bg-sidebar: rgba(2, 18, 24, 0.98);
+    --dark-accent: #7AE2CF;
+    --dark-accent-light: #A0ECE0;
+    --dark-card-bg: #06202B;
+    --dark-text: #FDEB9E;
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-dark: rgba(0, 0, 0, 0.3);
+}
+/* ===== خلفية الصفحة مثل الرئيسية ===== */
+body {
+    background: #0d2818 url('../covers/bg_default.jpg') repeat !important;
+    background-size: auto !important;
+}
+
+@font-face {
+    font-family: 'NouariAbdelkabir';
+    src: url('../font/nouariabdelkabir.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'NouariAbdelkabir', 'Amiri', 'Traditional Arabic', serif;
+    min-height: 100vh;
+}
+
+.stats-app {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ===== الرأس ===== */
+.stats-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-sidebar-light);
+    padding: 15px 25px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    border-bottom: 3px solid var(--primary-gold);
+}
+
+.stats-header h1 {
+    color: var(--primary-gold);
+    font-size: 1.5rem;
+}
+
+.back-btn {
+    background: var(--primary-gold);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--text-black);
+}
+
+.back-btn:hover {
+    background: var(--primary-gold-light);
+    transform: scale(1.02);
+}
+
+/* ===== قسم التحكم ===== */
+.stats-controls {
+    background: var(--bg-sidebar);
+    border-radius: 20px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+}
+
+.filters {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.stats-select {
+    background: var(--bg-card-dark);
+    border: 1px solid var(--primary-gold);
+    padding: 10px 15px;
+    border-radius: 30px;
+    color: var(--primary-gold);
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.stats-btn {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.stats-btn.primary {
+    background: var(--primary-gold);
+    color: var(--text-black);
+}
+
+.stats-btn.blue {
+    background: #2980b9;
+    color: white;
+}
+
+.stats-btn.green {
+    background: #27ae60;
+    color: white;
+}
+
+.stats-btn.teal {
+    background: var(--teal-medium);
+    color: white;
+}
+
+.stats-btn:hover {
+    transform: scale(1.02);
+    opacity: 0.9;
+}
+
+/* ===== شريط التقدم ===== */
+.progress-container {
+    margin-top: 15px;
+    height: 30px;
+    background: var(--bg-card-dark);
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--primary-gold);
+    width: 0%;
+    transition: width 0.3s;
+}
+
+.progress-container span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--text-black);
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+/* ===== البطاقات الإحصائية ===== */
+.stats-summary {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.summary-card {
+    flex: 1;
+    min-width: 100px;
+    background: var(--bg-sidebar);
+    border-radius: 15px;
+    padding: 5px;
+    text-align: center;
+    border-right: 4px solid var(--primary-gold);
+}
+
+.summary-icon {
+    font-size: 1rem;
+    display: block;
+}
+
+.summary-label {
+    font-size: 0.8rem;
+    color: var(--primary-gold-dark);
+    display: block;
+    margin: 5px 0;
+}
+
+.summary-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-gold);
+}
+
+/* ===== الجدول ===== */
+.stats-table-container {
+    background: var(--quran-page-bg);
+    border-radius: 20px;
+    padding: 15px;
+    overflow-x: auto;
+    flex: 1;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+#statsTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.20rem;
+    flex: 1;
+}
+
+#statsTable th {
+    background: var(--primary-gold);
+    color: var(--text-black);
+    padding: 12px;
+    border: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+}
+
+#statsTable td {
+    padding: 10px;
+    border: 1px solid var(--primary-gold);
+    text-align: center;
+    color: var(--text-black);
+}
+
+#statsTable tbody tr:hover {
+    background: rgba(253, 235, 158, 0.2);
+    cursor: pointer;
+}
+
+/* خلفيات الألوان */
+.bg-c1 .bg-c1 .bg-c2 .bg-c3 .bg-c4 .bg-c4.bg-c5 .bg-c6 .bg-c7 .bg-c8.bg-c9 .bg-c10 .bg-c11 .bg-c12 .bg-c13 .bg-c14 .bg-c15 .bg-c16 .bg-c17 .bg-c18 .bg-c19 .bg-c20 .bg-c21{ background-color: rgb(255, 255, 255); }
+
+
+/* ===== مؤشر التحميل ===== */
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--primary-gold-light);
+    border-top: 4px solid var(--primary-gold);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===== الوضع الليلي ===== */
+body.dark-mode {
+    background: var(--dark-bg-main);
+}
+
+body.dark-mode .stats-header {
+    background: var(--dark-card-bg);
+    border-bottom-color: var(--dark-accent);
+}
+
+body.dark-mode .stats-header h1 {
+    color: var(--dark-accent);
+}
+
+body.dark-mode .back-btn {
+    background: var(--dark-accent);
+    color: var(--dark-bg-main);
+}
+
+body.dark-mode .back-btn:hover {
+    background: var(--dark-accent-light);
+}
+
+body.dark-mode .stats-controls {
+    background: var(--dark-bg-sidebar);
+}
+
+body.dark-mode .stats-select {
+    background: var(--dark-bg-main);
+    border-color: var(--dark-accent);
+    color: var(--dark-accent);
+}
+
+body.dark-mode .stats-btn.primary {
+    background: var(--dark-accent);
+    color: var(--dark-bg-main);
+}
+
+body.dark-mode .progress-bar {
+    background: var(--dark-accent);
+}
+
+body.dark-mode .progress-container span {
+    color: var(--dark-bg-main);
+}
+
+body.dark-mode .summary-card {
+    background: var(--dark-bg-sidebar);
+    border-right-color: var(--dark-accent);
+}
+
+body.dark-mode .summary-label {
+    color: var(--dark-accent-light);
+}
+
+body.dark-mode .summary-value {
+    color: var(--dark-accent);
+}
+
+body.dark-mode .stats-table-container {
+    background: var(--dark-card-bg);
+}
+
+body.dark-mode #statsTable th {
+    background: var(--dark-accent);
+    color: var(--dark-bg-main);
+}
+
+body.dark-mode #statsTable td {
+    color: var(--dark-text);
+    border-color: var(--dark-accent);
+}
+
+body.dark-mode #statsTable tbody tr:hover {
+    background: rgba(122, 226, 207, 0.15);
+}
+
+body.dark-mode .spinner {
+    border-color: var(--dark-accent);
+    border-top-color: var(--dark-accent-light);
+}
+
+/* ===== استجابة الهواتف ===== */
+@media (max-width: 768px) {
+    .stats-app { padding: 10px; }
+    .stats-header { flex-direction: column; gap: 10px; text-align: center; }
+    .filters { flex-direction: column; }
+    .stats-select, .stats-btn { width: 100%; }
+    
+    /* تطبيق الخط على جميع العناصر في وضع الهاتف */
+    body, .mobile-app, .mobile-top-bar, .mobile-quran-area,
+    .quran-text, .ayah-text, .ayah-number, .bismillah-line,
+    .surah-name, .surah-marker, .page-input, .nav-btn,
+    .ctrl-icon, .ctrl-btn, .menu-item, .rawi-item {
+        font-family: 'NouariAbdelkabir', 'Amiri', 'Traditional Arabic', serif !important;
+    }
+    
+    /* تصغير حجم البطاقات في وضع الهاتف */
+    .summary-icon { font-size: 1rem; }
+    .summary-label { font-size: 0.65rem; }
+    .summary-value { font-size: 0.9rem; }
+    
+    .summary-card {
+        min-width: auto;
+        width: auto;
+        padding: 5px 8px;
+        margin: 0;
+        flex: none;
+    }
+    
+    .stats-summary {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+        margin-bottom: 10px;
+    }
+    
+    .stats-btn { padding: 6px 10px; font-size: 0.9rem; }
+    .stats-select { padding: 5px 8px; font-size: 0.9rem; }
+    
+    #statsTable { font-size: 1.20rem; }
+    #statsTable th, #statsTable td { padding: 4px 3px; }
+    
+    .stats-header h1 { font-size: 1rem; }
+    .back-btn { padding: 4px 10px; font-size: 0.65rem; }
+}
