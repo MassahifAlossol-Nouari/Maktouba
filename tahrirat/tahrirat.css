@@ -1,0 +1,327 @@
+/* ========================================
+   تحريرات المصاحف - كامل مع إصلاح التمرير
+   ======================================== */
+
+@import url('../style.css');
+
+:root {
+    --primary-gold: #FDEB9E;
+    --primary-gold-light: #FFF5CC;
+    --primary-gold-dark: #E6D17B;
+    --teal-soft: #7AE2CF;
+    --teal-medium: #4BC0A8;
+    --teal-dark: #077A7D;
+    --blue-deep: #06202B;
+    --blue-deep-light: #0A3040;
+    --bg-sidebar: rgba(6, 32, 43, 0.95);
+    --bg-sidebar-light: #0A3040;
+    --bg-card-dark: #0A3A48;
+    --bg-card-light: #0F4A5A;
+    --text-light: #FDEB9E;
+    --text-white: #FFFFFF;
+    --text-black: #06202B;
+    --quran-page-bg: #FFFEF7;
+    --dark-bg-main: #021218;
+    --dark-bg-sidebar: rgba(2, 18, 24, 0.98);
+    --dark-accent: #7AE2CF;
+    --dark-accent-light: #A0ECE0;
+    --dark-card-bg: #06202B;
+    --dark-text: #FDEB9E;
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-dark: rgba(0, 0, 0, 0.3);
+    --shadow-ayat: rgba(136, 5, 5, 0.822);
+    --dark-table: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* ===== خلفية الصفحة مثل الرئيسية ===== */
+body {
+    background: #0d2818 url('../covers/bg_default.jpg') repeat !important;
+    background-size: auto !important;
+}
+
+/* ===== إصلاح التمرير ===== */
+html, body {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+body {
+    font-family: 'NouariAbdelkabir', 'Amiri', 'Traditional Arabic', serif;
+    background: #0d2818;
+    padding: 20px;
+}
+
+.tahrirat-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    height: auto !important;
+    min-height: 100vh !important;
+    padding-bottom: 50px !important;
+}
+
+/* ===== الرأس ===== */
+.tahrirat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-sidebar-light);
+    padding: 15px 25px;
+    border-radius: 20px;
+    margin-bottom: 5px;
+    border-bottom: 3px solid var(--primary-gold);
+    flex-shrink: 0;
+}
+.tahrirat-container h4 {
+    color: var(--primary-gold);
+    font-size: 0.9rem;
+     font-weight: bolder;
+}
+.tahrirat-header h1 {
+    color: var(--primary-gold);
+    font-size: 1rem;
+}
+
+.back-btn {
+    background: var(--primary-gold);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    color: var(--text-black);
+    transition: all 0.2s;
+}
+
+.back-btn:hover {
+    background: var(--primary-gold-light);
+    transform: scale(1.02);
+}
+
+/* ===== الفلاتر ===== */
+.tahrirat-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+    background: var(--bg-card-dark);
+    padding: 15px;
+    border-radius: 20px;
+    border: 1px solid var(--primary-gold);
+    flex-shrink: 0;
+}
+
+.filter-select,
+.filter-input {
+    background: var(--bg-sidebar-light);
+    border: 1px solid var(--primary-gold);
+    padding: 8px 15px;
+    border-radius: 30px;
+    color: var(--primary-gold);
+    font-family: inherit;
+    font-size: 0.9rem;
+    min-width: 120px;
+}
+
+.filter-input {
+    width: 150px;
+}
+
+.stats-btn.primary {
+    background: var(--primary-gold);
+    color: var(--text-black);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+}
+
+/* ===== الجدول ===== */
+.tahrirat-table-container {
+    background: var(--quran-page-bg);
+    border-radius: 20px;
+    padding: 1px;
+    overflow-x: auto;
+    height: auto !important;
+    overflow: visible !important;
+     border: 1px solid var(--primary-gold);
+}
+
+#tahriratTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.7rem;
+    height: auto !important;
+}
+
+#tahriratTable th {
+    background: var(--primary-gold);
+    color: var(--text-black);
+    padding: 10px;
+    border: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+#tahriratTable td {
+    padding: 4px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+#tahriratTable tbody tr:hover {
+    background: rgba(253, 235, 158, 0.15);
+}
+
+/* ===== ألوان التجويد ===== */
+.c1 { color: #FF0000; }
+.c2 { color: #C65911; }
+.c3 { color: #FF00FF; }
+.c4 { color: #FFC000; }
+.c5 { color: #5B9BD5; }
+.c6 { color: #002060; }
+.c7 { color: #00B0F0; }
+.c8 { color: #00FF00; }
+.c9 { color: #0000FF; }
+.c10 { color: #00FFFF; }
+.c11 { color: #ED7D31; }
+.c12 { color: #FF0066; }
+.c13 { color: #CC00CC; }
+.c14 { color: #C00000; }
+.c15 { color: #0070C0; }
+.c16 { color: #00B050; }
+.c17 { color: #7030A0; }
+.c18 { color: #548235; }
+.c19 { color: #CC0099; }
+.c20 { color: #92D050; }
+.c21 { color: #970573; }
+.c22 { color: #808080; }
+.c23 { color: #FFFF00; }
+.c24 { color: #FFFF00; }
+.c25 { color: #FFFF00; }
+
+/* ===== الوضع الليلي ===== */
+body.dark-mode {
+    background: var(--dark-bg-main);
+}
+
+body.dark-mode .tahrirat-header {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-accent);
+}
+
+body.dark-mode .tahrirat-header h1 {
+    color: var(--dark-accent);
+}
+
+body.dark-mode .back-btn {
+    background: var(--dark-accent);
+    color: var(--dark-bg-main);
+}
+
+body.dark-mode .tahrirat-controls {
+    background: var(--dark-bg-main);
+    border-color: var(--dark-accent);
+}
+
+body.dark-mode .filter-select,
+body.dark-mode .filter-input {
+    background: var(--dark-bg-main);
+    border-color: var(--dark-accent);
+    color: var(--dark-accent);
+}
+
+body.dark-mode .tahrirat-table-container {
+    background: var(--dark-table);
+}
+
+body.dark-mode #tahriratTable th {
+    background: var(--dark-accent);
+    color: var(--dark-bg-main);
+}
+
+body.dark-mode #tahriratTable td {
+    color: var(--dark-text);
+    border-color: var(--dark-accent);
+}
+
+body.dark-mode #tahriratTable tbody tr:hover {
+    background: rgba(122, 226, 207, 0.1);
+}
+
+/* ===== استجابة الهواتف ===== */
+@media (max-width: 768px) {
+    body {
+        padding: 1px;
+    }
+    
+    .tahrirat-controls {
+        flex-direction: column;
+    }
+    
+    .filter-select,
+    .filter-input,
+    .stats-btn.primary {
+        width: 100%;
+    }
+    
+    #tahriratTable {
+        font-size: 0.7rem;
+    }
+    
+    #tahriratTable th,
+    #tahriratTable td {
+        padding: 5px;
+        font-size: 0.7rem;
+    }
+}
+/* ===== تنسيق الآيات المرجعية (بين قوسين) ===== */
+.reference-ayah {
+    font-size: 1.3rem;
+    text-align: center;
+    direction: rtl;
+    background: rgba(253, 235, 158, 0.08);
+    border: 1px dashed var(--primary-gold);
+    border-radius: 12px;
+    padding: 12px 8px;
+    color: var(--shadow-ayat);
+    transition: all 0.2s;
+}
+
+.reference-ayah:hover {
+    background: rgba(253, 235, 158, 0.15);
+    border-color: var(--primary-gold-light);
+}
+
+/* الأقواس الجانبية */
+.reference-bracket {
+    font-size: 1.5rem;
+    color: var(--primary-gold);
+    font-weight: bold;
+    margin: 0 6px;
+}
+
+/* الوضع الليلي */
+body.dark-mode .reference-ayah {
+    background: rgba(122, 226, 207, 0.08);
+    border-color: var(--dark-accent);
+    color: var(--dark-accent);
+}
+
+body.dark-mode .reference-ayah:hover {
+    background: rgba(122, 226, 207, 0.15);
+}
+
+body.dark-mode .reference-bracket {
+    color: var(--dark-accent);
+}
