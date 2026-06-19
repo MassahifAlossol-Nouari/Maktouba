@@ -17,7 +17,7 @@ let dataUrl;
 if (window.location.port === '5500' || window.location.protocol === 'file:') {
     dataUrl = './tahrirat/';
 } else {
-    dataUrl = '/Maktouba/tahrirat/';
+    dataUrl = '/Maktouba/tahrirat/tahrirat/';
 }
 
 // دالة التحقق من المرجعية
