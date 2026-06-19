@@ -1,0 +1,866 @@
+/* ========================================
+   تحريرات المصاحف - الإصدار الجديد
+   ======================================== */
+
+@import url('../style.css');
+
+:root {
+    --primary-gold: #FDEB9E;
+    --primary-gold-light: #FFF5CC;
+    --primary-gold-dark: #E6D17B;
+    --teal-soft: #7AE2CF;
+    --teal-medium: #4BC0A8;
+    --teal-dark: #077A7D;
+    --blue-deep: #06202B;
+    --blue-deep-light: #0A3040;
+    --bg-sidebar: rgba(6, 32, 43, 0.95);
+    --bg-sidebar-light: #0A3040;
+    --bg-card-dark: #0A3A48;
+    --bg-card-light: #0F4A5A;
+    --text-light: #FDEB9E;
+    --text-white: #FFFFFF;
+    --text-black: #06202B;
+    --quran-page-bg: #FFFEF7;
+    --dark-bg-main: #021218;
+    --dark-bg-sidebar: rgba(2, 18, 24, 0.98);
+    --dark-accent: #7AE2CF;
+    --dark-accent-light: #A0ECE0;
+    --dark-card-bg: #06202B;
+    --dark-text: #FDEB9E;
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-dark: rgba(0, 0, 0, 0.3);
+    --shadow-ayat: rgba(136, 5, 5, 0.822);
+    --dark-table: #ffffff;
+}
+
+/* ========== كود الالوان ========== */
+.c1 { color: #FF0000; }
+.c2 { color: #C65911; }
+.c3 { color: #FF00FF; }
+.c4 { color: #FFC000; }
+.c5 { color: #5B9BD5; }
+.c6 { color: #002060; }
+.c7 { color: #00B0F0; }
+.c8 { color: #00FF00; }
+.c9 { color: #0000FF; }
+.c10 { color: #00FFFF; }
+.c11 { color: #ED7D31; }
+.c12 { color: #FF0066; }
+.c13 { color: #CC00CC; }
+.c14 { color: #C00000; }
+.c15 { color: #0070C0; }
+.c16 { color: #00B050; }
+.c17 { color: #7030A0; }
+.c18 { color: #548235; }
+.c19 { color: #CC0099; }
+.c20 { color: #92D050; }
+.c21 { color: #970573; }
+.c22 { color: #a8a8a5; }
+.c23 { color: #FFFF00; }
+.c24 { color: #FFFF00; }
+.c25 { color: #FFFF00; }
+
+/* ===== إعدادات عامة ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    background: #0d2818 url('../covers/bg_default.jpg') repeat !important;
+    background-size: auto !important;
+    font-family: 'NouariAbdelkabir', 'Amiri', 'Traditional Arabic', serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.tahrirat-container {
+    max-width: 1400px;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin: 0;
+}
+
+/* ===== الرأس ===== */
+.tahrirat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-sidebar-light);
+    padding: 12px 20px;
+    border-radius: 20px 20px 0 0;
+    border-bottom: 3px solid var(--primary-gold);
+    flex-shrink: 0;
+}
+
+.tahrirat-header h1 {
+    color: var(--primary-gold);
+    font-size: 1rem;
+    margin: 0;
+}
+
+.back-btn {
+    background: var(--primary-gold);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    color: var(--text-black);
+    transition: all 0.2s;
+}
+
+.back-btn:hover {
+    background: var(--primary-gold-light);
+    transform: scale(1.02);
+}
+
+/* ===== الفلاتر ===== */
+.tahrirat-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    background: var(--bg-card-dark);
+    padding: 10px 15px;
+    border-left: 1px solid var(--primary-gold);
+    border-right: 1px solid var(--primary-gold);
+    flex-shrink: 0;
+}
+
+.filter-select,
+.filter-input {
+    background: var(--bg-sidebar-light);
+    border: 1px solid var(--primary-gold);
+    padding: 6px 12px;
+    border-radius: 30px;
+    color: var(--primary-gold);
+    font-family: inherit;
+    font-size: 0.8rem;
+    min-width: 100px;
+}
+
+.filter-input {
+    width: 130px;
+}
+
+.stats-btn.primary {
+    background: var(--primary-gold);
+    color: var(--text-black);
+    border: none;
+    padding: 6px 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+}
+
+/* ===== الجدول (للكمبيوتر) ===== */
+.tahrirat-table-container {
+    background: var(--dark-table);
+    border-radius: 0 0 20px 20px;
+    padding: 1px;
+    overflow: auto;
+    border-left: 1px solid var(--primary-gold);
+    border-right: 1px solid var(--primary-gold);
+    border-bottom: 1px solid var(--primary-gold);
+    flex: 1;
+    min-height: 0;
+}
+
+#tahriratTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.75rem;
+}
+
+#tahriratTable th {
+    background: var(--primary-gold);
+    color: var(--text-black);
+    padding: 6px 4px;
+    border: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+#tahriratTable td {
+    padding: 4px 4px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+#tahriratTable tbody tr:hover {
+    background: rgba(253, 235, 158, 0.15);
+}
+
+/* ===== عرض الهاتف ===== */
+.mobile-container {
+    display: none;
+    background: var(--dark-table);
+    border-radius: 0 0 20px 20px;
+    border-left: 1px solid var(--primary-gold);
+    border-right: 1px solid var(--primary-gold);
+    border-bottom: 1px solid var(--primary-gold);
+    padding: 8px 12px 15px;
+    overflow-y: auto;
+    direction: rtl;
+    flex: 1;
+    min-height: 0;
+}
+
+/* ===== الآيات المرجعية ===== */
+.reference-line {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 5px;
+    border-bottom: 1px dashed rgba(253, 235, 158, 0.15);
+}
+
+.reference-line .ref-text {
+    font-size: 1.1rem;
+    color: var(--shadow-ayat);
+    text-align: center;
+}
+
+.reference-line .ref-bracket {
+    font-size: 1.3rem;
+    color: var(--primary-gold);
+    margin: 0 4px;
+}
+
+/* ===== سطر الآية ===== */
+.ayah-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 3px;
+    border-bottom: 1px solid rgba(253, 235, 158, 0.06);
+}
+
+.ayah-line:last-child {
+    border-bottom: none;
+}
+
+/* ===== الدائرة الذهبية ===== */
+.ayah-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-gold);
+    background: rgba(253, 235, 158, 0.1);
+    color: var(--primary-gold);
+    font-size: 0.7rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-weight: bold;
+    font-family: 'NouariAbdelkabir', 'Amiri', 'Traditional Arabic', serif;
+    transition: all 0.2s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.ayah-circle:active {
+    transform: scale(0.85);
+    background: rgba(253, 235, 158, 0.25);
+}
+
+/* ===== نص الآية ===== */
+.ayah-text {
+    flex: 1;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-black);
+    padding: 3px 0;
+    font-family: 'NouariAbdelkabir', 'Amiri', 'Traditional Arabic', serif;
+    text-align: right;
+}
+
+/* ===== البطاقة المنبثقة ===== */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.popup-overlay.active {
+    display: block;
+    pointer-events: auto;
+}
+
+/* ===== البطاقة المنبثقة ===== */
+.popup-card {
+    display: table !important;
+    position: absolute !important;
+    background: rgba(6, 32, 43, 0.95) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-radius: 16px !important;
+    padding: 15px 20px !important;
+    max-width: 100vw !important;
+    min-width: 120px !important;
+    width: auto !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5) !important;
+    direction: rtl !important;
+    font-family: 'NouariAbdelkabir', 'Amiri', 'Traditional Arabic', serif !important;
+    pointer-events: auto !important;
+    animation: slideDown 0.25s ease !important;
+    border-collapse: collapse !important;
+    table-layout: auto !important;  /* المهم: العرض حسب المحتوى */
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ===== صف البطاقة ===== */
+.popup-item {
+    display: table-row !important;
+    width: 100% !important;
+}
+
+
+/* ===== خلايا البطاقة ===== */
+.popup-cell {
+    display: table-cell !important;
+    padding: 10px 10px !important;
+    vertical-align: top !important;
+    text-align: right !important;
+}
+
+/* ===== أيقونة ===== */
+/* ===== خلايا البطاقة ===== */
+.popup-icon,
+.popup-label,
+.popup-value {
+    flex: 1 1 auto !important;
+    font-size: 0.8rem !important;
+    line-height: 1.6 !important;
+    word-break: break-word !important;
+    color: #fff !important;
+    white-space: normal !important;
+    padding: 0 !important;
+    min-width: 50px !important;
+    max-width: 120% !important;
+    overflow-wrap: break-word !important;
+    width: auto !important;
+}
+
+.popup-item:last-child .popup-icon,
+.popup-item:last-child .popup-label,
+.popup-item:last-child .popup-value {
+    border-bottom: none !important;
+}
+/* ===== أيقونة ===== */
+.popup-icon {
+    font-size: 0.9rem !important;
+    width: 30px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+}
+
+/* ===== التسمية ===== */
+.popup-label {
+    font-weight: bold !important;
+    color: var(--primary-gold) !important;
+    font-size: 0.75rem !important;
+    width: 90px !important;
+    white-space: nowrap !important;
+}
+
+/* ===== القيمة (تتوسع تلقائياً) ===== */
+.popup-value {
+    font-size: 0.85rem !important;
+    line-height: 1.6 !important;
+    word-break: break-word !important;
+    color: #fff !important;
+    white-space: normal !important;
+    width: auto !important;  /* تتوسع حسب المحتوى */
+    min-width: 80px !important;
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+}
+.no-data-mobile {
+    text-align: center;
+    padding: 40px 15px;
+    color: var(--text-black);
+    font-size: 1rem;
+    font-family: 'NouariAbdelkabir', 'Amiri', 'Traditional Arabic', serif;
+}
+
+/* ===== تنسيق الآيات المرجعية في الجدول ===== */
+.reference-ayah {
+    font-size: 1.3rem !important;
+    text-align: center !important;
+    direction: rtl;
+    background: rgba(253, 235, 158, 0.08) !important;
+    border-radius: 12px !important;
+    padding: 6px 15px !important;
+    color: #8B0000 !important;
+    font-family: 'NouariAbdelkabir', 'Amiri', 'Traditional Arabic', serif !important;
+    transition: all 0.3s ease;
+}
+
+.reference-ayah:hover {
+    background: rgba(253, 235, 158, 0.2) !important;
+    transform: scale(1.01);
+}
+
+.reference-bracket {
+    font-size: 1.6rem !important;
+    color: var(--primary-gold) !important;
+    font-weight: bold !important;
+    margin: 0 6px !important;
+    display: inline-block;
+}
+
+/* ===== زر إظهار/إخفاء مشغل الصوت ===== */
+.toggle-audio-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-gold);
+    background: var(--bg-sidebar-light);
+    color: var(--primary-gold);
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.toggle-audio-btn:hover {
+    transform: scale(1.1);
+    background: var(--primary-gold);
+    color: var(--text-black);
+}
+
+.toggle-audio-btn:active {
+    transform: scale(0.9);
+}
+
+/* ===== عند إخفاء مشغل الصوت ===== */
+.audio-player.hidden {
+    display: none !important;
+}
+
+/* ===== مشغل الصوت ===== */
+.audio-player {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-sidebar-light);
+    border-radius: 30px;
+    padding: 10px 25px;
+    border: 1px solid var(--primary-gold);
+    box-shadow: 0 4px 20px var(--shadow-dark);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 999;
+    backdrop-filter: blur(8px);
+    direction: rtl;
+}
+
+.audio-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.audio-btn {
+    background: var(--primary-gold);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    color: var(--text-black);
+}
+
+.audio-btn:hover {
+    background: var(--primary-gold-light);
+    transform: scale(1.05);
+}
+
+.audio-status {
+    color: var(--primary-gold-light);
+    font-size: 0.85rem;
+    min-width: 70px;
+}
+
+.audio-info {
+    display: flex;
+    gap: 20px;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    border-right: 1px solid var(--primary-gold);
+    padding-right: 20px;
+}
+
+.audio-info span {
+    color: var(--text-light);
+}
+
+/* ========================================
+   الوضع الليلي
+   ======================================== */
+body.dark-mode .mobile-container {
+    background: var(--dark-bg-main);
+    border-color: var(--dark-accent);
+}
+
+body.dark-mode .ayah-text {
+    color: var(--dark-text);
+}
+
+body.dark-mode .ayah-circle {
+    border-color: var(--dark-accent);
+    color: var(--dark-accent);
+    background: rgba(122, 226, 207, 0.1);
+}
+
+body.dark-mode .popup-card {
+    background: rgba(2, 18, 24, 0.97);
+    border-color: var(--dark-accent);
+}
+
+body.dark-mode .popup-item {
+    color: var(--dark-text);
+    border-color: rgba(122, 226, 207, 0.06);
+}
+
+body.dark-mode .popup-label {
+    color: var(--dark-accent);
+}
+
+body.dark-mode .popup-value {
+    color: #eee;
+}
+
+body.dark-mode .no-data-mobile {
+    color: var(--dark-text);
+}
+
+body.dark-mode .tahrirat-header {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-accent);
+}
+
+body.dark-mode .tahrirat-header h1 {
+    color: var(--dark-accent);
+}
+
+body.dark-mode .tahrirat-controls {
+    background: var(--dark-bg-main);
+    border-color: var(--dark-accent);
+}
+
+body.dark-mode .filter-select,
+body.dark-mode .filter-input {
+    background: var(--dark-bg-main);
+    border-color: var(--dark-accent);
+    color: var(--dark-accent);
+}
+
+body.dark-mode .tahrirat-table-container {
+    background: var(--dark-table);
+}
+
+body.dark-mode .reference-line .ref-text {
+    color: var(--dark-accent);
+}
+
+body.dark-mode .reference-line .ref-bracket {
+    color: var(--dark-accent);
+}
+
+body.dark-mode .reference-ayah {
+    background: rgba(122, 226, 207, 0.08) !important;
+    color: var(--dark-accent) !important;
+}
+
+body.dark-mode .reference-ayah:hover {
+    background: rgba(122, 226, 207, 0.15) !important;
+}
+
+body.dark-mode .reference-bracket {
+    color: var(--dark-accent) !important;
+}
+
+body.dark-mode .audio-player {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-accent);
+}
+
+body.dark-mode .audio-btn {
+    background: var(--dark-accent);
+    color: var(--dark-bg-main);
+}
+
+body.dark-mode .audio-status {
+    color: var(--dark-accent);
+}
+
+body.dark-mode .audio-info {
+    color: var(--dark-text);
+    border-color: var(--dark-accent);
+}
+
+body.dark-mode .toggle-audio-btn {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-accent);
+    color: var(--dark-accent);
+}
+
+body.dark-mode .toggle-audio-btn:hover {
+    background: var(--dark-accent);
+    color: var(--dark-bg-main);
+}
+
+/* ========================================
+   استجابة الهواتف
+   ======================================== */
+@media (max-width: 768px) {
+    body {
+        padding: 0px !important;
+        height: 100vh;
+        overflow: hidden;
+    }
+    
+    .tahrirat-container {
+        padding: 0px !important;
+        height: 100vh;
+    }
+    
+    .tahrirat-header {
+        padding: 1px 12px;
+        border-radius: 15px 15px 0 0;
+        flex-shrink: 0;
+    }
+    
+    .tahrirat-header h1 {
+        font-size: 0.7rem;
+    }
+    
+    /* ===== زر العودة (أيقونة فقط) ===== */
+    .back-btn {
+        font-size: 0 !important;
+        padding: 4px 4px !important;
+        min-width: 30px !important;
+        width: 30px !important;
+        height: 30px !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: var(--primary-gold) !important;
+        border: none !important;
+    }
+    
+    .back-btn::after {
+        content: "🏠" !important;
+        font-size: 0.9rem !important;
+    }
+    
+    /* ===== الفلاتر في صف واحد ===== */
+    .tahrirat-controls {
+        padding: 5px 8px;
+        gap: 4px;
+        flex-shrink: 0;
+        border-radius: 0;
+        border-bottom: none;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .filter-select,
+    .filter-input {
+        font-size: 0.55rem !important;
+        padding: 3px 5px !important;
+        min-width: 50px !important;
+        max-width: 70px !important;
+        flex: 0 1 auto !important;
+    }
+    
+    .filter-input {
+        width: 60px !important;
+    }
+    
+    /* ===== زر إعادة الضبط (أيقونة فقط) ===== */
+    .stats-btn.primary {
+        font-size: 0 !important;
+        padding: 4px 4px !important;
+        min-width: 30px !important;
+        width: 30px !important;
+        height: 30px !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: var(--primary-gold) !important;
+        border: none !important;
+        color: var(--text-black) !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .stats-btn.primary::after {
+        content: "🔄" !important;
+        font-size: 0.8rem !important;
+    }
+    
+    /* ===== إخفاء الجدول ===== */
+    .tahrirat-table-container {
+        display: none !important;
+        height: 0 !important;
+        flex: 0 !important;
+    }
+    
+    /* ===== عرض الهاتف ===== */
+    .mobile-container {
+        display: block !important;
+        border-radius: 0 0 15px 15px;
+        padding: 6px 10px 12px;
+        border-top: none;
+        flex: 1 !important;
+        min-height: 0 !important;
+        height: auto !important;
+        overflow-y: auto !important;
+    }
+    
+    /* ===== تنسيق الآيات ===== */
+    .ayah-line {
+        padding: 4px 2px;
+        gap: 6px;
+    }
+    
+    .ayah-circle {
+        min-width: 22px;
+        height: 22px;
+        font-size: 0.55rem;
+    }
+    
+    .ayah-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    .reference-line .ref-text {
+        font-size: 1rem;
+    }
+    
+    .reference-line .ref-bracket {
+        font-size: 1.1rem;
+    }
+    
+    /* ===== البطاقة ===== */
+    .popup-card {
+        max-width: 100vw !important;
+        min-width: 120px !important;
+        padding: 15px 25px !important;
+        grid-template-columns: auto auto 1fr !important;
+        gap: 6px 3px !important;
+        padding-top: 20px !important;    /* أعلى */
+        padding-bottom: 20px !important; /* أسفل */
+        padding-right: 25px !important;  /* يمين (لأن النص من اليمين) */
+        padding-left: 25px !important;   /* يسار */
+    }
+    
+    
+    .popup-item {
+        padding: 3px 0;
+        gap: 1px;
+    }
+    
+    .popup-label {
+        min-width: 45px;
+        font-size: 0.65rem;
+    }
+    
+    .popup-value {
+        font-size: 0.6rem;
+    }
+    
+    /* ===== زر الصوت ===== */
+    .toggle-audio-btn {
+        bottom: 15px;
+        left: 15px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+    
+    /* ===== مشغل الصوت ===== */
+    .audio-player {
+        bottom: 10px;
+        padding: 6px 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+        width: 98%;
+        border-radius: 20px;
+    }
+    
+    .audio-info {
+        border-right: none;
+        padding-right: 0;
+        gap: 6px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .audio-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+    
+    .audio-status {
+        font-size: 0.7rem;
+        min-width: 50px;
+    }
+}
