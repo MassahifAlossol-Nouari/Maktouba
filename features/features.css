@@ -1,0 +1,538 @@
+/* ========================================
+   المتغيرات اللونية (نفس ألوان المشروع)
+   ======================================== */
+:root {
+    --primary-gold: #FDEB9E;
+    --primary-gold-light: #FFF5CC;
+    --primary-gold-dark: #E6D17B;
+    --teal-soft: #7AE2CF;
+    --teal-medium: #4BC0A8;
+    --teal-dark: #077A7D;
+    --blue-deep: #06202B;
+    --blue-deep-light: #0A3040;
+    --bg-sidebar: rgba(6, 32, 43, 0.95);
+    --bg-sidebar-light: #0A3040;
+    --bg-card-dark: #0A3A48;
+    --bg-card-light: #0F4A5A;
+    --text-light: #FDEB9E;
+    --text-white: #FFFFFF;
+    --text-black: #06202B;
+    --quran-page-bg: #FFFEF7;
+    --dark-bg-main: #021218;
+    --dark-bg-sidebar: rgba(2, 18, 24, 0.98);
+    --dark-accent: #7AE2CF;
+    --dark-accent-light: #A0ECE0;
+    --dark-card-bg: #06202B;
+    --dark-text: #FDEB9E;
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-dark: rgba(0, 0, 0, 0.3);
+}
+
+/* ===== خلفية الصفحة مثل الرئيسية ===== */
+body {
+    background: #0d2818 url('../covers/bg_default.jpg') repeat !important;
+    background-size: auto !important;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'NouariAbdelkabir', 'Amiri', 'Traditional Arabic', serif;
+    height: 100vh;
+    overflow: hidden;
+    padding: 0px;
+}
+
+/* ========================================
+   الحاوية الرئيسية
+   ======================================== */
+.features-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: fadeIn 0.5s ease;
+}
+
+/* ========================================
+   الرأس
+   ======================================== */
+.features-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    background: var(--bg-sidebar-light);
+    padding: 5px 10px;
+    border-radius: 30px;
+    margin-bottom: 1px;
+    border: 1px solid var(--primary-gold);
+    box-shadow: 0 5px 20px var(--shadow-dark);
+    flex-shrink: 0;
+}
+
+.features-header h1 {
+    color: var(--primary-gold);
+    font-size: 1rem;
+}
+
+.back-btn {
+    background: var(--primary-gold);
+    border: none;
+    padding: 3px 18px;
+    border-radius: 40px;
+    font-size: 0.6rem;
+    font-weight: bold;
+    color: var(--text-black);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: var(--primary-gold-light);
+    transform: scale(1.02);
+}
+
+/* ========================================
+   ثلاثة أعمدة
+   ======================================== */
+.features-main {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.mushafs-list-right,
+.features-list-left {
+    width: 190px;
+    flex-shrink: 0;
+    background: var(--bg-card-light);
+    border-radius: 20px;
+    padding: 1px;
+    border: 1px solid var(--primary-gold);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.list-header {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: var(--primary-gold-light);
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--primary-gold);
+    flex-shrink: 0;
+}
+
+.mushafs-grid,
+.features-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.mushaf-btn,
+.feature-btn {
+    background: var(--bg-card-dark);
+    border: none;
+    padding: 8px 10px;
+    border-radius: 12px;
+    color: var(--text-light);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.75rem;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.mushaf-btn:hover,
+.feature-btn:hover {
+    background: var(--primary-gold);
+    color: var(--text-black);
+    transform: translateX(-3px);
+}
+
+.mushaf-dropdown,
+.features-dropdown {
+    display: none;
+}
+
+/* ========================================
+   العمود الأوسط (عرض PDF)
+   ======================================== */
+.pdf-viewer-center {
+    flex: 1;
+    background: var(--bg-card-light);
+    border-radius: 20px;
+    padding: 1px;
+    border: 1px solid var(--primary-gold);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.iframe-container {
+    flex: 1;
+    min-height: 0;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 1px;
+    width: 100%;
+    height: 100%;
+}
+
+/* ===== تنسيق object لعرض PDF ===== */
+#pdfFrame {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 500px;
+    border: none;
+    border-radius: 15px;
+    display: block;
+}
+
+/* ========================================
+   شريط التحكم
+   ======================================== */
+.pdf-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    height: 1cm;
+    min-height: 1cm;
+    max-height: 1cm;
+    flex-shrink: 0;
+}
+
+.nav-btn {
+    background: var(--primary-gold);
+    border: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 0.7rem;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn:hover {
+    background: var(--primary-gold-light);
+    transform: scale(1.02);
+}
+
+.page-number {
+    color: var(--text-light);
+    font-size: 0.7rem;
+    font-weight: bold;
+    min-width: 70px;
+    text-align: center;
+}
+
+/* ========================================
+   عناصر الهاتف (مخفية افتراضياً)
+   ======================================== */
+.mobile-bottom-bar,
+.mobile-dropdown-list {
+    display: none;
+}
+
+/* ========================================
+   الوضع الليلي
+   ======================================== */
+body.dark-mode {
+    background: linear-gradient(135deg, var(--dark-bg-main) 0%, #010a0f 100%);
+}
+
+body.dark-mode .features-header,
+body.dark-mode .mushafs-list-right,
+body.dark-mode .features-list-left,
+body.dark-mode .pdf-viewer-center {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-accent);
+}
+
+body.dark-mode .features-header h1 {
+    color: var(--dark-accent);
+}
+
+body.dark-mode .list-header {
+    color: var(--dark-accent);
+}
+
+body.dark-mode .mushaf-btn,
+body.dark-mode .feature-btn {
+    background: var(--dark-bg-main);
+    color: var(--dark-text);
+}
+
+body.dark-mode .mushaf-btn:hover,
+body.dark-mode .feature-btn:hover {
+    background: var(--dark-accent);
+    color: var(--dark-bg-main);
+}
+
+body.dark-mode .nav-btn {
+    background: var(--dark-accent);
+    color: var(--dark-bg-main);
+}
+
+body.dark-mode .page-number {
+    color: var(--dark-accent);
+}
+
+/* ========================================
+   تصميم الهاتف
+   ======================================== */
+@media (max-width: 768px) {
+    body {
+        padding: 0px;
+    }
+    #pdfFrame {
+        min-height: 100vh !important;
+        height: 100vh !important;
+    }
+    .mushafs-list-right,
+    .features-list-left,
+    .pdf-controls {
+        display: none !important;
+    }
+    
+    .pdf-viewer-center {
+        padding: 1px;
+        border-radius: 10px;
+    }
+    
+    .mobile-bottom-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--bg-sidebar-light);
+        padding: 0 12px;
+        border-radius: 40px;
+        border: 1px solid var(--primary-gold);
+        height: 1.2cm;
+        min-height: 1.2cm;
+        max-height: 1.2cm;
+        flex-shrink: 0;
+    }
+    
+    .mobile-nav-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--bg-card-dark);
+        padding: 0 12px;
+        border-radius: 40px;
+        height: 0.9cm;
+    }
+    
+    .mobile-nav-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: var(--primary-gold);
+        border: none;
+        cursor: pointer;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .mobile-page-num {
+        font-size: 0.75rem;
+        min-width: 35px;
+        text-align: center;
+        color: var(--text-light);
+        font-weight: bold;
+    }
+    
+    .mobile-dropdown-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: var(--primary-gold);
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    .mobile-dropdown-btn:active {
+        transform: scale(0.95);
+    }
+    
+    .mobile-dropdown-list {
+        display: none;
+        position: fixed;
+        bottom: 70px;
+        background: var(--bg-card-light);
+        min-width: 100px;
+        max-height: 400px;
+        overflow-y: auto;
+        border-radius: 20px;
+        border: 1px solid var(--primary-gold);
+        z-index: 1000;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    }
+    
+    .mobile-dropdown-list:first-of-type {
+        right: 15px;
+    }
+    
+    .mobile-dropdown-list:last-of-type {
+        left: 15px;
+    }
+    
+    .mobile-dropdown-list.show {
+        display: block !important; /* مهم جداً */
+
+    }
+    
+    .mobile-dropdown-item {
+        padding: 8px 12px;
+        cursor: pointer;
+        color: var(--text-light);
+        font-size: 0.7rem;
+        border-bottom: 1px solid var(--primary-gold);
+        text-align: center;
+    }
+    
+    .mobile-dropdown-item:last-child {
+        border-bottom: none;
+    }
+    
+    .mobile-dropdown-item:active {
+        background: var(--primary-gold);
+        color: var(--text-black);
+    }
+    
+    body.dark-mode .mobile-bottom-bar {
+        background: var(--dark-card-bg);
+        border-color: var(--dark-accent);
+    }
+    
+    body.dark-mode .mobile-dropdown-btn,
+    body.dark-mode .mobile-nav-btn {
+        background: var(--dark-accent);
+        color: var(--dark-bg-main);
+    }
+    
+    body.dark-mode .mobile-page-num {
+        color: var(--dark-accent);
+    }
+    
+    body.dark-mode .mobile-nav-controls {
+        background: var(--dark-bg-main);
+    }
+    
+    body.dark-mode .mobile-dropdown-list {
+        background: var(--dark-card-bg);
+        border-color: var(--dark-accent);
+    }
+    
+    body.dark-mode .mobile-dropdown-item {
+        color: var(--dark-accent);
+        border-bottom-color: var(--dark-accent);
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-bottom-bar,
+    .mobile-dropdown-list {
+        display: none !important;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* إخفاء أشرطة التمرير في الحاويات الداخلية فقط */
+.sidebar-content,
+.surah-sidebar-content,
+.mushafs-grid,
+.features-buttons,
+.surah-grid,
+.mobile-dropdown-list,
+.iframe-container {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.sidebar-content::-webkit-scrollbar,
+.surah-sidebar-content::-webkit-scrollbar,
+.mushafs-grid::-webkit-scrollbar,
+.features-buttons::-webkit-scrollbar,
+.surah-grid::-webkit-scrollbar,
+.mobile-dropdown-list::-webkit-scrollbar,
+.iframe-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* ===== أزرار التنقل في العمود الأيسر (للكمبيوتر فقط) ===== */
+.desktop-only {
+    display: flex !important;
+}
+
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none !important;
+    }
+}
+
+.features-list-left .pdf-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 5px;
+    margin-top: 5px;
+    border-top: 1px solid var(--primary-gold);
+    flex-shrink: 0;
+}
+
+.features-list-left .pdf-controls .nav-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.7rem;
+}
+
+.features-list-left .pdf-controls .page-number {
+    font-size: 0.7rem;
+    min-width: 60px;
+}
+
+/* ===== إخفاء أزرار التنقل من العمود الأوسط ===== */
+.pdf-viewer-center .pdf-controls {
+    display: none !important;
+}
