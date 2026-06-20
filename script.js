@@ -3702,3 +3702,94 @@ if (document.readyState === 'loading') {
         initMobileFeatures();
     }
 })();
+
+// ========================================
+// دالة عامة للفتح والغلق (toggle)
+// ========================================
+
+function toggleSection(bodyId, headerElement) {
+    const body = document.getElementById(bodyId);
+    if (!body) return;
+    
+    // العثور على زر السهم داخل الرأس (بغض النظر عن اسم الكلاس)
+    const toggleBtn = headerElement.querySelector('button');
+    
+    // تبديل حالة الإظهار
+    if (body.style.display === 'none' || body.style.display === '') {
+        body.style.display = 'block';
+        if (toggleBtn) toggleBtn.textContent = '▲';
+    } else {
+        body.style.display = 'none';
+        if (toggleBtn) toggleBtn.textContent = '▼';
+    }
+}
+
+// ========================================
+// إغلاق جميع الأقسام وربطها بأحداث النقر
+// ========================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // قائمة بجميع الأقسام (بدون تغيير HTML)
+    const sections = [
+        { body: 'readersBody', headerClass: 'readers-header' },
+        { body: 'tafsirBody', headerClass: 'tafsir-header' },
+        { body: 'colorLegendBody', headerClass: 'color-legend-header' },
+        { body: 'searchBody', headerClass: 'search-header' },
+        { body: 'indexBody', headerClass: 'index-header' },
+        { body: 'featuresBody', headerClass: 'features-header' },
+        { body: 'mobileReadersBody', headerClass: 'readers-header-mobile' },
+        { body: 'colorLegendBodyMobile', headerClass: 'color-legend-header-mobile' },
+        { body: 'tafsirBodyMobile', headerClass: 'tafsir-header-mobile' },
+        { body: 'mobileSettingsBody', headerClass: 'settings-header-mobile' },
+        { body: 'mobileSearchBody', headerClass: 'search-header-mobile' },
+        { body: 'mobileIndexBody', headerClass: 'index-header-mobile' },
+        { body: 'featuresBodyMobile', headerClass: 'features-header-mobile' }
+    ];
+
+    // 1. إغلاق جميع الأقسام عند التحميل
+    sections.forEach(function(section) {
+        const body = document.getElementById(section.body);
+        const header = document.querySelector('.' + section.headerClass);
+        
+        if (body) {
+            body.style.display = 'none';
+            body.classList.remove('open');
+        }
+        if (header) {
+            const toggleBtn = header.querySelector('button');
+            if (toggleBtn) {
+                toggleBtn.textContent = '▼';
+                toggleBtn.classList.remove('open');
+            }
+            
+            // 2. ربط الحدث بالرأس بالكامل (بدون تغيير HTML)
+            header.style.cursor = 'pointer';
+            header.addEventListener('click', function(e) {
+                // منع الحدث إذا كان الضغط على زر أو رابط داخل الرأس
+                if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
+                    return;
+                }
+                // استدعاء دالة التبديل
+                toggleSection(section.body, this);
+            });
+        }
+    });
+
+    // 3. التأكد من أن أزرار السهم تعمل أيضاً (للمستخدمين الذين يضغطون عليها)
+    document.querySelectorAll('.readers-toggle-btn, .tafsir-toggle-btn, .color-legend-toggle-btn, .search-toggle-btn, .index-toggle-btn, .features-toggle-btn, .readers-toggle-btn-mobile, .tafsir-toggle-btn-mobile, .color-legend-toggle-btn-mobile, .search-toggle-btn-mobile, .index-toggle-btn-mobile, .features-toggle-btn-mobile, .settings-toggle-btn-mobile').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation(); // منع الحدث من الانتقال إلى الرأس
+            const header = this.closest('[class$="-header"], [class$="-header-mobile"]');
+            if (header) {
+                // العثور على bodyId المناسب
+                const bodyId = header.parentElement.querySelector('[id$="Body"], [id$="BodyMobile"]')?.id;
+                if (bodyId) {
+                    toggleSection(bodyId, header);
+                }
+            }
+        });
+    });
+
+    console.log('✅ جميع الأقسام مطوية، ويمكن فتحها بالضغط على أي جزء من الرأس');
+});
