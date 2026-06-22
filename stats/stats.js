@@ -365,7 +365,6 @@ function displayTable(data) {
         let wordCell = row.insertCell(4);
         wordCell.innerHTML = item.wordHtml || item.word;
         wordCell.style.cursor = 'pointer';
-        wordCell.style.textDecoration = 'underline';
         wordCell.style.color = '#000000';
         
         wordCell.setAttribute('data-page', item.page);
