@@ -222,7 +222,7 @@ function showToast(message, duration) {
 // ==================== القسم الرابع: دوال عرض النص ====================
 
 function renderPageContent(ayahs) {
-    if (!ayahs || ayahs.length === 0) return '<div class="welcome-message"> الأيات الكريمة في طور الإعداد. قريبا إن شاء الله ستكون في المتناول. وصلنا للإمام ابن عامر. جزاكم الله خيرا</div>';
+    if (!ayahs || ayahs.length === 0) return '<div class="welcome-message"> الأيات الكريمة في طور الإعداد. قريبا إن شاء الله ستكون في المتناول. وصلنا للإمام عاصم. جزاكم الله خيرا</div>';
     
     let html = '<div class="quran-text">';
     let lastSurah = null;
