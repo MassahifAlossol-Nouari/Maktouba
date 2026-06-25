@@ -43,7 +43,7 @@ const qiraatData = {
     kisai: { name: "الإمام الكسائي الكوفي", rawis: [{ id: "abuHarith", name: "رواية أبو الحارث", file: "mushaf_abuHarith.js" }, { id: "dooriKisai", name: "رواية الدوري كسائي", file: "mushaf_doori_kisai.js" }] },
     abuJafar: { name: "الإمام أبو جعفر المدني", rawis: [{ id: "ibnWardan", name: "رواية ابن وردان", file: "mushaf_ibnWardan.js" }, { id: "ibnJammaz", name: "رواية ابن جماز", file: "mushaf_ibnJammaz.js" }] },
     yaqub: { name: "الإمام يعقوب الحضرمي", rawis: [{ id: "ruways", name: "رواية رويس", file: "mushaf_ruways.js" }, { id: "ruh", name: "رواية روح", file: "mushaf_ruh.js" }] },
-    khalafAsher: { name: "الإمام خلف العاشر", rawis: [{ id: "ishaq", name: "رواية إسحاق", file: "mushaf_ishaq.js" }, { id: "idris", name: "رواية إدريس", file: "mushaf_idris.js" }] }
+    khalafAsher: { name: "الإمام خلف العاشر", rawis: [{ id: "ishaq", name: "رواية إسحاق", file: "mushaf_ishaq.js" }, { id: "idris", name: "رواية إدريس", file: "mushaf_ishaq.js" }] }
 };
 
 const totalPages = 604;
