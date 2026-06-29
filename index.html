@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مصاحف الأصول الملونة</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- القائمة الجانبية اليسرى -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3>📚 القراءات العشر مكتوبة 📚</h3>
+                <button id="toggleSidebarBtn" class="toggle-btn">◀</button>
+            </div>
+            <div class="sidebar-content">
+                <div class="mode-buttons">
+                    <button id="singleModeBtn" class="mode-btn active">📖 صفحة</button>
+                    <button id="doubleModeBtn" class="mode-btn">📖📖 صفحتان</button>
+                    <button id="compareModeBtn" class="mode-btn">⚖️ مقارنة</button>
+                </div>
+                <!-- قسم القراء القابل للطي -->
+                <div class="readers-section">
+                    <div class="readers-header">
+                        <span>📚 روايات القراء العشرة</span>
+                        <button class="readers-toggle-btn" title="طي/فتح">▲</button>
+                    </div>
+                    <div class="readers-body" id="readersBody">
+                        <div id="readersTree" class="readers-tree"></div>
+                    </div>
+                </div>
+                <!-- قسم التفسير -->
+                <div class="tafsir-section">
+                    <div class="tafsir-header">
+                        <span>📖 تفسير الإمام السعدي</span>
+                        <button class="tafsir-toggle-btn" title="طي/فتح">▲</button>
+                    </div>
+                    <div class="tafsir-body" id="tafsirBody">
+                        <div class="tafsir-placeholder">📌 اضغط على أي ءاية لعرض تفسيرها</div>
+                    </div>
+                </div>
+                <!-- قسم دليل الألوان -->
+                <div class="color-legend-section">
+                    <div class="color-legend-header">
+                        <span>🎨 دليل الألوان</span>
+                        <button class="color-legend-toggle-btn" title="طي/فتح">▲</button>
+                    </div>
+                    <div class="color-legend-body" id="colorLegendBody">
+                        <div class="color-legend-grid" id="colorLegendGrid"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- القسم الرئيسي (المصحف) -->
+        <main class="main-area">
+            <div class="top-bar">
+                <div class="surah-name" id="surahNameDisplay">الفاتحة</div>
+                <div class="juz-number" id="juzDisplay">الجزء 1</div>
+            </div>
+            <div class="view-area">
+                <div id="singleView" class="view active">
+                    <div class="page-container" id="singlePage"></div>
+                </div>
+                <div id="doubleView" class="view">
+                    <div class="double-container">
+                        <div class="page-box" id="rightPage"></div>
+                        <div class="page-box" id="leftPage"></div>
+                    </div>
+                </div>
+                <div id="compareView" class="view">
+                    <div class="compare-container">
+                        <div class="compare-box">
+                            <div class="compare-title" id="compareTitle1">
+                                <span>📖 الراوي الأول</span>
+                                <button class="select-rawi-btn" data-side="1">اختر</button>
+                            </div>
+                            <div class="compare-page" id="comparePage1"></div>
+                        </div>
+                        <div class="compare-box">
+                            <div class="compare-title" id="compareTitle2">
+                                <span>📖 الراوي الأخير</span>
+                                <button class="select-rawi-btn" data-side="2">اختر</button>
+                            </div>
+                            <div class="compare-page" id="comparePage2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- شريط التحكم السفلي -->
+            <div class="control-bar">
+                <div class="dropdown-container">
+                    <button id="menuBtn" class="menu-btn" title="القائمة">☰</button>
+                    <div id="dropdownMenu" class="dropdown-menu">
+                        <button id="darkModeBtn" class="dropdown-item">🌙 الوضع الليلي</button>
+                        <button id="fontPlusBtn" class="dropdown-item">🔍+ تكبير الخط</button>
+                        <button id="fontMinusBtn" class="dropdown-item">🔍- تصغير الخط</button>
+                        <button id="bookmarkBtn" class="dropdown-item">🔖 إشارة مرجعية</button>
+                        <button id="searchBtn" class="dropdown-item">🔍 بحث</button>
+                        <button id="savePositionBtn" class="dropdown-item">💾 حفظ آخر موضع</button>
+                        <button id="resumeBtn" class="dropdown-item">▶️ استئناف القراءة</button>
+                        <button id="shareBtn" class="dropdown-item">📤 مشاركة</button>
+                        <a href="Reader/Reader.html" target="_blank" class="ctrl-icon">استماع🎧</a>
+                        <a href="stats/stats.html" target="_blank" class="ctrl-icon">إحصاءات📊</a>
+                    </div>
+                </div>
+                <div class="page-controls">
+                    <button id="prevBtn" class="ctrl-btn">▶ السابقة</button>
+                    <div class="page-input-wrapper">
+                        <input type="text" id="pageInput" class="page-input" placeholder="صفحة" value="1">
+                        <span class="page-separator"></span>
+                        <span class="total-pages"></span>
+                    </div>
+                    <button id="nextBtn" class="ctrl-btn">التالية ◀</button>
+                </div>
+                <div class="empty-space"></div>
+            </div>
+        </main>
+
+        <!-- القائمة الجانبية اليمنى (الفهرس والبحث) -->
+        <div class="surah-sidebar" id="surahSidebar">
+            <div class="surah-sidebar-header">
+                <h3>📑 الفهرس والبحث</h3>
+                <button id="toggleSurahSidebarBtn" class="toggle-btn">◀</button>
+            </div>
+            <div class="surah-sidebar-content">
+                <div class="search-section">
+                    <div class="search-header">
+                        <span>🔍 البحث في القرءان</span>
+                        <button class="search-toggle-btn" title="طي/فتح">▲</button>
+                    </div>
+                    <div class="search-body" id="searchBody">
+                        <div class="search-box">
+                            <input type="text" id="sidebarSearchInput" placeholder="🔍 ابحث في القرءان..." class="sidebar-search-input">
+                            <div id="sidebarSearchResults" class="sidebar-search-results"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="index-section">
+                    <div class="index-header">
+                        <span>📑 فهرس السور والأجزاء والأحزاب</span>
+                        <button class="index-toggle-btn" title="طي/فتح">▲</button>
+                    </div>
+                    <div class="index-body" id="indexBody">
+                        <div class="index-filters">
+                            <label><input type="checkbox" id="filterSura" checked> السور</label>
+                            <label><input type="checkbox" id="filterJuza"> الأجزاء</label>
+                            <label><input type="checkbox" id="filterHizb"> الأحزاب</label>
+                        </div>
+                        <div id="indexList" class="index-list"></div>
+                    </div>
+                </div>
+                <!-- ===== قسم مميزات المصاحف (قابل للطي، بنفس تنسيق البحث) ===== -->
+                <div class="features-section">
+                    <div class="features-header">
+                        <span>📑  مميزات المصاحف</span>
+                        <button class="features-toggle-btn" title="طي/فتح">▲</button>
+                    </div>
+                    <div class="features-body" id="featuresBody">
+                        <a href="features/features.html" class="features-link" target="_blank">
+                            ✨ استكشف مميزات المصاحف ✨
+                        </a>
+                        <a href="tahrirat/tahrirat.html" class="features-link" target="_blank">
+                            ✨ جمع القراءات العشر الصغرى ✨
+                        </a>
+                        <a href="Reader/Reader.html" class="features-link" target="_blank">
+                            ✨ استمع للقراءات العشر  ✨
+                        </a>
+                        <a href="stats/stats.html" class="features-link" target="_blank">
+                            ✨ إحصائيات الكلمات الملونة  ✨
+                        </a>
+                        <a href="https://massahifalossol-nouari.github.io/MassahifAlossolAlmolawana/" class="features-link" target="_blank">
+                            ✨ تحميل مصاحف الأصول الملونة PDF ✨
+                        </a>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+
+    <button id="showSurahSidebarBtn" class="show-surah-btn" title="عرض قائمة السور">📖</button>
+
+    <div id="readerModal" class="modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>اختر الراوي</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="modalReadersList"></div>
+        </div>
+    </div>
+
+
+    <!-- تصميم الهواتف -->
+    <div class="mobile-app" style="display: none;">
+        <header class="mobile-top-bar">
+            <div class="surah-name" id="mobileSurahName">الفاتحة</div>
+            <div class="juz-number" id="mobileJuzDisplay">الجزء 1</div>
+        </header>
+        <main class="mobile-quran-area">
+            <div id="mobileSingleView" class="view active">
+                <div class="page-container" id="mobileSinglePage"></div>
+            </div>
+        </main>
+        <footer class="mobile-bottom-bar">
+            <button id="openRightMenuBtn" class="menu-open-btn-bottom left-bottom" title="قائمة القراء">📚</button>
+            <button id="mobilePrevBtn" class="nav-btn">▶</button>
+            <div class="page-input-wrapper">
+                <input type="text" id="mobilePageInput" class="page-input" value="1">
+                <span class="page-separator"></span>
+                <span class="total-pages"></span>
+            </div>
+            <button id="mobileNextBtn" class="nav-btn">◀</button>
+            <button id="openLeftMenuBtn" class="menu-open-btn-bottom right-bottom" title="القائمة">≡</button>
+        </footer>
+    </div>
+    
+
+    <!-- قوائم الهواتف -->
+    <div id="rightMenu" class="side-menu right-menu">
+        <div class="menu-header">
+            <h3>📚 القراءات العشر مكتوبة</h3>
+            <button class="close-menu" id="closeRightMenu">&times;</button>
+        </div>
+        <div class="menu-content">
+            <div class="readers-section-mobile">
+                <div class="readers-header-mobile">
+                    <span>📚 روايات القراء العشرة</span>
+                    <button class="readers-toggle-btn-mobile">▲</button>
+                </div>
+                <div class="readers-body-mobile" id="mobileReadersBody">
+                    <div id="mobileReadersTree" class="readers-tree"></div>
+                </div>
+            </div>
+            <div class="color-legend-section-mobile">
+                <div class="color-legend-header-mobile">
+                    <span>🎨 دليل الألوان</span>
+                    <button class="color-legend-toggle-btn-mobile">▲</button>
+                </div>
+                <div class="color-legend-body-mobile" id="colorLegendBodyMobile">
+                    <div class="color-legend-grid-mobile" id="colorLegendGridMobile"></div>
+                </div>
+            </div>
+            <div class="tafsir-section-mobile">
+                <div class="tafsir-header-mobile">
+                    <span>📖 تفسير السعدي</span>
+                    <button class="tafsir-toggle-btn-mobile">▲</button>
+                </div>
+                <div class="tafsir-body-mobile" id="tafsirBodyMobile">
+                    <div class="tafsir-placeholder">📌 اضغط على أي ءاية لعرض تفسيرها</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="leftMenu" class="side-menu left-menu">
+        <div class="menu-header">
+            <h3>📑 القائمة</h3>
+            <button class="close-menu" id="closeLeftMenu">&times;</button>
+        </div>
+        <div class="menu-content">
+            <div class="mode-buttons">
+                <button id="mobileSingleModeBtn" class="mode-btn">📖 صفحة واحدة</button>
+                <button id="mobileDoubleModeBtn" class="mode-btn">📖📖 صفحتان</button>
+                <button id="mobileCompareModeBtn" class="mode-btn">⚖️ مقارنة</button>
+            </div>
+            <div class="settings-section-mobile">
+                <div class="settings-header-mobile">
+                    <span>⚙️ الإعدادات</span>
+                    <button class="settings-toggle-btn-mobile">▲</button>
+                </div>
+                <div class="settings-body-mobile" id="mobileSettingsBody">
+                    <div class="settings-list-mobile">
+                        <button id="mobileDarkModeBtn" class="settings-item-mobile">🌙 الوضع الليلي</button>
+                        <button id="mobileFontPlusBtn" class="settings-item-mobile">🔍+ تكبير الخط</button>
+                        <button id="mobileFontMinusBtn" class="settings-item-mobile">🔍- تصغير الخط</button>
+                        <button id="mobileBookmarkBtn" class="settings-item-mobile">🔖 إشارة مرجعية</button>
+                        <button id="mobileSearchBtn" class="settings-item-mobile">🔍 بحث</button>
+                        <button id="mobileSavePositionBtn" class="settings-item-mobile">💾 حفظ آخر موضع</button>
+                        <button id="mobileResumeBtn" class="settings-item-mobile">▶️ استئناف القراءة</button>
+                        <button id="mobileShareBtn" class="settings-item-mobile">📤 مشاركة</button>
+                        <a href="Reader/Reader.html" target="_blank" class="settings-item-mobile">🎧 استماع</a>
+                        <a href="stats/stats.html" target="_blank" class="settings-item-mobile">📊 إحصاءات</a>
+                    </div>
+                </div>
+            </div>
+            <div class="search-section-mobile">
+                <div class="search-header-mobile">
+                    <span>🔍 البحث في القرآن</span>
+                    <button class="search-toggle-btn-mobile">▲</button>
+                </div>
+                <div class="search-body-mobile" id="mobileSearchBody">
+                    <div class="mobile-search-box">
+                        <input type="text" id="mobileSearchInput" placeholder="🔍 بحث في القرآن..." class="mobile-search-input">
+                        <div id="mobileSearchResults" class="mobile-search-results"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="index-section-mobile">
+                <div class="index-header-mobile">
+                    <span>📑 فهرس السور والأجزاء والأحزاب</span>
+                    <button class="index-toggle-btn-mobile">▲</button>
+                </div>
+                <div class="index-body-mobile" id="mobileIndexBody">
+                    <div class="mobile-index-filters">
+                        <label><input type="checkbox" id="mobileFilterSura" checked> السور</label>
+                        <label><input type="checkbox" id="mobileFilterJuza"> الأجزاء</label>
+                        <label><input type="checkbox" id="mobileFilterHizb"> الأحزاب</label>
+                    </div>
+                    <div id="mobileIndexList" class="mobile-index-list"></div>
+                </div>
+            </div>
+            <!-- ===== قسم مميزات المصاحف للهواتف ===== -->
+            <div class="features-section-mobile">
+                <div class="features-header-mobile">
+                    <span>📑 مميزات المصاحف</span>
+                    <button class="features-toggle-btn-mobile" title="طي/فتح">▲</button>
+                </div>
+                <div class="features-body-mobile" id="featuresBodyMobile">
+                    <a href="features/features.html" class="features-link-mobile" target="_blank">
+                        ✨ استكشف مميزات المصاحف ✨
+                    </a>
+                    <a href="tahrirat/tahrirat.html" target="_blank" class="features-link-mobile">
+                        ✨ جمع القراءات العشر الصغرى ✨
+                    </a>
+                    <a href="Reader/Reader.html" class="features-link" target="_blank">
+                            ✨ استمع للقراءات العشر  ✨
+                    </a>
+                    <a href="stats/stats.html" class="features-link" target="_blank">
+                            ✨ إحصائيات الكلمات الملونة  ✨
+                    </a>
+                    <a href="https://massahifalossol-nouari.github.io/MassahifAlossolAlmolawana/" class="features-link" target="_blank">
+                        ✨ تحميل مصاحف الأصول الملونة PDF ✨
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button id="openRightMenuBtn" class="menu-open-btn right-open">📚</button>
+    <button id="openLeftMenuBtn" class="menu-open-btn left-open">≡</button>
+    <!-- ===== شريط القراءات البديلة (أسفل الصفحة) ===== -->
+    <!-- ===== شريط القراءات البديلة (ينزلق إلى اليمين) ===== -->
+    <div id="altBottomBar" style="display: none; position: fixed; bottom: 80px; right: 180px; background: rgba(0, 2, 3, 0.95); border-top: 4px solid #FDEB9E; border-right: 2px solid #FDEB9E; padding: 8px 15px; z-index: 9998; direction: rtl; backdrop-filter: blur(10px); transition: all 0.9s ease; box-shadow: 0 -4px 20px rgba(0,0,0,0.3); border-radius: 12px 0 0 12px; max-width: 500px; min-width: 240px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <div style="color: #ffffff; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+                <span>📝 أوجه الرواية </span>
+                <span id="altCount" style="background: rgba(253, 235, 158, 0.2); padding: 0 8px; border-radius: 10px; font-size: 1rem;">0</span>
+            </div>
+            <div style="display: flex; gap: 5px; align-items: center;">
+                <button id="altToggleBtn" onclick="toggleAltBar()" style="background: rgb(0, 0, 0); border: 1px solid #FDEB9E; color: #FDEB9E; padding: 1px 10px; border-radius: 10px; cursor: pointer; font-size: 0.5rem; font-family: 'NouariAbdelkabir',inherit;">◀</button>
+                <button onclick="closeAltBar()" style="background: none; border: none; color: #FDEB9E; font-size: 1rem; cursor: pointer; padding: 0 3px;">✕</button>
+            </div>
+        </div>
+        <div id="altBottomList" style="display: flex; flex-wrap: wrap; gap: 4px; max-height: 100px; overflow-y: auto; padding: 2px 0;"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
