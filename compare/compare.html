@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📖 مقارنة أصول الرواية</title>
+    <link rel="stylesheet" href="compare.css">
+</head>
+<body>
+    <div class="compare-app">
+        <!-- ===== الرأس ===== -->
+        <header class="compare-header">
+            <h1>✨ مقارنة أصول الرواية  ✨</h1>
+            <button id="backToHome" class="back-btn">🏠 العودة إلى المصحف</button>
+        </header>
+
+        <!-- ===== شريط التحكم ===== -->
+        <div class="compare-controls">
+            <div class="control-group">
+                <label>السورة</label>
+                <select id="suraSelect"></select>
+            </div>
+            <div class="control-group ayah-control">
+                <label>الاية</label>
+                <div class="ayah-nav" style="display:flex; align-items:center; justify-content:center; gap:4px;">
+                    <button id="prevAyahBtn" class="nav-ayah-btn">▶</button>
+                    <span id="ayahDisplay" class="ayah-number">1</span>
+                    <button id="nextAyahBtn" class="nav-ayah-btn">◀</button>
+                </div>
+            </div>
+            <div class="control-group">
+                <label>الراوي الأول</label>
+                <select id="mainRawiSelect"></select>
+            </div>
+            <div class="control-group">
+                <label> الراوي الثاني</label>
+                <select id="compareRawiSelect"></select>
+            </div>
+        </div>
+
+        <!-- ===== منطقة العرض ===== -->
+        <div class="compare-view">
+            <!-- العمود الأيسر: الراوي الرئيسي -->
+            <div class="compare-column main-column">
+                <div class="column-header" id="mainRawiName">حفص</div>
+                <div class="column-content" id="mainText">
+                    <div class="loading-text">⏳ جاري التحميل...</div>
+                </div>
+            </div>
+
+            <!-- العمود الأيمن: راوي المقارنة -->
+            <div class="compare-column compare-column">
+                <div class="column-header" id="compareRawiName">ورش</div>
+                <div class="column-content" id="compareText">
+                    <div class="loading-text">⏳ جاري التحميل...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== شريط الاختلافات ===== -->
+        <div class="diff-bar" id="diffBar">
+            <div class="diff-title">📌 الاختلافات</div>
+            <div id="diffList">
+                <div class="diff-empty">لا توجد اختلافات في هذه الاية</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="compare.js"></script>
+</body>
+</html>

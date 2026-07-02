@@ -1,0 +1,527 @@
+/* ========================================
+   مقارنة القراءات بين الرواة
+   ======================================== */
+
+/* ===== استيراد متغيرات الموقع الرئيسي ===== */
+:root {
+    --primary-gold: #FDEB9E;
+    --primary-gold-light: #FFF5CC;
+    --primary-gold-dark: #E6D17B;
+    --teal-soft: #7AE2CF;
+    --teal-medium: #4BC0A8;
+    --teal-dark: #077A7D;
+    --blue-deep: #06202B;
+    --blue-deep-light: #0A3040;
+    --bg-sidebar: rgba(6, 32, 43, 0.95);
+    --bg-sidebar-light: #0A3040;
+    --bg-card-dark: #0A3A48;
+    --bg-card-light: #0F4A5A;
+    --text-light: #FDEB9E;
+    --text-white: #FFFFFF;
+    --text-black: #06202B;
+    --quran-page-bg: #FFFEF7;
+    --dark-bg-main: #021218;
+    --dark-bg-sidebar: rgba(2, 18, 24, 0.98);
+    --dark-accent: #7AE2CF;
+    --dark-accent-light: #A0ECE0;
+    --dark-card-bg: #06202B;
+    --dark-text: #FDEB9E;
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-dark: rgba(0, 0, 0, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'NouariAbdelkabir', 'Amiri', 'Traditional Arabic', serif;
+    background: #0d2818 url('../covers/bg_default.jpg') repeat !important;
+    background-size: auto !important;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.compare-app {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ===== الرأس ===== */
+.compare-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-sidebar-light);
+    padding: 12px 20px;
+    border-radius: 20px 20px 0 0;
+    border-bottom: 3px solid var(--primary-gold);
+    margin-bottom: 20px;
+}
+
+.compare-header h1 {
+    color: var(--primary-gold);
+    font-size: 1.1rem;
+}
+
+.back-btn {
+    background: var(--primary-gold);
+    border: none;
+    padding: 6px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--text-black);
+    transition: all 0.2s;
+    font-size: 0.8rem;
+}
+
+.back-btn:hover {
+    background: var(--primary-gold-light);
+    transform: scale(1.02);
+}
+
+/* ===== شريط التحكم ===== */
+.compare-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    background: var(--bg-sidebar);
+    padding: 12px 16px;
+    border-radius: 0;
+    border-left: 1px solid var(--primary-gold);
+    border-right: 1px solid var(--primary-gold);
+    align-items: flex-end;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 100px;
+}
+
+.control-group label {
+    color: var(--primary-gold);
+    font-size: 0.7rem;
+}
+
+.control-group select {
+    background: var(--bg-card-dark);
+    border: 1px solid var(--primary-gold);
+    padding: 6px 10px;
+    border-radius: 30px;
+    color: var(--primary-gold);
+    font-family: inherit;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+/* ===== التنقل بين الآيات ===== */
+.ayah-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-card-dark);
+    padding: 4px 10px;
+    border-radius: 30px;
+    border: 1px solid var(--primary-gold);
+}
+
+.ayah-number {
+    color: var(--primary-gold);
+    font-size: 1rem;
+    min-width: 30px;
+    text-align: center;
+}
+
+.nav-ayah-btn {
+    background: none;
+    border: none;
+    color: var(--primary-gold);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 2px 6px;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.nav-ayah-btn:hover {
+    transform: scale(1.2);
+    color: var(--primary-gold-light);
+}
+
+/* ===== منطقة المقارنة ===== */
+.compare-view {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.compare-column {
+    flex: 1;
+    background: var(--quran-page-bg);
+    border-radius: 0;
+    border: 1px solid var(--primary-gold);
+    overflow: hidden;
+    min-height: 150px;
+}
+
+.column-header {
+    background: var(--primary-gold);
+    color: var(--text-black);
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid var(--primary-gold);
+}
+
+.column-content {
+    padding: 15px;
+    font-size: 1.4rem;
+    line-height: 2.2;
+    color: var(--text-black);
+    text-align: center;
+    min-height: 120px;
+    background: var(--quran-page-bg);
+}
+
+/* ===== ألوان الكلاسات ===== */
+.column-content .c1 { color: #FF0000; }
+.column-content .c2 { color: #C65911; }
+.column-content .c3 { color: #FF00FF; }
+.column-content .c4 { color: #FFC000; }
+.column-content .c5 { color: #5B9BD5; }
+.column-content .c6 { color: #002060; }
+.column-content .c7 { color: #00B0F0; }
+.column-content .c8 { color: #00FF00; }
+.column-content .c9 { color: #0000FF; }
+.column-content .c10 { color: #00FFFF; }
+.column-content .c11 { color: #ED7D31; }
+.column-content .c12 { color: #FF0066; }
+.column-content .c13 { color: #CC00CC; }
+.column-content .c14 { color: #C00000; }
+.column-content .c15 { color: #0070C0; }
+.column-content .c16 { color: #00B050; }
+.column-content .c17 { color: #7030A0; }
+.column-content .c18 { color: #548235; }
+.column-content .c19 { color: #CC0099; }
+.column-content .c20 { color: #92D050; }
+.column-content .c21 { color: #970573; }
+.column-content .c22 { color: #636261; }
+.column-content .c23 { color: #893BC3; }
+.column-content .c24 { color: #A50021; }
+.column-content .c25 { color: #0099FF; }
+.column-content .c26 { color: #FFFF00; }
+
+/* ===== جدول الاختلافات ===== */
+.diff-bar {
+    background: var(--quran-page-bg);
+    border: 1px solid var(--primary-gold);
+    border-radius: 0 0 20px 20px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+}
+
+.diff-title {
+    color: var(--text-black);
+    font-size: 0.9rem;
+    border-bottom: 2px solid var(--primary-gold);
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+}
+
+.diff-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.2rem;
+    direction: rtl;
+}
+
+.diff-table th {
+    background: var(--primary-gold);
+    color: var(--text-black);
+    padding: 6px 10px;
+    border: 1px solid var(--primary-gold);
+    text-align: center;
+}
+
+.diff-table td {
+    padding: 5px 10px;
+    border: 1px solid var(--primary-gold);
+    text-align: center;
+    color: var(--text-black);
+    vertical-align: middle;
+}
+
+.diff-table tr:nth-child(even) {
+    background: rgba(253, 235, 158, 0.08);
+}
+
+.diff-table tr:hover {
+    background: rgba(253, 235, 158, 0.2);
+}
+
+.diff-empty {
+    text-align: center;
+    padding: 15px;
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.diff-class-note {
+    color: #666;
+    font-size: 0.7rem;
+    font-style: italic;
+    display: block;
+    margin-top: 2px;
+}
+
+/* ===== تحميل ===== */
+.loading-text {
+    color: #888;
+    text-align: center;
+    padding: 30px;
+}
+
+/* ===== وضع الليل ===== */
+body.dark-mode .compare-header {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-accent);
+}
+
+body.dark-mode .compare-header h1 {
+    color: var(--dark-accent);
+}
+
+body.dark-mode .back-btn {
+    background: var(--dark-accent);
+    color: var(--dark-bg-main);
+}
+
+body.dark-mode .compare-controls {
+    background: var(--dark-bg-sidebar);
+    border-color: var(--dark-accent);
+}
+
+body.dark-mode .control-group label {
+    color: var(--dark-accent);
+}
+
+body.dark-mode .control-group select {
+    background: var(--dark-bg-main);
+    border-color: var(--dark-accent);
+    color: var(--dark-accent);
+}
+
+body.dark-mode .compare-column {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-accent);
+}
+
+body.dark-mode .column-header {
+    background: var(--dark-accent);
+    color: var(--dark-bg-main);
+}
+
+body.dark-mode .column-content {
+    background: var(--dark-card-bg);
+    color: var(--dark-text);
+}
+
+body.dark-mode .diff-bar {
+    background: var(--dark-card-bg);
+    border-color: var(--dark-accent);
+}
+
+body.dark-mode .diff-title {
+    color: var(--dark-accent);
+    border-color: var(--dark-accent);
+}
+
+body.dark-mode .diff-table th {
+    background: var(--dark-accent);
+    color: var(--dark-bg-main);
+}
+
+body.dark-mode .diff-table td {
+    color: var(--dark-text);
+    border-color: var(--dark-accent);
+}
+
+body.dark-mode .diff-table tr:nth-child(even) {
+    background: rgba(122, 226, 207, 0.08);
+}
+
+body.dark-mode .diff-table tr:hover {
+    background: rgba(122, 226, 207, 0.15);
+}
+
+/* ===== استجابة الهواتف ===== */
+@media (max-width: 768px) {
+    body {
+        padding: 5px;
+    }
+    
+    .compare-controls {
+        flex-direction: column;
+        gap: 8px;
+        padding: 8px 10px;
+    }
+    
+    .control-group {
+        min-width: 100%;
+    }
+    
+    .compare-view {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .column-content {
+        font-size: 1.4rem;
+        padding: 10px;
+    }
+    
+    .diff-table {
+        font-size: 0.9rem;
+    }
+    
+    .diff-table th,
+    .diff-table td {
+        padding: 3px 5px;
+    }
+}
+/* ===== شريط التحكم في سطر واحد (للهاتف) - نسخة قوية ===== */
+@media (max-width: 768px) {
+    .compare-controls {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        gap: 4px !important;
+        padding: 4px 6px !important;
+        scrollbar-width: none !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        background: var(--bg-sidebar) !important;
+        border-radius: 12px !important;
+        border: 1px solid var(--primary-gold) !important;
+        height: auto !important;
+        min-height: 36px !important;
+    }
+    
+    .compare-controls::-webkit-scrollbar {
+        display: none !important;
+    }
+    
+    /* ===== كل مجموعة تحكم ===== */
+    .compare-controls .control-group {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 3px !important;
+        flex: 0 0 auto !important;
+        width: auto !important;
+        min-width: auto !important;
+        max-width: none !important;
+        background: rgba(253, 235, 158, 0.05) !important;
+        padding: 2px 6px !important;
+        border-radius: 16px !important;
+        border: 1px solid rgba(253, 235, 158, 0.1) !important;
+        margin: 0 !important;
+    }
+    
+    /* ===== التسميات ===== */
+    .compare-controls .control-group label {
+        display: inline-block !important;
+        font-size: 0.7rem !important;
+        white-space: nowrap !important;
+        color: var(--primary-gold) !important;
+        min-width: auto !important;
+        width: auto !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    /* ===== القوائم المنسدلة ===== */
+    .compare-controls .control-group select {
+        display: inline-block !important;
+        font-size: 0.8rem !important;
+        padding: 2px 4px !important;
+        min-width: 35px !important;
+        max-width: 70px !important;
+        height: 22px !important;
+        border-radius: 10px !important;
+        background: var(--bg-card-dark) !important;
+        border: 1px solid var(--primary-gold) !important;
+        color: var(--primary-gold) !important;
+        font-family: inherit !important;
+        width: auto !important;
+        margin: 0 !important;
+    }
+    
+    /* ===== التنقل بين الآيات ===== */
+    .compare-controls .ayah-nav {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 2px !important;
+        padding: 2px 4px !important;
+        height: 22px !important;
+        min-width: 40px !important;
+        background: var(--bg-card-dark) !important;
+        border-radius: 10px !important;
+        border: 1px solid var(--primary-gold) !important;
+        flex: 0 0 auto !important;
+        width: auto !important;
+    }
+    
+    .compare-controls .ayah-number {
+        font-size: 0.9rem !important;
+        min-width: 12px !important;
+        color: var(--primary-gold) !important;
+        text-align: center !important;
+        display: inline-block !important;
+    }
+    
+    .compare-controls .nav-ayah-btn {
+        font-size: 0.6rem !important;
+        padding: 0 2px !important;
+        color: var(--primary-gold) !important;
+        background: none !important;
+        border: none !important;
+        cursor: pointer !important;
+        font-family: inherit !important;
+        display: inline-block !important;
+        width: auto !important;
+    }
+}
+/* ===== إخفاء أسهم حقل إدخال الرقم ===== */
+#ayahInputNav::-webkit-outer-spin-button,
+#ayahInputNav::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+}
+
+#ayahInputNav {
+    -moz-appearance: textfield !important;
+    appearance: textfield !important;
+}
+
+/* ===== إخفاء الأسهم في جميع حقول الأرقام ===== */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield !important;
+    appearance: textfield !important;
+}
