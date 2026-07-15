@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أصول القراءات - مصاحف مكتوبة</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="al-usul.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- الشريط العلوي -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">
+                <h1>📚 أصول روايات القرآن الكريم</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html">🏠 الرئيسية</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content" style="min-height: 100vh;">
+        <div class="page-container">
+
+            <!-- القسم العلوي: قائمة الأبواب + الجدول -->
+            <div class="content-wrapper">
+
+                <!-- قائمة الأبواب -->
+                <aside class="bab-list" id="babList">
+                    <!-- القائمة المنسدلة (تظهر في الهواتف) -->
+                    <div class="bab-dropdown-wrapper">
+                        <button class="bab-dropdown-btn" id="babDropdownBtn" onclick="toggleBabDropdown()">
+                            📚 <span id="selectedBabName">اختر باباً</span> <span style="margin-right:auto;">▼</span>
+                        </button>
+                        <div class="bab-dropdown-content" id="babDropdownContent">
+                            <!-- سيتم إنشاؤها بواسطة JavaScript -->
+                        </div>
+                    </div>
+                    <!-- القائمة الجانبية (تظهر في الحواسيب) -->
+                    <div class="bab-sidebar" id="babSidebar">
+                        <!-- سيتم إنشاؤها بواسطة JavaScript -->
+                    </div>
+                </aside>
+
+                <!-- الجدول + الملاحظات والاستثناءات -->
+                <section class="table-section">
+                    <!-- قائمة الرواة -->
+                    <div class="rawi-list-wrapper" id="rawiListWrapper">
+                        <!-- سيتم إنشاؤها بواسطة JavaScript -->
+                    </div>
+
+                    <!-- شريط الأزرار (بين الرواة والجدول) -->
+                    <div class="action-bar">
+                        <button id="copyTableBtn" class="action-btn" onclick="copyTable()" title="نسخ الجدول">
+                            📋
+                        </button>
+                        <button id="printTableBtn" class="action-btn" onclick="printTable()" title="طباعة الجدول">
+                            🖨️
+                        </button>
+                        <button id="darkModeBtn" class="action-btn" onclick="toggleDarkMode()" title="الوضع الليلي">
+                            🌙
+                        </button>
+                        <!-- يمكنك إضافة أزرار أخرى هنا -->
+                    </div>
+
+                    <!-- الجدول -->
+                    <div class="table-wrapper" id="tableWrapper">
+                        <div class="empty-state">📭 اختر باباً من القائمة لعرض البيانات</div>
+                    </div>
+
+                    <!-- الملاحظات والاستثناءات (موازية للجدول) -->
+                    <div class="bottom-section">
+                        <!-- الملاحظات -->
+                        <div id="generalNotes" class="notes-section" style="display:none;">
+                            <h3>📌 ملاحظات</h3>
+                            <div id="notesContainer"></div>
+                        </div>
+
+                        <!-- الاستثناءات -->
+                        <div id="exceptionsSection" class="exceptions-section" style="display:none;">
+                            <h3>⚠️ استثناءات</h3>
+                            <div id="exceptionsContainer"></div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+        </div>
+    </main>
+
+    <script src="al-usul.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>
