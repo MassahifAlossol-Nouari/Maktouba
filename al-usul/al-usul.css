@@ -1,0 +1,1217 @@
+/* ============================================================
+   📁 الملف: al-usul.css
+   📝 الوصف: التنسيقات الكاملة لصفحة الأصول (مرتب)
+   🗓️  التاريخ: 2026-07-16
+   ============================================================ */
+
+/* ============================================================
+   0. متغيرات الألوان
+   ============================================================ */
+
+:root {
+    --primary-gold: #FDEB9E;
+    --primary-gold-light: #FFF5CC;
+    --primary-gold-dark: #E6D17B;
+    --teal-soft: #7AE2CF;
+    --teal-medium: #4BC0A8;
+    --teal-dark: #077A7D;
+    --blue-deep: #06202B;
+    --blue-deep-light: #0A3040;
+    --bg-sidebar: rgba(6, 32, 43, 0.95);
+    --bg-sidebar-light: #0A3040;
+    --bg-card-dark: #0A3A48;
+    --bg-card-light: #0F4A5A;
+    --text-light: #FDEB9E;
+    --text-white: #FFFFFF;
+    --text-black: #06202B;
+    --quran-page-bg: #ffffff;
+    --dark-bg-main: #021218;
+    --dark-bg-sidebar: rgba(2, 18, 24, 0.98);
+    --dark-accent: #7AE2CF;
+    --dark-accent-light: #A0ECE0;
+    --dark-card-bg: #06202B;
+    --dark-text: #FDEB9E;
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-dark: rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================================
+   1. الخطوط والتنسيقات الأساسية
+   ============================================================ */
+
+@font-face {
+    font-family: 'NouariAbdelkabir';
+    src: url('../font/nouariabdelkabir.woff2') format('woff2'),
+         url('../font/nouariabdelkabir.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    min-height: 100vh;
+    overflow-y: auto !important;
+}
+
+body {
+    background: #0d2818 url('../covers/bg_default.jpg') repeat !important;
+    background-size: auto !important;
+    font-family: 'NouariAbdelkabir', 'Amiri', serif !important;
+    color: var(--text-white);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ============================================================
+   2. المحتوى الرئيسي
+   ============================================================ */
+
+.main-content {
+    flex: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-container {
+    flex: 1;
+    max-width: 1650px;
+    margin: 0 auto;
+    padding: 2px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ============================================================
+   3. الشريط العلوي (Header) - للحاسوب والهاتف
+   ============================================================ */
+
+.main-header {
+    background: var(--bg-sidebar);
+    padding: 10px 20px;
+    border-bottom: 2px solid var(--primary-gold);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    flex-shrink: 0;
+}
+
+.header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.logo h1 {
+    font-size: 1.6em;
+    color: var(--primary-gold);
+    font-family: 'NouariAbdelkabir', 'Amiri', serif;
+    margin: 0;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+.main-nav ul li a {
+    color: var(--text-white);
+    text-decoration: none;
+    font-family: 'NouariAbdelkabir', 'Amiri', serif;
+    font-size: 1em;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.main-nav ul li a:hover {
+    background: rgba(253, 235, 158, 0.15);
+    color: var(--primary-gold);
+}
+
+/* ============================================================
+   4. المحتوى: قائمة الأبواب + الجدول
+   ============================================================ */
+
+.content-wrapper {
+    display: flex;
+    gap: 5px;
+    align-items: flex-start;
+    flex: 1;
+}
+
+/* ============================================================
+   5. قائمة الأبواب (الجانبية) - للحاسوب
+   ============================================================ */
+
+.bab-list {
+    flex: 0 0 220px;
+    min-height: 400px;
+}
+
+.bab-sidebar {
+    background: var(--quran-page-bg);
+    border-radius: 12px;
+    padding: 10px 0;
+    border: 1px solid var(--teal-soft);
+    max-height: 1000px;
+    overflow-y: auto;
+}
+
+.bab-sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+.bab-sidebar::-webkit-scrollbar-track {
+    background: rgba(247, 247, 247, 0.05);
+    border-radius: 10px;
+}
+.bab-sidebar::-webkit-scrollbar-thumb {
+    background: var(--teal-soft);
+    border-radius: 10px;
+}
+
+.bab-item {
+    padding: 10px 18px;
+    cursor: pointer;
+    font-family: 'NouariAbdelkabir', 'Amiri', serif;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+    border-right: 3px solid transparent;
+}
+
+.bab-item:hover {
+    background: rgba(122, 226, 207, 0.10);
+    border-right-color: var(--teal-soft);
+}
+
+.bab-item.active {
+    background: rgba(253, 235, 158, 0.08);
+    border-right-color: var(--primary-gold);
+    font-weight: 700;
+}
+
+/* ============================================================
+   6. القائمة المنسدلة (للهواتف)
+   ============================================================ */
+
+.bab-dropdown-wrapper {
+    display: none;
+    width: 100%;
+    position: relative;
+}
+
+.bab-dropdown-btn {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--bg-sidebar);
+    color: var(--primary-gold);
+    border: 2px solid var(--teal-soft);
+    border-radius: 10px;
+    font-size: 1em;
+    font-family: 'NouariAbdelkabir', 'Amiri', serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    text-align: right;
+}
+
+.bab-dropdown-btn:hover {
+    background: rgba(6, 32, 43, 1);
+    border-color: var(--primary-gold);
+}
+
+.bab-dropdown-content {
+    display: none;
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.98);
+    border: 2px solid var(--teal-soft);
+    border-radius: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 999;
+    box-shadow: 0 8px 30px var(--shadow-dark);
+}
+
+.bab-dropdown-content.show {
+    display: block;
+}
+
+.bab-dropdown-content .bab-item {
+    padding: 10px 16px;
+    cursor: pointer;
+    font-family: 'NouariAbdelkabir', 'Amiri', serif;
+    font-size: 0.95em;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(122, 226, 207, 0.1);
+    border-right: 3px solid transparent;
+}
+
+.bab-dropdown-content .bab-item:hover {
+    background: rgba(122, 226, 207, 0.08);
+    border-right-color: var(--teal-soft);
+}
+
+.bab-dropdown-content .bab-item.active {
+    background: rgba(253, 235, 158, 0.08);
+    border-right-color: var(--primary-gold);
+    font-weight: 700;
+}
+
+.bab-dropdown-content::-webkit-scrollbar {
+    width: 5px;
+}
+.bab-dropdown-content::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+}
+.bab-dropdown-content::-webkit-scrollbar-thumb {
+    background: var(--teal-soft);
+    border-radius: 10px;
+}
+
+/* ============================================================
+   7. قسم الجدول
+   ============================================================ */
+
+.table-section {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+/* قائمة الرواة */
+.rawi-list-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    background: var(--bg-sidebar);
+    border-radius: 10px;
+    padding: 8px 12px;
+    border: 1px solid var(--teal-soft);
+}
+
+.rawi-item {
+    padding: 6px 14px;
+    color: var(--text-white);
+    cursor: pointer;
+    font-family: 'NouariAbdelkabir', 'Amiri', serif;
+    font-size: 0.80em;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    position: relative;
+}
+
+.rawi-item:hover {
+    background: rgba(122, 226, 207, 0.10);
+    border-color: var(--teal-soft);
+}
+
+.rawi-item.active {
+    background: rgba(253, 235, 158, 0.12);
+    border-color: var(--primary-gold);
+    color: var(--primary-gold);
+    font-weight: 700;
+}
+
+/* الجدول */
+.table-wrapper {
+    flex: 1;
+    background: var(--quran-page-bg);
+    border-radius: 12px;
+    padding: 0px;
+    border: 2px solid var(--teal-soft);
+    overflow-x: auto;
+    min-height: 200px;
+}
+
+.bab-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'NouariAbdelkabir', 'Amiri', serif;
+    font-size: 1.2em;
+    min-width: 500px;
+    background: var(--quran-page-bg);
+}
+
+.bab-table th {
+    background: var(--blue-deep);
+    color: var(--primary-gold);
+    padding: 12px 10px;
+    text-align: center;
+    font-weight: 700;
+    border-bottom: 2px solid var(--teal-soft);
+    border-right: 1px solid rgba(255,255,255,0.1);
+    font-family: 'NouariAbdelkabir', 'Amiri', serif;
+}
+
+.bab-table td {
+    padding: 5px 5px;
+    border-bottom: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+    text-align: center;
+    vertical-align: middle;
+    color: #000000 !important;
+    font-family: 'NouariAbdelkabir', 'Amiri', serif;
+    font-weight: normal;
+}
+
+.bab-table tr:hover td {
+    background: #f5f0e8;
+}
+
+/* أعمدة محددة */
+.bab-table .col-case1 {
+    font-weight: normal;
+    color: var(--text-black);
+    text-align: center;
+    width: auto;
+    min-width: 80px;
+    max-width: 150px;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.bab-table .col-case2 {
+    font-weight: normal;
+    color: var(--text-black);
+    text-align: center;
+    min-width: 60px;
+    max-width: 200px;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.bab-table .col-example {
+    color: var(--text-black);
+    text-align: center;
+    font-size: 1.2em;
+    width: auto;
+    min-width: 80px;
+    max-width: 300px;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.bab-table .col-rule {
+    font-size: 1.2em;
+    font-weight: normal;
+    width: auto;
+    min-width: 200px;
+    max-width: 450px;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+/* ============================================================
+   8. ألوان الكلاسات
+   ============================================================ */
+
+.bab-table .c1 { color: #FF0000 !important; }
+.bab-table .c2 { color: #C65911 !important; }
+.bab-table .c3 { color: #FF00FF !important; }
+.bab-table .c4 { color: #FFC000 !important; }
+.bab-table .c5 { color: #5B9BD5 !important; }
+.bab-table .c6 { color: #002060 !important; }
+.bab-table .c7 { color: #00B0F0 !important; }
+.bab-table .c8 { color: #00FF00 !important; }
+.bab-table .c9 { color: #0000FF !important; }
+.bab-table .c10 { color: #00FFFF !important; }
+.bab-table .c11 { color: #ED7D31 !important; }
+.bab-table .c12 { color: #FF0066 !important; }
+.bab-table .c13 { color: #CC00CC !important; }
+.bab-table .c14 { color: #C00000 !important; }
+.bab-table .c15 { color: #0070C0 !important; }
+.bab-table .c16 { color: #00B050 !important; }
+.bab-table .c17 { color: #7030A0 !important; }
+.bab-table .c18 { color: #548235 !important; }
+.bab-table .c19 { color: #CC0099 !important; }
+.bab-table .c20 { color: #92D050 !important; }
+.bab-table .c21 { color: #970573 !important; }
+.bab-table .c22 { color: #636261 !important; }
+.bab-table .c23 { color: #893BC3 !important; }
+.bab-table .c24 { color: #A50021 !important; }
+.bab-table .c25 { color: #0099FF !important; }
+.bab-table .c26 { color: #FFFF00 !important; background: #333; padding: 2px 6px; border-radius: 4px; }
+
+.bab-table .rule-c1 { color: #FF0000; font-weight: normal; }
+.bab-table .rule-c2 { color: #C65911; font-weight: normal; }
+.bab-table .rule-c3 { color: #FF00FF; font-weight: normal; }
+.bab-table .rule-c4 { color: #FFC000; font-weight: normal; }
+.bab-table .rule-c5 { color: #5B9BD5; font-weight: normal; }
+.bab-table .rule-c6 { color: #002060; font-weight: normal; }
+.bab-table .rule-c7 { color: #00B0F0; font-weight: normal; }
+.bab-table .rule-c8 { color: #00FF00; font-weight: normal; }
+.bab-table .rule-c9 { color: #0000FF; font-weight: normal; }
+.bab-table .rule-c10 { color: #00FFFF; font-weight: normal; }
+.bab-table .rule-c11 { color: #ED7D31; font-weight: normal; }
+.bab-table .rule-c12 { color: #FF0066; font-weight: normal; }
+.bab-table .rule-c13 { color: #CC00CC; font-weight: normal; }
+.bab-table .rule-c14 { color: #C00000; font-weight: normal; }
+.bab-table .rule-c15 { color: #0070C0; font-weight: normal; }
+.bab-table .rule-c16 { color: #00B050; font-weight: normal; }
+.bab-table .rule-c17 { color: #7030A0; font-weight: normal; }
+.bab-table .rule-c18 { color: #548235; font-weight: normal; }
+.bab-table .rule-c19 { color: #CC0099; font-weight: normal; }
+.bab-table .rule-c20 { color: #92D050; font-weight: normal; }
+.bab-table .rule-c21 { color: #970573; font-weight: normal; }
+.bab-table .rule-c22 { color: #636261; font-weight: normal; }
+.bab-table .rule-c23 { color: #893BC3; font-weight: normal; }
+.bab-table .rule-c24 { color: #A50021; font-weight: normal; }
+.bab-table .rule-c25 { color: #0099FF; font-weight: normal; }
+.bab-table .rule-c26 { color: #FFFF00; font-weight: normal; background: #333; padding: 2px 6px; border-radius: 4px; }
+
+/* ============================================================
+   9. تنسيق الرواة (الاتفاق، التعطيل، التلميحات)
+   ============================================================ */
+
+.rawi-item {
+    transition: all 0.3s ease;
+    border-width: 2px;
+    border-style: solid;
+    border-color: transparent;
+}
+
+.rawi-item[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-sidebar);
+    color: var(--primary-gold);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    white-space: nowrap;
+    border: 1px solid var(--teal-soft);
+    z-index: 1000;
+}
+
+.agreement-icon {
+    font-size: 0.7em;
+    opacity: 0.7;
+    margin-right: 3px;
+}
+
+.rawi-item.disabled {
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+    border-color: transparent !important;
+}
+
+.rawi-item.disabled:hover {
+    background: transparent !important;
+    border-color: transparent !important;
+}
+
+.rawi-item.disabled::after {
+    content: ' ⛔';
+    font-size: 0.7em;
+    opacity: 0.5;
+}
+
+/* ============================================================
+   10. تنسيق صف التنبيه
+   ============================================================ */
+
+.alert-row {
+    background: rgba(255, 215, 0, 0.15) !important;
+    border-top: 2px solid #FFD700;
+    border-bottom: 2px solid #FFD700;
+}
+
+.alert-row td {
+    color: #ff0000af !important;
+    font-weight: 600;
+}
+
+.alert-row .col-case1 {
+    font-weight: 600;
+    color: #000000 !important;
+}
+
+.alert-row:hover td {
+    background: rgba(255, 215, 0, 0.25) !important;
+}
+
+/* ============================================================
+   11. الملاحظات والاستثناءات (القسم السفلي)
+   ============================================================ */
+
+.bottom-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+    padding-bottom: 60px;
+}
+
+.notes-section,
+.exceptions-section {
+    background: var(--bg-sidebar);
+    border-radius: 12px;
+    padding: 15px 20px;
+    border: 1px solid var(--teal-soft);
+}
+
+.exceptions-section {
+    border-color: #FF6B6B;
+}
+
+.notes-section h3 {
+    color: var(--primary-gold);
+    border-bottom: 2px solid var(--teal-soft);
+    padding-bottom: 8px;
+    margin-top: 0;
+    font-size: 1.2em;
+    font-family: 'NouariAbdelkabir', 'Amiri', serif;
+}
+
+.exceptions-section h3 {
+    color: #FF6B6B;
+    border-bottom: 2px solid #FF6B6B;
+    padding-bottom: 8px;
+    margin-top: 0;
+    font-size: 1.2em;
+    font-family: 'NouariAbdelkabir', 'Amiri', serif;
+}
+
+.notes-section .note-item {
+    padding: 6px 0;
+    border-bottom: 1px dashed rgba(122, 226, 207, 0.12);
+    color: var(--text-white);
+    font-family: 'NouariAbdelkabir', 'Amiri', serif;
+    line-height: 1.6;
+}
+
+.exceptions-section .exception-item {
+    padding: 6px 0;
+    border-bottom: 1px dashed rgba(255, 107, 107, 0.15);
+    color: #FF6B6B;
+    font-family: 'NouariAbdelkabir', 'Amiri', serif;
+    line-height: 1.6;
+}
+
+/* ============================================================
+   12. حالات خاصة (فارغ، تحميل)
+   ============================================================ */
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--teal-soft);
+    font-size: 1.1em;
+    font-family: 'NouariAbdelkabir', 'Amiri', serif;
+    background: var(--quran-page-bg);
+    border-radius: 12px;
+}
+
+.loading-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-black);
+    font-size: 1.1em;
+    font-family: 'NouariAbdelkabir', 'Amiri', serif;
+    background: var(--quran-page-bg);
+    border-radius: 12px;
+}
+
+/* ============================================================
+   13. التذييل (Footer)
+   ============================================================ */
+
+.main-footer {
+    background: var(--bg-sidebar);
+    padding: 20px;
+    margin-top: 40px;
+    border-top: 2px solid var(--primary-gold);
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.footer-container p {
+    color: var(--primary-gold);
+    font-family: 'NouariAbdelkabir', 'Amiri', serif;
+    margin: 5px 0;
+    font-size: 0.95em;
+}
+
+/* ============================================================
+   14. تنسيق شريط التمرير (Scrollbar)
+   ============================================================ */
+
+::-webkit-scrollbar {
+    width: 10px;
+    background: #0d2818;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--teal-soft);
+    border-radius: 10px;
+    border: 2px solid #0d2818;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-gold);
+}
+
+/* ============================================================
+   15. التجاوب (Responsive) - الهواتف والأجهزة اللوحية
+   ============================================================ */
+
+/* --- 15.1 الشاشات المتوسطة والصغيرة (أجهزة لوحية وهواتف) --- */
+@media (max-width: 1024px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    .bab-list {
+        flex: 1 1 auto;
+        width: 100%;
+        min-height: auto;
+    }
+
+    .bab-sidebar {
+        display: none;
+    }
+
+    .bab-dropdown-wrapper {
+        display: block;
+    }
+
+    .rawi-list-wrapper {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .bottom-section {
+        padding-bottom: 40px;
+    }
+
+    .page-container {
+        padding: 1px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        min-height: 0 !important;
+    }
+
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 4px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        min-height: 0 !important;
+        justify-content: flex-start !important;
+        align-items: stretch !important;
+    }
+
+    .bab-list {
+        flex: 0 0 auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        min-height: 0 !important;
+    }
+
+    .bab-dropdown-wrapper {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .bab-dropdown-btn {
+        padding: 4px 8px !important;
+        font-size: 1em !important;
+        min-height: 28px !important;
+        border-radius: 4px !important;
+    }
+
+    .bab-dropdown-content .bab-item {
+        padding: 3px 8px !important;
+        font-size: 1em !important;
+    }
+
+    .table-section {
+        flex: 0 0 auto !important;
+        gap: 1px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        min-height: 0 !important;
+    }
+
+    .rawi-list-wrapper {
+        flex: 0 0 auto !important;
+        padding: 3px 5px !important;
+        gap: 2px !important;
+        margin: 0 !important;
+        min-height: 0 !important;
+        border-radius: 4px !important;
+    }
+
+    .rawi-item {
+        padding: 2px 5px !important;
+        font-size: 0.8em !important;
+        border-radius: 3px !important;
+    }
+
+    .table-wrapper {
+        flex: 0 0 auto !important;
+        padding: 2px !important;
+        margin: 0 !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        overflow: visible !important;
+        border-radius: 4px !important;
+    }
+
+    .bab-table {
+        font-size: 0.9em !important;
+    }
+
+    .bab-table th,
+    .bab-table td {
+        padding: 2px 3px !important;
+    }
+
+    .bab-table .col-case1,
+    .bab-table .col-case2,
+    .bab-table .col-example,
+    .bab-table .col-rule {
+        font-size: 1em !important;
+    }
+
+    .bottom-section {
+        margin-top: 4px !important;
+        padding: 0 !important;
+        gap: 3px !important;
+    }
+
+    .notes-section,
+    .exceptions-section {
+        padding: 4px 6px !important;
+        margin: 0 !important;
+        border-radius: 4px !important;
+    }
+
+    .notes-section h3,
+    .exceptions-section h3 {
+        font-size: 1em !important;
+        padding-bottom: 3px !important;
+        margin-bottom: 3px !important;
+    }
+
+    .notes-section .note-item,
+    .exceptions-section .exception-item {
+        font-size: 1em !important;
+        padding: 2px 0 !important;
+    }
+}
+
+/* --- 15.2 الشاشات الكبيرة (حواسيب) --- */
+@media (min-width: 1025px) {
+    .bab-dropdown-wrapper {
+        display: none;
+    }
+
+    .bab-sidebar {
+        display: block;
+    }
+
+    .bottom-section {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .notes-section,
+    .exceptions-section {
+        flex: 1;
+        min-width: 250px;
+    }
+}
+
+/* --- 15.3 الشاشات الصغيرة (هواتف) --- */
+@media (max-width: 768px) {
+    .header-container {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        flex-wrap: nowrap !important;
+        padding: 4px 8px !important;
+        gap: 5px !important;
+    }
+
+    .logo h1 {
+        font-size: 1.4em !important;
+        white-space: nowrap !important;
+        margin: 0 !important;
+    }
+
+    .logo p {
+        display: none !important;
+    }
+
+    .main-nav ul {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 4px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        flex-wrap: nowrap !important;
+    }
+
+    .main-nav ul li a {
+        font-size: 1.1em !important;
+        padding: 3px 6px !important;
+        white-space: nowrap !important;
+    }
+
+    .bab-table {
+        font-size: 0.8em;
+        min-width: 400px;
+    }
+
+    .bab-table th,
+    .bab-table td {
+        padding: 6px 4px;
+    }
+
+    .rawi-item {
+        font-size: 0.75em;
+        padding: 4px 10px;
+    }
+
+    .notes-section,
+    .exceptions-section {
+        padding: 12px 15px;
+    }
+
+    .bab-table .col-case1,
+    .bab-table .col-case2 {
+        min-width: 70px;
+    }
+
+    .bottom-section {
+        padding-bottom: 30px;
+    }
+}
+
+/* --- 15.4 الشاشات الصغيرة جداً (هواتف صغيرة) --- */
+@media (max-width: 480px) {
+    .logo h1 {
+        font-size: 1.1em !important;
+    }
+
+    .main-nav ul li a {
+        font-size: 1.1em !important;
+        padding: 2px 4px !important;
+    }
+
+    .header-container {
+        padding: 2px 4px !important;
+        gap: 2px !important;
+    }
+
+    .bab-table {
+        font-size: 0.7em;
+        min-width: 320px;
+    }
+
+    .rawi-item {
+        font-size: 0.7em;
+        padding: 3px 8px;
+    }
+
+    .bab-table .col-case1,
+    .bab-table .col-case2 {
+        min-width: 70px;
+    }
+
+    .bab-dropdown-btn {
+        font-size: 0.85em;
+        padding: 10px 12px;
+    }
+
+    .bab-dropdown-content .bab-item {
+        font-size: 0.85em;
+        padding: 8px 12px;
+    }
+
+    .notes-section h3,
+    .exceptions-section h3 {
+        font-size: 1em;
+    }
+
+    .bottom-section {
+        padding-bottom: 20px;
+    }
+}
+
+/* ============================================================
+   16. تنسيق الأزرار عند النسخ
+   ============================================================ */
+
+.action-btn.copied {
+    background: #27ae60;
+    border-color: #27ae60;
+    color: var(--text-white);
+}
+
+.action-btn.copied:hover {
+    background: #2ecc71;
+}
+
+/* ============================================================
+   17. تنسيق النصوص بين قوسين (تصغير)
+   ============================================================ */
+
+.bab-table .ref {
+    font-size: 0.8em;
+    color: #723402;
+    opacity: 0.85;
+    font-weight: normal;
+}
+
+/* ============================================================
+   18. شريط الأزرار السفلي
+   ============================================================ */
+
+.action-bar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    width: 100%;
+    margin: 0;
+    padding: 0 20px;
+    background: var(--bg-sidebar);
+    border-top: 2px solid var(--teal-soft);
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 -4px 20px var(--shadow-dark);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.table-wrapper {
+    margin-bottom: 0 !important;
+    border-radius: 12px 12px 0 0 !important;
+    border-bottom: none !important;
+}
+
+@media (min-width: 1025px) {
+    .action-bar {
+        padding-right: calc(20px + 220px + 20px);
+        padding-left: 20px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .action-bar {
+        padding: 0 16px;
+        justify-content: center;
+    }
+    .table-wrapper {
+        border-radius: 12px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .action-bar {
+        height: 35px;
+        min-height: 35px;
+        max-height: 35px;
+        padding: 0 1px;
+        gap: 10px;
+    }
+    .action-btn {
+        font-size: 0.9em;
+        padding: 2px 10px;
+        height: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .action-bar {
+        height: 35px;
+        min-height: 35px;
+        max-height: 35px;
+        padding: 0 1px;
+        gap: 10px;
+    }
+    .action-btn {
+        font-size: 0.8em;
+        padding: 2px 8px;
+        height: 26px;
+    }
+}
+
+.action-btn {
+    background: transparent;
+    border: 1px solid var(--teal-soft);
+    border-radius: 6px;
+    color: var(--primary-gold);
+    font-size: 1em;
+    padding: 4px 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    font-family: 'NouariAbdelkabir', 'Amiri', serif;
+}
+
+.action-btn:hover {
+    background: rgba(122, 226, 207, 0.15);
+    border-color: var(--primary-gold);
+    transform: scale(1.05);
+}
+
+.action-btn:active {
+    transform: scale(0.95);
+}
+
+.action-bar::-webkit-scrollbar {
+    height: 3px;
+}
+.action-bar::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+}
+.action-bar::-webkit-scrollbar-thumb {
+    background: var(--teal-soft);
+    border-radius: 10px;
+}
+
+.main-content {
+    padding-bottom: 0 !important;
+}
+
+.page-container {
+    padding-bottom: 0 !important;
+}
+
+/* ============================================================
+   19. تحسين عرض الجدول على الهواتف (بدون تمرير)
+   ============================================================ */
+
+@media (max-width: 768px) {
+    .table-wrapper {
+        overflow-x: hidden !important;
+        padding: 0 !important;
+        border-radius: 8px;
+    }
+
+    .bab-table {
+        width: 100% !important;
+        min-width: unset !important;
+        font-size: 0.9em !important;
+        table-layout: fixed !important;
+    }
+
+    .bab-table th,
+    .bab-table td {
+        padding: 4px 3px !important;
+        font-size: 0.9em !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        white-space: normal !important;
+    }
+
+    .bab-table th,
+    .bab-table td {
+        width: auto !important;
+        max-width: none !important;
+        min-width: 0 !important;
+    }
+
+    .bab-table .col-rawi {
+        font-size: 0.9em !important;
+        padding: 2px 2px !important;
+        white-space: normal !important;
+    }
+
+    .bab-table .col-rule {
+        font-size: 0.8em !important;
+        white-space: normal !important;
+    }
+
+    .bab-table .col-example {
+        font-size: 0.9em !important;
+        white-space: normal !important;
+    }
+
+    .table-wrapper::after {
+        display: none !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .bab-table {
+        font-size: 0.9em !important;
+    }
+
+    .bab-table th,
+    .bab-table td {
+        padding: 2px 2px !important;
+        font-size: 0.9em !important;
+    }
+
+    .bab-table .col-rawi {
+        font-size: 0.45em !important;
+        padding: 1px 1px !important;
+    }
+
+    .bab-table .col-rule {
+        font-size: 0.8em !important;
+    }
+
+    .bab-table .col-example {
+        font-size: 0.9em !important;
+    }
+
+    .bab-table .col-case1,
+    .bab-table .col-case2 {
+        font-size: 0.8em !important;
+    }
+}
