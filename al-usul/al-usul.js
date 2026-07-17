@@ -55,7 +55,7 @@ const RUWAT_NAMES = [
 
 let currentBabData = null;
 let selectedBabId = null;
-let selectedRawi = RUWAT_NAMES[0];
+let selectedRawi = 'حفص';
 let allBabData = {};
 
 // ============================
