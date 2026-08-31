@@ -4121,6 +4121,7 @@ const rawiFiles = {
     'bazzi': 'bazzi',
     'qunbul': 'qunbul',
     'doori': 'doori',
+    'doori1': 'doori1',
     'soosi': 'soosi',
     'hisham': 'hisham',
     'ibnDhakwan': 'ibnDhakwan',
